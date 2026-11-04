@@ -110,6 +110,13 @@ python3 scripts/check_links.py
 hugo --minify --gc
 ```
 
+在 DSH 工作区中可把技能安装到项目技能目录：
+
+```bash
+mkdir -p .dsh/skills
+cp -r tryriscv-org/skills/tryriscv-daily-update .dsh/skills/
+```
+
 ## 贡献
 
 - 数据纠错：用 [数据错误报告](https://github.com/rv2036/tryriscv-org/issues/new?template=data-error.yml) 表单，带上型号与来源；
