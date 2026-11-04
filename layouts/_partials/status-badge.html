@@ -1,8 +1,9 @@
 {{- $status := . -}}
 {{- $cls := "badge" -}}
-{{- if eq $status "量产" -}}{{- $cls = "badge badge--green" -}}
-{{- else if eq $status "送样" -}}{{- $cls = "badge badge--amber" -}}
-{{- else if eq $status "预告" -}}{{- $cls = "badge badge--blue" -}}
-{{- else if eq $status "停产" -}}{{- $cls = "badge badge--gray" -}}
-{{- else -}}{{- $cls = "badge" -}}{{- end -}}
-<span class="{{ $cls }}">{{ $status | default "未知" }}</span>
+{{- $key := "js_status_unknown" -}}
+{{- if eq $status "量产" -}}{{- $cls = "badge badge--green" -}}{{- $key = "js_status_mass" -}}
+{{- else if eq $status "送样" -}}{{- $cls = "badge badge--amber" -}}{{- $key = "js_status_sample" -}}
+{{- else if eq $status "预告" -}}{{- $cls = "badge badge--blue" -}}{{- $key = "js_status_preview" -}}
+{{- else if eq $status "停产" -}}{{- $cls = "badge badge--gray" -}}{{- $key = "js_status_eol" -}}
+{{- end -}}
+<span class="{{ $cls }}">{{ i18n $key }}</span>

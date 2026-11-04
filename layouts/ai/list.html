@@ -2,13 +2,13 @@
 {{- $all := hugo.Data.ais | default slice -}}
 <section class="page-head">
   <div class="wrap">
-    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>AI 算力</span></nav>
+    <nav class="breadcrumb" aria-label="breadcrumb"><a href="{{ site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a><span>/</span><span>{{ i18n "nav_ai" }}</span></nav>
     <h1>{{ .Title }}</h1>
     <div class="lede prose">{{ .Content }}</div>
     <div class="page-stats">
-      <span><b>{{ len $all }}</b> 条记录</span>
-      <span><b>{{ site.Params.updated }}</b> 数据快照</span>
-      <span><span class="badge badge--amber">预览版</span></span>
+      <span><b>{{ len $all }}</b> {{ i18n "ai_count" }}</span>
+      <span><b>{{ site.Params.updated }}</b> {{ i18n "page_stats_snapshot" }}</span>
+      <span><span class="badge badge--amber">{{ i18n "ai_preview" }}</span></span>
     </div>
   </div>
 </section>
@@ -16,59 +16,59 @@
 <div class="wrap">
   <div class="catalog" id="ai-app" data-json="{{ "data/ais.json" | relURL }}">
     <div class="filter-scrim" id="filter-scrim"></div>
-    <aside class="filters" id="mcu-filters" aria-label="AI 筛选器">
+    <aside class="filters" id="mcu-filters" aria-label="{{ i18n "filter_aria" }}">
       <div class="filters-head">
-        <span class="filters-title">{{ partial "icon.html" (dict "name" "filter" "size" 16) }} 筛选</span>
+        <span class="filters-title">{{ partial "icon.html" (dict "name" "filter" "size" 16) }} {{ i18n "filter_title" }}</span>
         <div>
-          <button type="button" class="filters-clear" id="reset-filters">重置</button>
-          <button type="button" class="filters-close" id="close-filters" aria-label="关闭筛选">{{ partial "icon.html" (dict "name" "close" "size" 16) }}</button>
+          <button type="button" class="filters-clear" id="reset-filters">{{ i18n "filter_reset" }}</button>
+          <button type="button" class="filters-close" id="close-filters" aria-label="{{ i18n "filter_close" }}">{{ partial "icon.html" (dict "name" "close" "size" 16) }}</button>
         </div>
       </div>
-      <details class="fgroup" open><summary>类型 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="type"></div></details>
-      <details class="fgroup" open><summary>归属地 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="country"></div></details>
-      <details class="fgroup" open><summary>架构 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="arch"></div></details>
-      <details class="fgroup" open><summary>算力 (INT8 TOPS) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+      <details class="fgroup" open><summary>{{ i18n "ai_type" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="type"></div></details>
+      <details class="fgroup" open><summary>{{ i18n "table_country" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="country"></div></details>
+      <details class="fgroup" open><summary>{{ i18n "ai_arch" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="arch"></div></details>
+      <details class="fgroup" open><summary>{{ i18n "ai_tops_filter" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
         <div class="fgroup-body">
           <div class="range-row">
-            <input type="number" inputmode="numeric" id="tops-min" placeholder="最低" aria-label="最低算力" min="0" max="10000" step="0.1">
+            <input type="number" inputmode="numeric" id="tops-min" placeholder="{{ i18n "filter_min" }}" aria-label="{{ i18n "filter_min" }}" min="0" max="10000" step="0.1">
             <span class="sep">—</span>
-            <input type="number" inputmode="numeric" id="tops-max" placeholder="最高" aria-label="最高算力" min="0" max="10000" step="0.1">
+            <input type="number" inputmode="numeric" id="tops-max" placeholder="{{ i18n "filter_max" }}" aria-label="{{ i18n "filter_max" }}" min="0" max="10000" step="0.1">
           </div>
         </div>
       </details>
-      <details class="fgroup"><summary>精度 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="precision"></div></details>
-      <details class="fgroup"><summary>框架 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="frameworks"></div></details>
-      <details class="fgroup"><summary>成熟度 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="maturity"></div></details>
+      <details class="fgroup"><summary>{{ i18n "ai_precision" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="precision"></div></details>
+      <details class="fgroup"><summary>{{ i18n "ai_frameworks" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="frameworks"></div></details>
+      <details class="fgroup"><summary>{{ i18n "ai_maturity" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="maturity"></div></details>
     </aside>
 
     <div class="results">
       <div class="toolbar">
-        <button type="button" class="btn btn--outline btn--sm filter-open" id="open-filters">{{ partial "icon.html" (dict "name" "filter" "size" 15) }} 筛选</button>
+        <button type="button" class="btn btn--outline btn--sm filter-open" id="open-filters">{{ partial "icon.html" (dict "name" "filter" "size" 15) }} {{ i18n "filter_title" }}</button>
         <div class="search-field">
           {{ partial "icon.html" (dict "name" "search" "size" 16) }}
-          <input type="search" id="ai-search" placeholder="搜索产品、厂商、SDK、代表芯片…" aria-label="搜索 AI 算力">
+          <input type="search" id="ai-search" placeholder="{{ i18n "search_ai" }}" aria-label="{{ i18n "search_ai" }}">
         </div>
-        <select class="select" id="ai-sort" aria-label="排序方式">
-          <option value="tops-desc">算力从高到低</option>
-          <option value="tops-asc">算力从低到高</option>
-          <option value="recommended">推荐排序</option>
+        <select class="select" id="ai-sort" aria-label="{{ i18n "sort_label" }}">
+          <option value="tops-desc">{{ i18n "sort_ai_tops_desc" }}</option>
+          <option value="tops-asc">{{ i18n "sort_ai_tops_asc" }}</option>
+          <option value="recommended">{{ i18n "sort_ai_recommended" }}</option>
         </select>
       </div>
       <div class="active-filters" id="active-filters"></div>
-      <div class="toolbar-meta"><div class="result-count" id="result-count">加载中…</div></div>
+      <div class="toolbar-meta"><div class="result-count" id="result-count">{{ i18n "results_loading" }}</div></div>
 
       <div class="table-wrap mcu-table-wrap">
         <table class="data-table ai-table">
           <colgroup><col style="width:170px"><col style="width:125px"><col style="width:72px"><col style="width:100px"><col style="width:110px"><col style="width:112px"><col style="width:58px"><col style="width:80px"></colgroup>
-          <thead><tr><th>产品 / 厂商</th><th>类型 / 归属地</th><th>算力</th><th>精度</th><th>框架</th><th>SDK / 工具链</th><th>成熟度</th><th>代表芯片</th></tr></thead>
+          <thead><tr><th>{{ i18n "table_product_vendor" }}</th><th>{{ i18n "table_type_country" }}</th><th>{{ i18n "table_tops" }}</th><th>{{ i18n "table_precision" }}</th><th>{{ i18n "table_frameworks" }}</th><th>{{ i18n "table_sdk" }}</th><th>{{ i18n "table_maturity" }}</th><th>{{ i18n "table_ai_silicon" }}</th></tr></thead>
           <tbody id="ai-tbody"></tbody>
         </table>
       </div>
       <div class="mcu-cards" id="ai-cards"></div>
       <div class="empty-state" id="ai-empty" hidden>
         {{ partial "icon.html" (dict "name" "search" "size" 34) }}
-        <h3>没有符合条件的记录</h3>
-        <p>尝试放宽算力或框架条件。</p>
+        <h3>{{ i18n "results_none_ai_title" }}</h3>
+        <p>{{ i18n "results_none_ai_desc" }}</p>
       </div>
     </div>
   </div>
@@ -77,18 +77,16 @@
 <section class="section section--white">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">路线图</span>
-      <h2 class="section-title">下一步：模型 / 软件版本匹配成熟度</h2>
-      <p class="section-desc">硬件算力只是起点。真正决定项目周期的是“这个模型能否在你的工具链版本上跑通、量化后精度掉多少、算子覆盖是否完整”。未来每条 AI 记录会升级为下面的矩阵。</p>
+      <span class="eyebrow">{{ i18n "ai_roadmap_eyebrow" }}</span>
+      <h2 class="section-title">{{ i18n "ai_roadmap_title" }}</h2>
+      <p class="section-desc">{{ i18n "ai_roadmap_desc" }}</p>
     </div>
     <div class="roadmap">
-      <div class="roadmap-item"><div class="step">01 · 硬件</div><h3>算力与精度</h3><p>INT8 / INT4 / FP16 峰值，内存带宽，功耗与能效比，封装与接口。</p></div>
-      <div class="roadmap-item"><div class="step">02 · 软件</div><h3>工具链版本</h3><p>SDK、编译器、量化工具、驱动与 Runtime 的版本组合，安装与复现步骤。</p></div>
-      <div class="roadmap-item"><div class="step">03 · 模型</div><h3>模型与算子</h3><p>ONNX / TFLite / PyTorch 导出，算子覆盖，动态 shape，量化后精度回归。</p></div>
+      <div class="roadmap-item"><div class="step">01</div><h3>{{ i18n "ai_roadmap_1_title" }}</h3><p>{{ i18n "ai_roadmap_1_desc" }}</p></div>
+      <div class="roadmap-item"><div class="step">02</div><h3>{{ i18n "ai_roadmap_2_title" }}</h3><p>{{ i18n "ai_roadmap_2_desc" }}</p></div>
+      <div class="roadmap-item"><div class="step">03</div><h3>{{ i18n "ai_roadmap_3_title" }}</h3><p>{{ i18n "ai_roadmap_3_desc" }}</p></div>
     </div>
-    <div class="callout callout--info" style="margin-top:18px">
-      当前页面只覆盖公开可查的硬件规格与工具链信息。<strong>没有公开 benchmark 的项不会编造分数</strong>；欢迎在 <a href="{{ site.Params.issues }}" target="_blank" rel="noopener">GitHub Issues</a> 提交实测数据或纠正参数。
-    </div>
+    <div class="callout callout--info" style="margin-top:18px">{{ i18n "ai_disclaimer" }}</div>
   </div>
 </section>
 {{ end }}

@@ -1,16 +1,16 @@
 {{- $mcu := hugo.Data.mcus -}}
 {{- $ips := hugo.Data.ips -}}
-<aside class="disclaimer" aria-label="数据来源与免责声明">
+<aside class="disclaimer" aria-label="{{ i18n "disclaimer_title" }}">
   <div class="wrap disclaimer-inner">
     <span class="disclaimer-icon" aria-hidden="true">{{ partial "icon.html" (dict "name" "alert" "size" 22) }}</span>
     <div class="disclaimer-text">
-      <strong>AI 网络自动抓取提示</strong>
-      <p>本站数据由 AI 从公开网络自动抓取、整理与生成，可能存在错误、遗漏或版本滞后；选型与量产前请以厂商最新数据手册为准。发现错误，欢迎
-        <a href="{{ site.Params.issue_error }}" target="_blank" rel="noopener">提交错误报告</a>（GitHub Issues）。</p>
+      <strong>{{ i18n "disclaimer_title" }}</strong>
+      <p>{{ i18n "disclaimer_text_before" }}
+        <a href="{{ site.Params.issue_error }}" target="_blank" rel="noopener">{{ i18n "disclaimer_link" }}</a>{{ i18n "disclaimer_text_after" }}</p>
     </div>
     <div class="disclaimer-meta">
-      <span>{{ len $mcu }} 款 MCU · {{ len $ips }} 个 IP 核</span>
-      <span>数据快照 {{ site.Params.updated }}</span>
+      <span>{{ i18n "disclaimer_meta_mcu" (dict "count" (len $mcu) "ips" (len $ips)) }}</span>
+      <span>{{ i18n "disclaimer_meta_snapshot" (dict "date" site.Params.updated) }}</span>
     </div>
   </div>
 </aside>

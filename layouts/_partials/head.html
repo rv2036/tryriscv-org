@@ -1,17 +1,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ if .IsHome }}{{ site.Title }} · {{ site.Params.tagline }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('tr-theme');
+    var theme = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script>
+<title>{{ if .IsHome }}{{ site.Title }} · {{ i18n "site_tagline" }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ i18n "site_description" }}{{ end }}">
 {{ with site.Params.keywords }}<meta name="keywords" content="{{ . }}">{{ end }}
 <link rel="canonical" href="{{ .Permalink }}">
+{{- $trans := .AllTranslations -}}
+{{- if not $trans }}{{ $trans = site.Home.AllTranslations }}{{ end -}}
+{{- range $trans }}
+<link rel="alternate" hreflang="{{ .Language.LanguageCode }}" href="{{ .Permalink }}">
+{{- end }}
 <meta name="theme-color" content="#0b1526">
-<meta name="author" content="{{ site.Params.author }}">
+<meta name="author" content="{{ i18n "site_author" }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:site_name" content="{{ site.Title }}">
-<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }} · {{ site.Params.tagline }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}">
-<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }} · {{ i18n "site_tagline" }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ i18n "site_description" }}{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="{{ replace site.Language.LanguageCode "-" "_" }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image" content="{{ "og.png" | absURL }}">
 <meta name="twitter:image" content="{{ "og.png" | absURL }}">
@@ -21,6 +37,6 @@
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 {{ if .IsHome }}
 <script type="application/ld+json">
-{{ dict "@context" "https://schema.org" "@type" "WebSite" "name" "tryriscv.org" "url" site.BaseURL "description" site.Params.description "inLanguage" "zh-CN" | jsonify | safeJS }}
+{{ dict "@context" "https://schema.org" "@type" "WebSite" "name" "tryriscv.org" "url" site.BaseURL "description" (i18n "site_description") "inLanguage" site.Language.LanguageCode | jsonify | safeJS }}
 </script>
 {{ end }}

@@ -1,4 +1,0 @@
-{{- range hugo.Data.mcus -}}
-  {{- $desc := printf "%s 是 %s 的 %v 位 RISC-V MCU，基于 %s %s 内核（%s），最高主频 %v MHz，%v KB SRAM，%v KB Flash。查看功耗、外设、封装、生态与数据来源。" .name .vendor .bits .ip_vendor .core .isa .freq .sram .flash -}}
-  {{- $.AddPage (dict "path" .id "title" .name "kind" "page" "description" $desc "params" (dict "pid" .id) "lastmod" .updated) -}}
-{{- end -}}

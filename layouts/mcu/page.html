@@ -1,35 +1,39 @@
 {{ define "main" }}
 {{- $m := partial "find-mcu.html" (dict "id" .Params.pid) -}}
-{{- if not $m }}<div class="wrap" style="padding:60px 0"><h1>未找到该器件</h1><p><a href="{{ "/mcu/" | relURL }}">返回 MCU 选型</a></p></div>{{ else }}
-{{- $url := printf "/mcu/%s/" $m.id -}}
+{{- if not $m }}<div class="wrap" style="padding:60px 0"><h1>{{ i18n "detail_not_found" }}</h1><p><a href="{{ "/mcu/" | relLangURL }}">{{ i18n "detail_back_mcu" }}</a></p></div>{{ else }}
+{{- $vendor := partial "vendor-label.html" $m -}}
+{{- $ipBrand := partial "ip-brand-label.html" $m.ip_vendor -}}
+{{- $bitsLabel := i18n "detail_bits" -}}
+{{- $flashText := printf "%v KB" $m.flash -}}
+{{- if eq $m.flash 0 }}{{ $flashText = i18n "detail_none" }}{{ end -}}
 <section class="detail-head">
   <div class="wrap">
-    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><a href="{{ "/mcu/" | relURL }}">MCU 选型</a><span>/</span><span>{{ $m.name }}</span></nav>
+    <nav class="breadcrumb" aria-label="breadcrumb"><a href="{{ site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a><span>/</span><a href="{{ "/mcu/" | relLangURL }}">{{ i18n "nav_mcu" }}</a><span>/</span><span>{{ $m.name }}</span></nav>
     <div class="detail-title-row">
       <div>
         <h1 class="detail-title">{{ $m.name }}</h1>
-        <p class="detail-sub">{{ $m.vendor }}{{ with $m.vendor_en }}（{{ . }}）{{ end }} · {{ $m.family }} 系列</p>
+        <p class="detail-sub">{{ $vendor }}{{ if eq site.Language.Lang "zh" }}{{ with $m.vendor_en }}（{{ . }}）{{ end }}{{ end }} · {{ $m.family }} {{ i18n "detail_series" }}</p>
         <div class="detail-badges">
           {{ partial "status-badge.html" $m.status }}
-          <span class="badge badge--outline">{{ $m.bits }} 位 · {{ $m.isa }}</span>
-          {{ if $m.power }}{{ if or $m.power.run $m.power.sleep }}<span class="badge badge--green">低功耗数据</span>{{ end }}{{ end }}
-          {{ range $m.tags }}<span class="tag">{{ . }}</span>{{ end }}
+          <span class="badge badge--outline">{{ $m.bits }} {{ $bitsLabel }} · {{ $m.isa }}</span>
+          {{ if $m.power }}{{ if or $m.power.run $m.power.sleep $m.power.standby }}<span class="badge badge--green">{{ i18n "detail_low_power" }}</span>{{ end }}{{ end }}
+          {{ if eq site.Language.Lang "zh" }}{{ range $m.tags }}<span class="tag">{{ . }}</span>{{ end }}{{ end }}
         </div>
       </div>
       <div class="detail-actions">
-        <button type="button" class="btn btn--primary" data-compare-add="{{ $m.id }}">{{ partial "icon.html" (dict "name" "compare" "size" 16) }} 加入对比</button>
-        {{ with $m.links.datasheet }}<a class="btn btn--outline" href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "download" "size" 16) }} 数据手册</a>{{ end }}
-        <a class="btn btn--outline" href="{{ site.Params.issue_error }}&title=%5B%E6%95%B0%E6%8D%AE%E7%BA%A0%E9%94%99%5D%20{{ $m.name }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "alert" "size" 16) }} 报错</a>
+        <button type="button" class="btn btn--primary" data-compare-add="{{ $m.id }}">{{ partial "icon.html" (dict "name" "compare" "size" 16) }} <span class="js-label">{{ i18n "detail_add_compare" }}</span></button>
+        {{ with $m.links.datasheet }}<a class="btn btn--outline" href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "download" "size" 16) }} {{ i18n "detail_datasheet" }}</a>{{ end }}
+        <a class="btn btn--outline" href="{{ site.Params.issue_error }}&title=%5Bdata%5D%20{{ $m.name }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "alert" "size" 16) }} {{ i18n "detail_report" }}</a>
       </div>
     </div>
 
     <div class="key-specs">
-      <div class="key-spec"><div class="k">最高主频</div><div class="v">{{ $m.freq }}<small>MHz</small></div></div>
-      <div class="key-spec"><div class="k">SRAM</div><div class="v">{{ $m.sram }}<small>KB</small></div></div>
-      <div class="key-spec"><div class="k">片上 Flash</div><div class="v">{{ if eq $m.flash 0 }}无<small>外挂</small>{{ else }}{{ $m.flash }}<small>KB</small>{{ end }}</div></div>
-      <div class="key-spec"><div class="k">动态功耗</div><div class="v">{{ with $m.power }}{{ if .run }}{{ .run }}<small>µA/MHz</small>{{ else }}—{{ end }}{{ else }}—{{ end }}</div></div>
-      <div class="key-spec"><div class="k">休眠电流</div><div class="v">{{ with $m.power }}{{ if .sleep }}{{ .sleep }}<small>µA</small>{{ else }}—{{ end }}{{ else }}—{{ end }}</div></div>
-      <div class="key-spec"><div class="k">供电电压</div><div class="v">{{ $m.voltage_min }}–{{ $m.voltage_max }}<small>V</small></div></div>
+      <div class="key-spec"><div class="k">{{ i18n "detail_max_freq" }}</div><div class="v">{{ $m.freq }}<small>MHz</small></div></div>
+      <div class="key-spec"><div class="k">{{ i18n "detail_sram" }}</div><div class="v">{{ $m.sram }}<small>KB</small></div></div>
+      <div class="key-spec"><div class="k">{{ i18n "detail_flash" }}</div><div class="v">{{ if eq $m.flash 0 }}{{ i18n "detail_none" }}<small></small>{{ else }}{{ $m.flash }}<small>KB</small>{{ end }}</div></div>
+      <div class="key-spec"><div class="k">{{ i18n "detail_run_current" }}</div><div class="v">{{ with $m.power }}{{ if .run }}{{ .run }}<small>µA/MHz</small>{{ else }}—{{ end }}{{ else }}—{{ end }}</div></div>
+      <div class="key-spec"><div class="k">{{ i18n "detail_sleep_current" }}</div><div class="v">{{ with $m.power }}{{ if .sleep }}{{ .sleep }}<small>µA</small>{{ else }}—{{ end }}{{ else }}—{{ end }}</div></div>
+      <div class="key-spec"><div class="k">{{ i18n "detail_voltage" }}</div><div class="v">{{ $m.voltage_min }}–{{ $m.voltage_max }}<small>V</small></div></div>
     </div>
   </div>
 </section>
@@ -38,50 +42,51 @@
   <div class="detail-grid">
     <div class="detail-main">
       <section class="spec-section">
-        <h2>{{ partial "icon.html" (dict "name" "cpu" "size" 18) }} 概览</h2>
+        <h2>{{ partial "icon.html" (dict "name" "cpu" "size" 18) }} {{ i18n "detail_overview" }}</h2>
         <p class="muted" style="font-size:13.5px;margin:0">
-          {{ $m.name }} 是 {{ $m.vendor }} 的 {{ $m.bits }} 位 RISC-V MCU，基于 {{ $m.ip_vendor }} 的 {{ $m.core }} 内核（{{ $m.isa }}），最高主频 {{ $m.freq }} MHz，片上集成 {{ $m.sram }} KB SRAM 与 {{ $m.flash }} KB Flash{{ with $m.power }}{{ if .run }}，典型动态功耗约 {{ .run }} µA/MHz{{ end }}{{ end }}。
+          {{ printf (i18n "detail_intro") $m.name $vendor $m.bits $ipBrand $m.core $m.isa $m.freq $m.sram $flashText }}
+          {{ with $m.power }}{{ if .run }}{{ printf (i18n "detail_intro_power") .run }}{{ end }}{{ end }}
         </p>
       </section>
 
       <section class="spec-section">
-        <h2>{{ partial "icon.html" (dict "name" "ip" "size" 18) }} 核心与存储</h2>
+        <h2>{{ partial "icon.html" (dict "name" "ip" "size" 18) }} {{ i18n "detail_core_storage" }}</h2>
         <table class="spec-table">
           <tbody>
-            <tr><th>厂商</th><td>{{ $m.vendor }}{{ with $m.vendor_en }} · {{ . }}{{ end }}（{{ partial "country.html" $m.vendor_country }}）</td></tr>
-            <tr><th>IP 品牌 / 归属地</th><td>{{ $m.ip_vendor }}（{{ partial "country.html" $m.ip_country }}）</td></tr>
-            <tr><th>内核</th><td>{{ $m.core }}</td></tr>
-            <tr><th>指令集 / 位宽</th><td class="mono">{{ $m.isa }} · {{ $m.bits }} 位</td></tr>
-            <tr><th>最高主频</th><td>{{ $m.freq }} MHz</td></tr>
-            <tr><th>SRAM</th><td>{{ $m.sram }} KB{{ with $m.psram }} + PSRAM {{ . }} KB{{ end }}</td></tr>
-            <tr><th>片上 Flash</th><td>{{ if eq $m.flash 0 }}无片内 Flash（外挂）{{ else }}{{ $m.flash }} KB{{ end }}</td></tr>
-            {{ with $m.otp }}<tr><th>OTP</th><td>{{ . }} KB</td></tr>{{ end }}
-            {{ with $m.cache }}<tr><th>Cache</th><td>{{ . }} KB</td></tr>{{ end }}
+            <tr><th>{{ i18n "detail_vendor" }}</th><td>{{ $vendor }}{{ if eq site.Language.Lang "zh" }}{{ with $m.vendor_en }} · {{ . }}{{ end }}{{ end }}（{{ partial "country.html" $m.vendor_country }}）</td></tr>
+            <tr><th>{{ i18n "detail_ip_brand_country" }}</th><td>{{ $ipBrand }}（{{ partial "country.html" $m.ip_country }}）</td></tr>
+            <tr><th>{{ i18n "detail_core" }}</th><td>{{ $m.core }}</td></tr>
+            <tr><th>{{ i18n "detail_isa_bits" }}</th><td class="mono">{{ $m.isa }} · {{ $m.bits }} {{ $bitsLabel }}</td></tr>
+            <tr><th>{{ i18n "detail_max_freq" }}</th><td>{{ $m.freq }} MHz</td></tr>
+            <tr><th>{{ i18n "detail_sram" }}</th><td>{{ $m.sram }} KB{{ with $m.psram }} + PSRAM {{ . }} KB{{ end }}</td></tr>
+            <tr><th>{{ i18n "detail_flash" }}</th><td>{{ $flashText }}</td></tr>
+            {{ with $m.otp }}<tr><th>{{ i18n "detail_otp" }}</th><td>{{ . }} KB</td></tr>{{ end }}
+            {{ with $m.cache }}<tr><th>{{ i18n "detail_cache" }}</th><td>{{ . }} KB</td></tr>{{ end }}
           </tbody>
         </table>
       </section>
 
       <section class="spec-section">
-        <h2>{{ partial "icon.html" (dict "name" "bolt" "size" 18) }} 功耗与电气</h2>
+        <h2>{{ partial "icon.html" (dict "name" "bolt" "size" 18) }} {{ i18n "detail_power" }}</h2>
         {{ with $m.power }}
         <div class="power-grid">
-          <div class="power-box"><div class="k">动态电流</div><div class="v">{{ if .run }}{{ .run }}<small> µA/MHz</small>{{ else }}—{{ end }}</div></div>
-          <div class="power-box"><div class="k">休眠电流</div><div class="v">{{ if .sleep }}{{ .sleep }}<small> µA</small>{{ else }}—{{ end }}</div></div>
-          <div class="power-box"><div class="k">待机 / 关断</div><div class="v">{{ if .standby }}{{ .standby }}<small> µA</small>{{ else }}—{{ end }}</div></div>
+          <div class="power-box"><div class="k">{{ i18n "detail_run_current" }}</div><div class="v">{{ if .run }}{{ .run }}<small> µA/MHz</small>{{ else }}—{{ end }}</div></div>
+          <div class="power-box"><div class="k">{{ i18n "detail_sleep_current" }}</div><div class="v">{{ if .sleep }}{{ .sleep }}<small> µA</small>{{ else }}—{{ end }}</div></div>
+          <div class="power-box"><div class="k">{{ i18n "detail_standby" }}</div><div class="v">{{ if .standby }}{{ .standby }}<small> µA</small>{{ else }}—{{ end }}</div></div>
         </div>
-        {{ with .note }}<p class="spec-note">条件与说明：{{ . }}</p>{{ end }}
-        {{ else }}<p class="muted">厂商未公开可比的功耗数据。</p>{{ end }}
+        {{ with .note }}<p class="spec-note">{{ i18n "detail_power_condition" }}: {{ if ne site.Language.Lang "zh" }}<span class="badge badge--outline">{{ i18n "detail_source_zh_note" }}</span> {{ end }}{{ . }}</p>{{ end }}
+        {{ else }}<p class="muted">{{ i18n "detail_no_power" }}</p>{{ end }}
         <table class="spec-table" style="margin-top:12px">
           <tbody>
-            <tr><th>供电电压</th><td>{{ $m.voltage_min }}–{{ $m.voltage_max }} V</td></tr>
-            <tr><th>工作温度</th><td>{{ $m.temp_min }} ℃ ~ {{ $m.temp_max }} ℃</td></tr>
-            {{ with $m.power }}{{ with .wakeup }}<tr><th>唤醒时间</th><td>{{ . }} µs</td></tr>{{ end }}{{ end }}
+            <tr><th>{{ i18n "detail_voltage" }}</th><td>{{ $m.voltage_min }}–{{ $m.voltage_max }} V</td></tr>
+            <tr><th>{{ i18n "detail_temp" }}</th><td>{{ $m.temp_min }} ℃ ~ {{ $m.temp_max }} ℃</td></tr>
+            {{ with $m.power }}{{ with .wakeup }}<tr><th>{{ i18n "detail_wakeup" }}</th><td>{{ . }} µs</td></tr>{{ end }}{{ end }}
           </tbody>
         </table>
       </section>
 
       <section class="spec-section">
-        <h2>{{ partial "icon.html" (dict "name" "layers" "size" 18) }} 外设与接口</h2>
+        <h2>{{ partial "icon.html" (dict "name" "layers" "size" 18) }} {{ i18n "detail_peripherals" }}</h2>
         {{ with $m.peripherals }}
         <table class="spec-table">
           <tbody>
@@ -92,37 +97,37 @@
               (dict "k" "can" "l" "CAN / CAN FD")
               (dict "k" "usb_fs" "l" "USB Full-Speed")
               (dict "k" "usb_hs" "l" "USB High-Speed")
-              (dict "k" "eth" "l" "以太网")
+              (dict "k" "eth" "l" (i18n "js_peri_eth"))
               (dict "k" "ble" "l" "BLE")
               (dict "k" "wifi" "l" "Wi-Fi")
               (dict "k" "i2s" "l" "I²S")
               (dict "k" "sdio" "l" "SDIO")
-              (dict "k" "lcd" "l" "LCD 控制器")
-              (dict "k" "cam" "l" "摄像头接口")
+              (dict "k" "lcd" "l" (i18n "detail_lcd_ctrl"))
+              (dict "k" "cam" "l" (i18n "detail_cam"))
               (dict "k" "iso7816" "l" "ISO 7816")
-              (dict "k" "opamp" "l" "运放")
-              (dict "k" "comp" "l" "比较器")
-              (dict "k" "touch" "l" "触摸按键")
-              (dict "k" "dma_ch" "l" "DMA 通道")
+              (dict "k" "opamp" "l" (i18n "js_peri_opamp"))
+              (dict "k" "comp" "l" (i18n "js_peri_comp"))
+              (dict "k" "touch" "l" (i18n "js_peri_touch"))
+              (dict "k" "dma_ch" "l" (i18n "js_peri_dma"))
             }}
             {{ range $items }}
               {{ $label := .l }}
               {{ $n := index $m.peripherals .k }}
-              {{ if and $n (gt (int $n) 0) }}<tr><th>{{ $label }}</th><td>{{ $n }} 路</td></tr>{{ end }}
+              {{ if and $n (gt (int $n) 0) }}<tr><th>{{ $label }}</th><td>{{ $n }} {{ i18n "detail_way" }}</td></tr>{{ end }}
             {{ end }}
-            {{ with $m.peripherals.adc_ch }}<tr><th>ADC</th><td>{{ . }} 通道 · {{ $m.peripherals.adc_bits }} 位</td></tr>{{ end }}
-            {{ with $m.peripherals.dac_ch }}{{ if gt (int .) 0 }}<tr><th>DAC</th><td>{{ . }} 通道</td></tr>{{ end }}{{ end }}
-            {{ with $m.peripherals.pwm_ch }}{{ if gt (int .) 0 }}<tr><th>PWM</th><td>{{ . }} 通道</td></tr>{{ end }}{{ end }}
-            {{ with $m.peripherals.other }}<tr><th>其他</th><td>{{ . }}</td></tr>{{ end }}
+            {{ with $m.peripherals.adc_ch }}<tr><th>ADC</th><td>{{ . }} {{ i18n "detail_channels" }} · {{ $m.peripherals.adc_bits }} {{ $bitsLabel }}</td></tr>{{ end }}
+            {{ with $m.peripherals.dac_ch }}{{ if gt (int .) 0 }}<tr><th>DAC</th><td>{{ . }} {{ i18n "detail_channels" }}</td></tr>{{ end }}{{ end }}
+            {{ with $m.peripherals.pwm_ch }}{{ if gt (int .) 0 }}<tr><th>PWM</th><td>{{ . }} {{ i18n "detail_channels" }}</td></tr>{{ end }}{{ end }}
+            {{ with $m.peripherals.other }}<tr><th>{{ i18n "detail_other" }}</th><td>{{ if ne site.Language.Lang "zh" }}<span class="badge badge--outline">{{ i18n "detail_source_zh_note" }}</span> {{ end }}{{ . }}</td></tr>{{ end }}
           </tbody>
         </table>
         {{ end }}
       </section>
 
       <section class="spec-section">
-        <h2>{{ partial "icon.html" (dict "name" "book" "size" 18) }} 数据来源与说明</h2>
-        <p class="small muted" style="margin-top:0">置信度：{{ if eq $m.confidence "high" }}高（官方数据手册）{{ else if eq $m.confidence "medium" }}中（官方产品页）{{ else }}低（二手资料）{{ end }} · 最后校验 {{ $m.updated }}</p>
-        {{ with $m.notes }}<p style="font-size:13.5px">{{ . }}</p>{{ end }}
+        <h2>{{ partial "icon.html" (dict "name" "book" "size" 18) }} {{ i18n "detail_sources" }}</h2>
+        <p class="small muted" style="margin-top:0">{{ i18n "detail_confidence_prefix" }}:{{ if eq $m.confidence "high" }}{{ i18n "detail_confidence_high" }}{{ else if eq $m.confidence "medium" }}{{ i18n "detail_confidence_medium" }}{{ else }}{{ i18n "detail_confidence_low" }}{{ end }} · {{ i18n "detail_last_verified" }} {{ $m.updated }}</p>
+        {{ with $m.notes }}<p style="font-size:13.5px">{{ if ne site.Language.Lang "zh" }}<span class="badge badge--outline">{{ i18n "detail_source_zh_note" }}</span> {{ end }}{{ . }}</p>{{ end }}
         <ul class="source-list">
           {{ range $m.sources }}<li><a href="{{ . }}" target="_blank" rel="noopener nofollow">{{ partial "icon.html" (dict "name" "link" "size" 14) }} {{ . }}</a></li>{{ end }}
         </ul>
@@ -131,43 +136,43 @@
 
     <aside class="detail-aside">
       <div class="aside-card">
-        <h3>快速链接</h3>
+        <h3>{{ i18n "detail_quick_links" }}</h3>
         <ul class="aside-links">
-          {{ with $m.links.product }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "external" "size" 14) }} 厂商产品页</a></li>{{ end }}
-          {{ with $m.links.datasheet }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "download" "size" 14) }} 数据手册 / 文档</a></li>{{ end }}
-          {{ with $m.links.toolchain }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "book" "size" 14) }} SDK / 工具链</a></li>{{ end }}
-          <li><a href="{{ site.Params.issue_error }}&title=%5B%E6%95%B0%E6%8D%AE%E7%BA%A0%E9%94%99%5D%20{{ $m.name }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "alert" "size" 14) }} 报告数据错误</a></li>
+          {{ with $m.links.product }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "external" "size" 14) }} {{ i18n "detail_product_page" }}</a></li>{{ end }}
+          {{ with $m.links.datasheet }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "download" "size" 14) }} {{ i18n "detail_datasheet" }}</a></li>{{ end }}
+          {{ with $m.links.toolchain }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "book" "size" 14) }} {{ i18n "detail_sdk_link" }}</a></li>{{ end }}
+          <li><a href="{{ site.Params.issue_error }}&title=%5Bdata%5D%20{{ $m.name }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "alert" "size" 14) }} {{ i18n "detail_report" }}</a></li>
         </ul>
       </div>
 
       <div class="aside-card">
-        <h3>封装与供货</h3>
+        <h3>{{ i18n "detail_package_supply" }}</h3>
         <table class="spec-table">
           <tbody>
-            <tr><th>封装</th><td>{{ delimit $m.packages " / " }}</td></tr>
-            <tr><th>状态</th><td>{{ $m.status }}</td></tr>
-            <tr><th>发布年份</th><td>{{ $m.year }}</td></tr>
-            {{ if $m.price_cny }}<tr><th>参考价</th><td>¥{{ $m.price_cny }}<br><span class="small muted">{{ $m.price_note }}</span></td></tr>{{ end }}
+            <tr><th>{{ i18n "detail_package" }}</th><td>{{ delimit $m.packages " / " }}</td></tr>
+            <tr><th>{{ i18n "detail_status" }}</th><td>{{ partial "status-badge.html" $m.status }}</td></tr>
+            <tr><th>{{ i18n "detail_year" }}</th><td>{{ $m.year | default "—" }}</td></tr>
+            <tr><th>{{ i18n "detail_reference_price" }}</th><td>{{ if $m.price_cny }}¥{{ $m.price_cny }}{{ else }}{{ i18n "detail_inquire" }}{{ end }}</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="aside-card">
-        <h3>生态与调试</h3>
+        <h3>{{ i18n "detail_eco_debug" }}</h3>
         <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">
           {{ range $m.ecosystem }}<span class="tag tag--teal">{{ . }}</span>{{ end }}
         </div>
-        <p class="small muted" style="margin:0">调试接口：{{ delimit $m.debug " / " }}</p>
-        {{ with $m.security }}<p class="small muted" style="margin:6px 0 0">安全：{{ delimit . " / " }}</p>{{ end }}
+        <p class="small muted" style="margin:0">{{ i18n "detail_debug" }}:{{ delimit $m.debug " / " }}</p>
+        {{ with $m.security }}<p class="small muted" style="margin:6px 0 0">{{ i18n "detail_security" }}:{{ delimit . " / " }}</p>{{ end }}
       </div>
 
       {{ $related := where hugo.Data.mcus "vendor" $m.vendor }}
       {{ if gt (len $related) 1 }}
       <div class="aside-card">
-        <h3>同厂商其他型号</h3>
+        <h3>{{ i18n "detail_related" }}</h3>
         <div class="related-list">
           {{ range first 6 $related }}{{ if ne .id $m.id }}
-          <a class="related-item" href="{{ printf "/mcu/%s/" .id | relURL }}"><b>{{ .name }}</b><span>{{ .freq }}MHz · {{ .sram }}KB</span></a>
+          <a class="related-item" href="{{ printf "/mcu/%s/" .id | relLangURL }}"><b>{{ .name }}</b><span>{{ .freq }}MHz · {{ .sram }}KB</span></a>
           {{ end }}{{ end }}
         </div>
       </div>
@@ -175,7 +180,7 @@
     </aside>
   </div>
 </div>
-{{ $ld := dict "@context" "https://schema.org" "@type" "Product" "name" $m.name "brand" (dict "@type" "Brand" "name" $m.vendor) "category" "RISC-V MCU" "description" (printf "%s %s %v 位 RISC-V MCU，%s 内核，%v MHz，%v KB SRAM，%v KB Flash。" $m.name $m.vendor $m.bits $m.core $m.freq $m.sram $m.flash) "additionalProperty" (slice (dict "@type" "PropertyValue" "name" "最高主频" "value" $m.freq "unitText" "MHz") (dict "@type" "PropertyValue" "name" "SRAM" "value" $m.sram "unitText" "KB") (dict "@type" "PropertyValue" "name" "Flash" "value" $m.flash "unitText" "KB") (dict "@type" "PropertyValue" "name" "指令集" "value" $m.isa)) }}
+{{ $ld := dict "@context" "https://schema.org" "@type" "Product" "name" $m.name "brand" (dict "@type" "Brand" "name" $m.vendor) "category" "RISC-V MCU" "description" (printf "%s — %s · %s · %v MHz · %v KB SRAM · %v KB Flash" $m.name $vendor $m.core $m.freq $m.sram $m.flash) "additionalProperty" (slice (dict "@type" "PropertyValue" "name" (i18n "detail_max_freq") "value" $m.freq "unitText" "MHz") (dict "@type" "PropertyValue" "name" "SRAM" "value" $m.sram "unitText" "KB") (dict "@type" "PropertyValue" "name" "Flash" "value" $m.flash "unitText" "KB") (dict "@type" "PropertyValue" "name" "ISA" "value" $m.isa)) }}
 <script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
 {{ end }}
 {{ end }}

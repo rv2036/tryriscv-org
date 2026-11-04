@@ -1,0 +1,49 @@
+# サイト共通の文言と設定（デバイスデータ以外）
+title: tryriscv.org
+tagline: RISC-V の選定をもっと簡単に
+subtitle: 公開・絞り込み可能・比較可能な RISC-V MCU / IP / ソリューション情報ライブラリ
+
+# トップページの統計値に関する注記
+stats_note: データはメーカー公式サイト、データシート、公開チャネルに基づき、AI の支援を受けて整理しています。パラメータは最新版のデータシートを正としてください。
+
+# お客様の頻出要件（トップページの「要件直通」）、query は /mcu/ の絞り込みパラメータ
+presets:
+  - id: iot-100m
+    title: "IoT 産学連携 · 100MHz 低消費電力"
+    desc: "64〜128MHz。動作時の低消費電力とスリープ電流を優先して表示します。センサーノード、教育プラットフォーム、量産 IoT に適しています。"
+    query: "freq=64-128&sort=run-asc&has_power=1"
+    tag: "お客様の要望"
+  - id: tiny-40m
+    title: "極小リソース · 40MHz / 64KB Flash"
+    desc: "クロック 64MHz 以下、Flash 32〜128KB、低消費電力を優先します。「64KB メモリ = Flash」という一般的な解釈に基づきます。SRAM を指す場合は、SRAM の下限を 64KB に設定してください。"
+    query: "freq=0-64&flash=32-128&has_power=1&sort=run-asc"
+    tag: "お客様の要望"
+  - id: wireless
+    title: "ワイヤレス接続 · BLE / Wi-Fi"
+    desc: "BLE または Wi-Fi を内蔵した RISC-V SoC。RF の外付け部品と認証コストを削減できます。"
+    query: "peri=ble,wifi&sort=freq-asc"
+    tag: "用途"
+  - id: motor
+    title: "モーター制御 · FOC"
+    desc: "12 ビット ADC、相補 PWM、コンパレータ、オペアンプを搭載。ファン、ポンプ、ジンバル向けです。"
+    query: "peri=pwm,adc,comp&adc=12&sort=price-asc"
+    tag: "用途"
+
+# エコシステム団体（トップページと /ecosystem/ で共用）
+orgs:
+  - name: RISC-V International
+    region: スイス / 世界
+    url: https://riscv.org/
+    desc: 世界の RISC-V 命令セットと拡張標準を策定する団体で、ISA 仕様、認証、エコシステムの普及を担います。
+  - name: 中国 RISC-V 产业联盟（CRVIC）
+    region: 中国 · 上海
+    url: http://www.risc-v.org.cn/
+    desc: 中国国内の RISC-V 産業連盟。IP、チップ、ツールチェーン、人材育成の連携を推進します。
+  - name: 中国开放指令生态（RISC-V）联盟（CRVA）
+    region: 中国 · 北京
+    url: https://crva.ict.ac.cn/
+    desc: 中国科学院計算技術研究所が中心となって設立。オープン命令セットのエコシステム、香山プロセッサ、オープンソースコミュニティに注力します。
+  - name: RISC-V 基金会中国社区
+    region: 中国
+    url: https://riscv.org/community/
+    desc: 世界の財団による中国でのコミュニティ活動、技術ワーキンググループ、開発者ミートアップへの入口です。

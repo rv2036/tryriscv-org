@@ -1,0 +1,4 @@
+{{- $f := . -}}
+{{- $keys := dict "多核" "js_feature_multi" "乱序" "js_feature_ooo" "实时" "js_feature_realtime" "AI" "js_feature_ai" -}}
+{{- $k := index $keys $f -}}
+{{- if $k }}{{ i18n $k }}{{ else }}{{ $f }}{{ end -}}

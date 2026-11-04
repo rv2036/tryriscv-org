@@ -1,0 +1,4 @@
+{{- range hugo.Data.ips -}}
+  {{- $desc := printf "%s — %s · %v-bit RISC-V CPU IP · %s · %s" .name .vendor .bits .isa .pipeline -}}
+  {{- $.AddPage (dict "path" .id "title" .name "kind" "page" "description" $desc "params" (dict "pid" .id) "lastmod" .updated) -}}
+{{- end -}}

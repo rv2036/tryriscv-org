@@ -5,7 +5,15 @@
   if (!app) return;
   var TR = window.TR;
   var esc = TR.esc;
-  var COUNTRY = { CN: '中国大陆', TW: '中国台湾', US: '美国', EU: '欧洲', JP: '日本', other: '其他/未披露' };
+  var I18N = window.__TR_I18N__ || {};
+  var TXT = I18N.text || {};
+  function txt(k, fallback) { return TXT[k] || fallback; }
+  function fmt(str, vars) { return String(str).replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; }); }
+  function countryLabel(c) { return (I18N.country && I18N.country[c]) || c; }
+  function typeLabel(v) { return (I18N.type && I18N.type[v]) || v; }
+  function archLabel(v) { return (I18N.arch && I18N.arch[v]) || v; }
+  function maturityLabel(v) { return (I18N.maturity && I18N.maturity[v]) || v; }
+  function vendorLabel(p) { return (I18N.isZh ? p.vendor : (p.vendor_en || p.vendor)); }
   var DATA = [], defs = {}, state;
   var ARCH_CLASS = { 'RISC-V': 'tag--teal', 'ARM 对照': 'tag--indigo' };
 
@@ -59,7 +67,8 @@
         values(key, p).forEach(function (v) {
           if (v == null || v === '') return;
           var k = String(v);
-          if (!map.has(k)) map.set(k, { value: k, label: key === 'country' ? (COUNTRY[k] || k) : k, count: 0 });
+          var label = key === 'country' ? countryLabel(k) : key === 'type' ? typeLabel(k) : key === 'arch' ? archLabel(k) : key === 'maturity' ? maturityLabel(k) : k;
+          if (!map.has(k)) map.set(k, { value: k, label: label, count: 0 });
           map.get(k).count++;
         });
       });
@@ -141,33 +150,34 @@
     return 'badge';
   }
   function row(p) {
-    return '<tr><td><b class="model-link">' + esc(p.name) + '</b><span class="sub-line">' + esc(p.vendor) + '</span></td>' +
-      '<td>' + esc(p.type) + '<span class="sub-line">' + esc(COUNTRY[p.country] || p.country) + ' · ' + esc(p.arch || '—') + '</span></td>' +
+    return '<tr><td><b class="model-link">' + esc(p.name) + '</b><span class="sub-line">' + esc(vendorLabel(p)) + '</span></td>' +
+      '<td>' + esc(typeLabel(p.type)) + '<span class="sub-line">' + esc(countryLabel(p.country)) + ' · ' + esc(archLabel(p.arch || '—')) + '</span></td>' +
       '<td class="num">' + (p.tops == null ? '—' : p.tops + ' TOPS') + '</td>' +
       '<td>' + esc((p.precision || []).join(' / ') || '—') + '</td>' +
       '<td>' + esc((p.frameworks || []).join(' / ') || '—') + '</td>' +
       '<td>' + esc(p.sdk || '—') + '</td>' +
-      '<td><span class="' + badge(p.maturity) + '">' + esc(p.maturity || '—') + '</span></td>' +
+      '<td><span class="' + badge(p.maturity) + '">' + esc(maturityLabel(p.maturity) || '—') + '</span></td>' +
       '<td>' + esc((p.silicon || []).slice(0, 2).join('、') || '—') + '</td></tr>';
   }
   function card(p) {
     return '<article class="mcu-card"><div class="mcu-card-head"><div><h3 class="mcu-card-title">' + esc(p.name) + '</h3>' +
-      '<div class="mcu-card-sub">' + esc(p.vendor) + ' · ' + esc(p.type) + ' · ' + esc(p.arch || '—') + '</div></div>' +
-      '<div class="mcu-card-badges"><span class="' + badge(p.maturity) + '">' + esc(p.maturity || '—') + '</span></div></div>' +
-      '<dl class="mcu-card-specs"><div><dt>算力</dt><dd>' + (p.tops == null ? '—' : p.tops + ' <small>TOPS</small>') + '</dd></div>' +
-      '<div><dt>精度</dt><dd style="font-size:12px">' + esc((p.precision || []).join(' / ') || '—') + '</dd></div>' +
-      '<div><dt>归属地</dt><dd style="font-size:12px">' + esc(COUNTRY[p.country] || p.country) + '</dd></div></dl>' +
+      '<div class="mcu-card-sub">' + esc(vendorLabel(p)) + ' · ' + esc(typeLabel(p.type)) + ' · ' + esc(archLabel(p.arch || '—')) + '</div></div>' +
+      '<div class="mcu-card-badges"><span class="' + badge(p.maturity) + '">' + esc(maturityLabel(p.maturity) || '—') + '</span></div></div>' +
+      '<dl class="mcu-card-specs"><div><dt>' + esc(txt('tableTops', 'TOPS')) + '</dt><dd>' + (p.tops == null ? '—' : p.tops + ' <small>TOPS</small>') + '</dd></div>' +
+      '<div><dt>' + esc(txt('aiPrecision', 'Precision')) + '</dt><dd style="font-size:12px">' + esc((p.precision || []).join(' / ') || '—') + '</dd></div>' +
+      '<div><dt>' + esc(txt('tableCountry', 'Country')) + '</dt><dd style="font-size:12px">' + esc(countryLabel(p.country)) + '</dd></div></dl>' +
       '<div class="small muted">' + esc((p.frameworks || []).join(' / ') || '') + '</div>' +
       '<div class="mcu-card-foot"><span>' + esc(p.sdk || '') + '</span></div></article>';
   }
   function chips() {
-    var out = [], names = { type: '类型：', country: '归属地：', arch: '架构：', precision: '精度：', frameworks: '框架：', maturity: '成熟度：' };
+    var out = [], names = { type: txt('aiType', 'Type') + ': ', country: txt('tableCountry', 'Country') + ': ', arch: txt('aiArch', 'Architecture') + ': ', precision: txt('aiPrecision', 'Precision') + ': ', frameworks: txt('aiFrameworks', 'Frameworks') + ': ', maturity: txt('tableMaturity', 'Maturity') + ': ' };
     Object.keys(names).forEach(function (k) {
       state[k].forEach(function (v) {
-        out.push({ label: names[k] + (k === 'country' ? (COUNTRY[v] || v) : v), fn: function () { state[k].delete(v); } });
+        var lv = k === 'country' ? countryLabel(v) : k === 'type' ? typeLabel(v) : k === 'arch' ? archLabel(v) : k === 'maturity' ? maturityLabel(v) : v;
+        out.push({ label: names[k] + lv, fn: function () { state[k].delete(v); } });
       });
     });
-    if (state.tops[0] != null || state.tops[1] != null) out.push({ label: '算力 ' + (state.tops[0] == null ? '' : state.tops[0]) + '–' + (state.tops[1] == null ? '' : state.tops[1]) + ' TOPS', fn: function () { state.tops = [null, null]; } });
+    if (state.tops[0] != null || state.tops[1] != null) out.push({ label: txt('tableTops', 'TOPS') + ' ' + (state.tops[0] == null ? '' : state.tops[0]) + '–' + (state.tops[1] == null ? '' : state.tops[1]) + ' TOPS', fn: function () { state.tops = [null, null]; } });
     return out;
   }
   function renderChips() {
@@ -175,7 +185,7 @@
     if (!box) return;
     var list = chips();
     box.innerHTML = list.map(function (c, i) { return '<button type="button" class="chip" data-chip="' + i + '">' + esc(c.label) + ' <span aria-hidden="true">×</span></button>'; }).join('') +
-      (list.length ? '<button type="button" class="chip chip--clear" id="clear-ai">清空全部</button>' : '');
+      (list.length ? '<button type="button" class="chip chip--clear" id="clear-ai">' + esc(txt('clearAll', 'Clear all')) + '</button>' : '');
     box.querySelectorAll('[data-chip]').forEach(function (b) { b.addEventListener('click', function () { list[Number(b.getAttribute('data-chip'))].fn(); apply(); }); });
     var c = document.getElementById('clear-ai');
     if (c) c.addEventListener('click', function () { reset(); sync(); apply(); });
@@ -191,7 +201,7 @@
     if (tbody) tbody.innerHTML = list.map(row).join('');
     if (cards) cards.innerHTML = list.map(card).join('');
     var count = document.getElementById('result-count');
-    if (count) count.innerHTML = '共 <b>' + list.length + '</b> 条记录（全库 ' + DATA.length + ' 条）';
+    if (count) count.innerHTML = fmt(txt('resultAi', '{count} records'), { count: '<b>' + list.length + '</b>', total: DATA.length });
     var empty = document.getElementById('ai-empty');
     if (empty) empty.hidden = list.length !== 0;
     renderChips();
@@ -224,7 +234,7 @@
     apply();
   }).catch(function (e) {
     var count = document.getElementById('result-count');
-    if (count) count.textContent = '数据加载失败，请刷新重试。';
+    if (count) count.textContent = txt('loadError', 'Failed to load data.');
     if (window.console) console.error(e);
   });
 })();

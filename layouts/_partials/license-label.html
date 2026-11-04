@@ -1,0 +1,2 @@
+{{- $l := . -}}
+{{- if eq $l "商用授权" }}{{ i18n "js_license_commercial" }}{{ else if eq $l "开源" }}{{ i18n "js_license_open" }}{{ else }}{{ $l }}{{ end -}}

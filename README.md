@@ -18,6 +18,23 @@
 
 首页提供四个大入口（选 MCU / 选 IP / 选解决方案 / 选 AI 算力）与一个【我想选】按钮，直达 GitHub Issue 表单。
 
+## 语言与主题
+
+站点提供四种语言与明暗两套配色：
+
+| 语言 | URL 前缀 | 内容目录 |
+| --- | --- | --- |
+| 中文（默认） | `/` | `content/zh/` |
+| English | `/en/` | `content/en/` |
+| Русский | `/ru/` | `content/ru/` |
+| 日本語 | `/ja/` | `content/ja/` |
+
+- 页头语言下拉切换当前页的对应翻译；`<head>` 输出 `hreflang` 与各语言 canonical。
+- UI 文案在 `i18n/{zh,en,ru,ja}.yaml`，键集必须一致；运行 `python3 scripts/check_i18n.py` 校验。
+- 首页预设、方案包、生态列表的展示文案在 `data/{en,ru,ja}/{site,solutions,ecosystem}.yaml`；器件数据本身保持单一来源。
+- 明暗主题通过页头太阳/月亮按钮切换，默认跟随系统 `prefers-color-scheme`，选择写入 `localStorage`，首屏内联脚本避免闪烁。
+- 数据备注（如 MCU/IP 的 `notes`）保留中文原文，非中文页面会标注“The vendor or source notes are in Chinese in the original”。
+
 ## 本地开发
 
 依赖：Hugo **0.169.0 extended**、Python 3.10+、PyYAML。
@@ -28,6 +45,7 @@ cd tryriscv-org
 
 python3 -m pip install --user pyyaml
 python3 scripts/normalize.py        # 校验 data/ 并生成 data/mcus.yaml、static/data/*.json
+python3 scripts/check_i18n.py       # 四种语言键集 / 占位符一致性
 
 hugo server --buildDrafts           # http://localhost:1313
 # 或只构建
@@ -72,9 +90,10 @@ public/ → GitHub Pages
 
 ```text
 .
-├── content/                 # 页面内容（Hugo content adapter 生成 MCU/IP 详情页）
-│   ├── mcu/_content.gotmpl
-│   └── ip/_content.gotmpl
+├── content/
+│   ├── zh/ en/ ru/ ja/      # 四种语言的页面内容（content adapter 生成 MCU/IP 详情页）
+│   └── */mcu|ip/_content.gotmpl
+├── i18n/                    # zh/en/ru/ja.yaml，UI 文案
 ├── data/
 │   ├── mcu/*.yaml           # 事实来源：按厂商分文件
 │   ├── mcus.yaml            # 生成物：合并 + 规范化（勿手改）
@@ -82,11 +101,13 @@ public/ → GitHub Pages
 │   ├── ai.yaml / ais.yaml
 │   ├── solutions.yaml
 │   ├── ecosystem.yaml
-│   └── site.yaml
+│   ├── site.yaml
+│   └── en|ru|ja/            # 方案包 / 预设 / 生态的翻译展示层
 ├── layouts/                 # Hugo 模板（baseof、首页、筛选页、详情页）
 ├── assets/css|js            # 无外部依赖的样式与前端筛选/对比逻辑
 ├── static/data/             # 生成物：前端 JSON / CSV
 ├── scripts/normalize.py     # 校验 + 生成
+├── scripts/check_i18n.py    # 四种语言键集 / 占位符校验
 ├── scripts/check_links.py   # 来源链接巡检
 ├── research/                # 原始调研 YAML 与字段说明
 ├── docs/DAILY-UPDATE.md     # 每日更新手册
@@ -106,6 +127,7 @@ public/ → GitHub Pages
 
 ```bash
 python3 scripts/normalize.py
+python3 scripts/check_i18n.py
 python3 scripts/check_links.py
 hugo --minify --gc
 ```

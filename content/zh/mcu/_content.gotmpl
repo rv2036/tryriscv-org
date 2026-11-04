@@ -1,0 +1,4 @@
+{{- range hugo.Data.mcus -}}
+  {{- $desc := printf "%s — %s · %s · %v MHz · %v KB SRAM · %v KB Flash" .name .vendor .core .freq .sram .flash -}}
+  {{- $.AddPage (dict "path" .id "title" .name "kind" "page" "description" $desc "params" (dict "pid" .id) "lastmod" .updated) -}}
+{{- end -}}

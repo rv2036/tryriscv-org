@@ -1,3 +1,4 @@
 {{- $c := . -}}
-{{- $m := dict "CN" "中国大陆" "TW" "中国台湾" "US" "美国" "EU" "欧洲" "JP" "日本" "other" "其他" -}}
-{{- return (index $m $c | default $c) -}}
+{{- $keys := dict "CN" "js_country_cn" "TW" "js_country_tw" "US" "js_country_us" "EU" "js_country_eu" "JP" "js_country_jp" "other" "js_country_other" -}}
+{{- $k := index $keys $c -}}
+{{- if $k }}{{ return (i18n $k) }}{{ else }}{{ return $c }}{{ end -}}

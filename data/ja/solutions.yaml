@@ -1,0 +1,145 @@
+- id: iot-edu
+  title: IoT 産学連携の教育・プロトタイピングプラットフォーム
+  category: 教育とプロトタイピング
+  summary: 100MHz クラスの低消費電力 RISC-V MCU を中核に、センサー収集、USB デバッグ、CAN/シリアル通信、RTOS 実験、コース設計をカバーし、試作コストと資料の充実度を両立します。
+  needs: [64〜144MHz, 20KB 以上の SRAM, USB/CAN, RT-Thread, 5V 耐圧]
+  specs:
+    freq: 64〜144 MHz
+    sram: 20〜64 KB
+    flash: 64〜256 KB
+    power: 動作時 49〜186 µA/MHz
+  recommended: [wch-ch32v203c8t6, gigadevice-gd32vf103c8t6, wch-ch32v103c8t6, cmiot-cm32m433r]
+  why:
+    - "沁恒 CH32V203：144MHz、49µA/MHz、デュアル USB、CAN を搭載。MounRiver Studio と RT-Thread BSP が揃っており、講義のメインコントローラに適しています。"
+    - "GD32VF103：Nuclei N200 のエコシステムが成熟しており、サンプルと開発ボードが豊富。比較学習や移植実験に向いています。"
+    - "CH32V103：5V 給電、USB FS に対応。5V センサーモジュールと互換性があり、実験プラットフォームの電源設計を簡素化できます。"
+    - "芯昇 CM32M433R：144MHz、144KB SRAM、デュアル CAN、中国の国密（SM）暗号アルゴリズムを搭載。発展的な実験や国産化の議論に適しています。"
+  risks:
+    - "上記の型番はいずれも無線を内蔵していません。BLE/Wi-Fi 実験には外付けモジュール、または ESP32-C3 / CH582M の構成への変更が必要です。"
+    - "価格はロットや販路で変動します。教育向けの一括購入は代理店に問い合わせてください。"
+    - "CH32V203 の SRAM は 20KB のみです。グラフィカル表示や大きなプロトコルスタックを動かす場合は、メモリ使用量を抑える必要があります。"
+  toolchain: [MounRiver Studio, Nuclei Studio, RT-Thread Studio, GCC, OpenOCD]
+  query: "freq=64-160&sram=16-64&sort=run-asc&has_power=1"
+  updated: 2026-11-04
+
+- id: battery-sensor
+  title: 電池駆動センサーノード（40MHz / 64KB クラス）
+  category: 低消費電力センシング
+  summary: 温湿度、電流、ドアセンサー、水道メーターなど電池駆動ノード向けです。クロック 48MHz 前後、SRAM 4〜64KB で十分ですが、スリープ電流を 10µA 以下に抑え、ADC とコンパレータの資源を確保することが重要です。
+  needs: [24〜96MHz, 4〜64KB SRAM, スリープ <10µA, 12 ビット ADC, 小型パッケージ]
+  specs:
+    freq: 24〜96 MHz
+    sram: 4〜64 KB
+    flash: 16〜128 KB
+    power: スリープ 0.37〜10 µA
+  recommended: [wch-ch32l103c8t6, wch-ch32v006k8u7, apt-apt32f1023, wch-ch32v002f4p6]
+  why:
+    - "CH32L103：96MHz でも 49µA/MHz、スタンバイ 0.37µA。LPUART/LPTIM を備え、長時間待機の収集に適しています。"
+    - "CH32V006：48MHz、8KB SRAM、62KB Flash、QFN の小型パッケージ。多チャネル ADC サンプリングに足りるペリフェラルを持ちます。"
+    - "爱普特 APT32F1023：48MHz、4KB SRAM、64KB Flash。公式の選定表ではディープスリープ 5µA としており、コスト重視の性格が明確です。"
+    - "CH32V002：4KB SRAM / 16KB Flash の最小構成。1 回のサンプリングと無線モジュールのウェイクアップだけを行う構成に適しています。"
+  risks:
+    - "爱普特のツールチェーンとコミュニティ資料は沁恒より少ないため、量産前に移植とデバッグの時間を確保してください。"
+    - "メーカーの消費電力測定条件（電圧、温度、ペリフェラルクロック）は統一されていません。必ず自社ボードで再測定してください。"
+    - "低消費電力モードでの RAM 保持範囲とウェイクアップ要因の数が、プロトコルスタックの選択を制約します。"
+  toolchain: [MounRiver Studio, APT IDE, GCC, RT-Thread]
+  query: "freq=0-100&sram=0-64&has_power=1&sort=sleep-asc"
+  updated: 2026-11-04
+
+- id: ble-device
+  title: BLE ウェアラブルとスマートホーム
+  category: ワイヤレス接続
+  summary: BLE を内蔵した RISC-V SoC により、外付け RF と認証コストを削減します。ウェアラブルではスリープ電流とパッケージ、スマートホームでは Mesh/Matter プロトコルスタックと Flash の余裕が判断軸になります。
+  needs: [BLE 5.x, スリープ <3µA, 256KB 以上の Flash, LCD/タッチはオプション]
+  specs:
+    freq: 20〜96 MHz
+    sram: 26〜512 KB
+    flash: 448KB〜4MB
+    power: スリープ 0.7〜2.6 µA
+    wireless: BLE 5.0〜5.4
+  recommended: [wch-ch582m, telink-tlsr9218, wch-ch592f, bouffalo-bl702c-10-q2h]
+  why:
+    - "CH582M：BLE 5.0、スリープ 0.7µA、448KB Flash。公式の BLE プロトコルスタックとサンプルが揃っており、ウェアラブルや HID に適しています。"
+    - "泰凌微 TLSR9218：96MHz、256KB SRAM、2MB Flash、スリープ 0.7µA。より大きなバッファと OTA が必要な製品に適しています。"
+    - "CH592F：BLE 5.4 とセグメント LCD ドライバを搭載。サーモスタットやパネルなど、表示付き機器に適しています。"
+    - "博流 BL702：BLE と USB を搭載し、132KB SRAM。USB と無線の併存が必要なペリフェラルに適しています。"
+  risks:
+    - "BLE 認証（BQB/FCC/CE）はプロトコルスタックのバージョンと強く結び付きます。選定時に SDK が対象プロトコルへ対応済みか確認してください。"
+    - "一部の型番は 20MHz のクロックのため、表示と無線プロトコルスタックを同時に動かす余裕が制限されます。"
+    - "内蔵 Flash では OTA のパーティションと予約領域が、使用可能な容量を圧迫します。"
+  toolchain: [MounRiver Studio, Telink IoT Studio, Bouffalo SDK, RT-Thread]
+  query: "peri=ble&sort=sleep-asc"
+  updated: 2026-11-04
+
+- id: wifi-appliance
+  title: Wi-Fi スマート家電と軽量ゲートウェイ
+  category: ワイヤレス接続
+  summary: 家電のメイン制御、スマートプラグ、センサーゲートウェイには、Wi-Fi と BLE のデュアルモード、TLS/MQTT を動かせる SRAM、安定した OTA が必要です。SDK とクラウド連携が成熟したプラットフォームを優先してください。
+  needs: [Wi-Fi 4/6, BLE ペアリング設定, 320KB 以上の SRAM, OTA, セキュアブート]
+  specs:
+    freq: 120〜320 MHz
+    sram: 272〜532 KB
+    flash: 2〜8 MB
+    power: 動作時 100〜172 µA/MHz
+    wireless: Wi-Fi + BLE
+  recommended: [espressif-esp32-c3fh4, espressif-esp32-c6fh4, bouffalo-bl616c-50-q2i, gigadevice-gd32vw553kiq7]
+  why:
+    - "ESP32-C3：RISC-V シングルコア 160MHz、400KB SRAM、Wi-Fi と BLE 5 を搭載。ESP-IDF と Matter のエコシステムが最も充実しており、量産資料も豊富です。"
+    - "ESP32-C6：Wi-Fi 6、BLE 5、802.15.4 に対応。Thread/Matter が必要な次世代家電に適しています。"
+    - "博流 BL616：320MHz、532KB SRAM、Wi-Fi 6 と BLE を搭載。コストを抑えつつ高い演算性能が必要なゲートウェイに適しています。"
+    - "GD32VW553：Nuclei N307 と Wi-Fi 6、BLE を搭載。兆易の MCU 体系をすでに採用しているチームの円滑な移行に適しています。"
+  risks:
+    - "RF 認証とアンテナ設計が主なハードルです。モジュール方式はチップ方式より早く量産できます。"
+    - "Wi-Fi のピーク電流は数百 mA に達することがあります。電源とデカップリングはピーク電流を基準に設計してください。"
+    - "ESP32-C6 の Wi-Fi 6 については、対象用途でルーターとの互換性と消費電力の予算を確認してください。"
+  toolchain: [ESP-IDF, Bouffalo SDK, MounRiver Studio, GCC]
+  query: "peri=wifi&sort=run-asc"
+  updated: 2026-11-04
+
+- id: motor-foc
+  title: モーター制御と FOC
+  category: モーター制御
+  summary: ファン、ポンプ、ジンバル、電動工具には 12 ビット以上の ADC、相補 PWM、コンパレータ/オペアンプ、CAN が必要です。105〜144MHz の RISC-V MCU は単一モーターの FOC をカバーできますが、デュアルモーターでは PWM と ADC のサンプリングチャネルを確認してください。
+  needs: [100MHz 以上, 12 ビット ADC, 相補 PWM, CAN, コンパレータ/オペアンプ]
+  specs:
+    freq: 96〜144 MHz
+    sram: 16〜64 KB
+    flash: 64〜256 KB
+    power: 動作時 49〜186 µA/MHz
+  recommended: [apt-apt32f1730, wch-ch32v203c8t6, wch-ch32v303vct6, gigadevice-gd32vf103c8t6]
+  why:
+    - "爱普特 APT32F1730：105MHz、FPU/DSP、CAN を搭載。モーターとデジタル電源向けで、ペリフェラルの組み合わせが PWM/ADC に最適化されています。"
+    - "CH32V203：144MHz、デュアル USB、CAN、49µA/MHz。上位機との通信を伴う小型ドライブに適しています。"
+    - "CH32V303：144MHz、64KB SRAM、256KB Flash、CAN。デュアルモーターや複雑な保護ロジックを動かせる資源があります。"
+    - "GD32VF103：108MHz、デュアル CAN、12 ビット ADC。エコシステムが成熟しており、制御アルゴリズムの検証プラットフォームに適しています。"
+  risks:
+    - "モーター制御は ADC のサンプリングタイミング、PWM のデッドタイム、オペアンプの帯域に敏感です。実際のパワーボードで検証してください。"
+    - "一部の型番は PWM チャネル数が公開資料に記載されていません。選定前にメーカーへ確認してください。"
+    - "絶縁、ゲートドライブ、電流検出はアナログ設計の領域であり、MCU はその一部にすぎません。"
+  toolchain: [MounRiver Studio, APT IDE, Nuclei Studio, GCC]
+  query: "peri=can,pwm&adc=12&sort=run-asc"
+  updated: 2026-11-04
+
+- id: industrial-edge
+  title: 産業制御とエッジゲートウェイ
+  category: 産業制御
+  summary: CAN/CAN FD、Ethernet、広い温度範囲、セキュアブートが必要です。144MHz クラスはプロトコル変換と機器制御に、600MHz 以上のデュアルコアはエッジ演算と多軸制御に適しています。
+  needs: [CAN/Ethernet, 広い温度範囲, 256KB 以上の Flash, セキュアブート, 複数 UART]
+  specs:
+    freq: 144〜816 MHz
+    sram: 64KB〜1MB
+    flash: 0〜992 KB
+    power: 動作時 85〜184 µA/MHz
+  recommended: [wch-ch32v307vct6, cmiot-cm32m433r, hpmicro-hpm6360, wch-ch32v407vet6]
+  why:
+    - "CH32V307：144MHz、64KB SRAM、256KB Flash、デュアル CAN と 10M Ethernet PHY を搭載。機器制御とプロトコル変換に適しています。"
+    - "芯昇 CM32M433R：144MHz、144KB SRAM、512KB Flash、デュアル CAN、国密 SM3/SM4 に対応。国産化とセキュリティの用途に適しています。"
+    - "先楫 HPM6360：600MHz、512KB SRAM、CAN と Ethernet を搭載。高いリアルタイム性が求められる多軸制御やエッジアルゴリズムに適しています。"
+    - "CH32V407：200MHz、200KB SRAM、992KB Flash、Ethernet と USB HS を搭載。表示付きの産業用 HMI に適しています。"
+  risks:
+    - "HPM6360 はオンチップ Flash を持たないため、外付けの NOR/HyperFlash が必要で、起動時間と BOM を考慮する必要があります。"
+    - "産業現場では EMC、絶縁、広い温度範囲の要求が厳しく、装置全体の基準で再評価が必要です。"
+    - "Ethernet PHY の内蔵有無と外部トランスの要否は、基板設計とコストに直結します。"
+  toolchain: [MounRiver Studio, HPM SDK, Nuclei Studio, RT-Thread, Zephyr]
+  query: "freq=100-1000&peri=can,eth&sort=freq-asc"
+  updated: 2026-11-04

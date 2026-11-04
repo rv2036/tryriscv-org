@@ -1,10 +1,40 @@
 baseURL = "https://tryriscv.org/"
-locale = "zh-CN"
 defaultContentLanguage = "zh"
+defaultContentLanguageInSubdir = false
 title = "tryriscv.org"
 enableRobotsTXT = true
 enableGitInfo = false
 disableKinds = ["taxonomy", "term"]
+
+[languages]
+  [languages.zh]
+    languageName = "中文"
+    languageCode = "zh-CN"
+    locale = "zh-CN"
+    contentDir = "content/zh"
+    weight = 1
+    title = "tryriscv.org"
+  [languages.en]
+    languageName = "English"
+    languageCode = "en-US"
+    locale = "en-US"
+    contentDir = "content/en"
+    weight = 2
+    title = "tryriscv.org"
+  [languages.ru]
+    languageName = "Русский"
+    languageCode = "ru-RU"
+    locale = "ru-RU"
+    contentDir = "content/ru"
+    weight = 3
+    title = "tryriscv.org"
+  [languages.ja]
+    languageName = "日本語"
+    languageCode = "ja-JP"
+    locale = "ja-JP"
+    contentDir = "content/ja"
+    weight = 4
+    title = "tryriscv.org"
 
 # 数据目录：data/mcu/*.yaml 为唯一事实来源。
 # 构建前请运行 `python3 scripts/normalize.py` 生成 static/data/*.json。
@@ -39,6 +69,7 @@ disableKinds = ["taxonomy", "term"]
   minifyOutput = true
   [minify.tdewolff.html]
     keepWhitespace = false
+    keepQuotes = true
 
 [server]
   [[server.headers]]

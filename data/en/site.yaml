@@ -1,0 +1,49 @@
+# Site-level copy and configuration (not device data)
+title: tryriscv.org
+tagline: Make RISC-V selection simple
+subtitle: An open, filterable, comparable intelligence library for RISC-V MCUs, IP, and solution packages
+
+# Homepage statistics caveat
+stats_note: Data is compiled from vendor websites, datasheets, and public sources with AI assistance; always confirm parameters against the latest datasheet.
+
+# High-frequency customer requirements (homepage "requirement shortcuts"); query holds /mcu/ filter parameters
+presets:
+  - id: iot-100m
+    title: IoT industry-education · 100 MHz, low power
+    desc: 64–128 MHz, preferring low active current and sleep current; suited to sensor nodes, teaching platforms, and volume IoT.
+    query: "freq=64-128&sort=run-asc&has_power=1"
+    tag: Customer request
+  - id: tiny-40m
+    title: Minimal resources · 40 MHz / 64 KB Flash
+    desc: Clock ≤ 64 MHz, 32–128 KB Flash, low power preferred; follows the common convention that "64 KB memory" means Flash. If you meant SRAM, set the SRAM minimum to 64 KB.
+    query: "freq=0-64&flash=32-128&has_power=1&sort=run-asc"
+    tag: Customer request
+  - id: wireless
+    title: Wireless · BLE / Wi-Fi
+    desc: RISC-V SoCs with built-in BLE or Wi-Fi, cutting RF peripherals and certification cost.
+    query: "peri=ble,wifi&sort=freq-asc"
+    tag: Use case
+  - id: motor
+    title: Motor control · FOC
+    desc: 12-bit ADC, complementary PWM, comparators, and op-amps, aimed at fans, pumps, and gimbals.
+    query: "peri=pwm,adc,comp&adc=12&sort=price-asc"
+    tag: Use case
+
+# Ecosystem organizations (shared by the homepage and /ecosystem/)
+orgs:
+  - name: RISC-V International
+    region: Switzerland / Global
+    url: https://riscv.org/
+    desc: Defines the global RISC-V instruction set and extension standards, and owns the ISA specifications, certification, and ecosystem outreach.
+  - name: China RISC-V Industry Consortium (CRVIC)
+    region: China · Shanghai
+    url: http://www.risc-v.org.cn/
+    desc: China's RISC-V industry alliance, coordinating work across IP, chips, toolchains, and talent development.
+  - name: China RISC-V Alliance (CRVA)
+    region: China · Beijing
+    url: https://crva.ict.ac.cn/
+    desc: Initiated by the Institute of Computing Technology, Chinese Academy of Sciences; focuses on the open instruction-set ecosystem, the XiangShan processor, and open-source community work.
+  - name: RISC-V International China Community
+    region: China
+    url: https://riscv.org/community/
+    desc: The entry point for RISC-V International community events, technical working groups, and developer meetups in China.

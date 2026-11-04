@@ -30,12 +30,31 @@ Data flow: `data/mcu/*.yaml` + `data/ip.yaml` + `data/ai.yaml`
 **Always run normalize before Hugo.** Templates read `hugo.Data.mcus` / `hugo.Data.ips` / `hugo.Data.ais`,
 not the per-vendor map; do not change that without testing.
 
+## Languages and theme
+
+The site is multilingual: `zh` at `/`, `en` at `/en/`, `ru` at `/ru/`, `ja` at `/ja/`.
+
+- UI strings live in `i18n/<lang>.yaml`; every key must exist in all four files and keep
+  the same `{n}`, `{{ .x }}`, `%v` placeholders. Run `python3 scripts/check_i18n.py` after any UI edit.
+- Page prose lives in `content/<lang>/`; MCU/IP detail pages are generated per language by
+  `content/<lang>/mcu|ip/_content.gotmpl` from the same global data.
+- Home presets, solution packages and ecosystem display text have translation layers in
+  `data/<lang>/{site,solutions,ecosystem}.yaml`. When you change the Chinese source, sync all three.
+- Data notes/pipeline strings stay in Chinese; non-Chinese pages label them with
+  `detail_source_zh_note` rather than machine-translating them.
+- Dynamic query links must use `safeURL` (otherwise `=`/`&` become `%3d`/`%26`).
+  Template internal links use `relLangURL`; JS detail links go through `urlFor()`.
+- Theme is a `data-theme` attribute on `<html>`, initialized by an inline script and toggled by
+  `assets/js/site.js`. New components must use CSS variables (`--surface`, `--ink`, `--line`, ...);
+  check light/dark and 390/320px mobile after CSS changes.
+
 ## Daily loop (30–60 min)
 
 ### 1. Baseline
 
 ```bash
 python3 scripts/normalize.py --check
+python3 scripts/check_i18n.py
 python3 scripts/check_links.py --limit 40    # full run later
 ```
 
@@ -114,6 +133,7 @@ Rules:
 
 ```bash
 python3 scripts/normalize.py
+python3 scripts/check_i18n.py
 python3 scripts/check_links.py
 hugo --minify --gc
 ```
@@ -123,7 +143,9 @@ Gates:
 - normalize: 0 errors. Review warnings: missing power is acceptable only when the vendor really does not publish it.
 - new/changed detail page returns 200 and shows the right power/voltage/sources;
 - `/mcu/` filters can find the part; URL state reproduces it; compare works with 2–4 parts;
-- mobile 390px: filter drawer, cards, table/card toggle;
+- mobile 390px and 320px: filter drawer, cards, language select, theme toggle;
+- all four languages: home, /mcu/, /ip/, /ai/, /solutions/, one detail page; language select goes to the translated URL;
+- light and dark themes: tables, filters, solution cards, detail pages;
 - disclaimer + issue links still render at the bottom of every page;
 - `static/data/mcus.json` and `mcus.csv` regenerated with the new record.
 

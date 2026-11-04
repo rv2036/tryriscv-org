@@ -1,0 +1,4 @@
+{{- $v := . -}}
+{{- $keys := dict "沁恒自研" "js_brand_wch" "平头哥玄铁" "js_brand_thead" "乐鑫自研" "js_brand_espressif" "芯来 Nuclei" "js_brand_nuclei" "晶心 Andes" "js_brand_andes" "Telink 自研" "js_brand_telink" "未披露" "js_brand_undisclosed" -}}
+{{- $k := index $keys $v -}}
+{{- if $k }}{{ return (i18n $k) }}{{ else }}{{ return $v }}{{ end -}}

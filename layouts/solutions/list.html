@@ -1,24 +1,24 @@
 {{ define "main" }}
-{{- $solutions := hugo.Data.solutions | default slice -}}
+{{- $solutions := partial "solutions-data.html" . | default slice -}}
 {{- $cats := slice -}}
 {{- range $solutions }}{{ $cats = $cats | append .category }}{{ end -}}
 {{- $cats = $cats | uniq -}}
 <section class="page-head">
   <div class="wrap">
-    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>解决方案</span></nav>
+    <nav class="breadcrumb" aria-label="breadcrumb"><a href="{{ site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a><span>/</span><span>{{ i18n "nav_solutions" }}</span></nav>
     <h1>{{ .Title }}</h1>
     <div class="lede prose">{{ .Content }}</div>
     <div class="page-stats">
-      <span><b>{{ len $solutions }}</b> 个方案包</span>
-      <span><b>{{ len $cats }}</b> 类场景</span>
-      <span><b>{{ site.Params.updated }}</b> 数据快照</span>
+      <span><b>{{ len $solutions }}</b> {{ i18n "solutions_count" }}</span>
+      <span><b>{{ len $cats }}</b> {{ i18n "solutions_categories" }}</span>
+      <span><b>{{ site.Params.updated }}</b> {{ i18n "page_stats_snapshot" }}</span>
     </div>
   </div>
 </section>
 
 <div class="wrap">
   <div class="toolbar" style="margin-top:24px" id="solution-filters">
-    <button type="button" class="chip is-active" data-category="all">全部场景</button>
+    <button type="button" class="chip is-active" data-category="all">{{ i18n "solutions_all" }}</button>
     {{ range $cats }}<button type="button" class="chip" data-category="{{ . }}">{{ . }}</button>{{ end }}
   </div>
 
@@ -39,41 +39,41 @@
       </div>
 
       <dl class="solution-meta">
-        {{ with index .specs "freq" }}<div><dt>主频</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with index .specs "freq" }}<div><dt>{{ i18n "chip_freq" }}</dt><dd>{{ . }}</dd></div>{{ end }}
         {{ with index .specs "sram" }}<div><dt>SRAM</dt><dd>{{ . }}</dd></div>{{ end }}
         {{ with index .specs "flash" }}<div><dt>Flash</dt><dd>{{ . }}</dd></div>{{ end }}
-        {{ with index .specs "power" }}<div><dt>功耗</dt><dd>{{ . }}</dd></div>{{ end }}
-        {{ with index .specs "wireless" }}<div><dt>连接</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with index .specs "power" }}<div><dt>{{ i18n "table_power" }}</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with index .specs "wireless" }}<div><dt>{{ i18n "solutions_connect" }}</dt><dd>{{ . }}</dd></div>{{ end }}
       </dl>
 
       <div class="solution-cols">
         <div>
-          <h3>推荐器件</h3>
+          <h3>{{ i18n "solutions_rec" }}</h3>
           <div class="rec-list">
             {{ range .recommended }}
               {{ $m := partial "find-mcu.html" (dict "id" .) }}
               {{ if $m }}
-              <a class="rec-chip" href="{{ printf "/mcu/%s/" $m.id | relURL }}"><b>{{ $m.name }}</b><small>{{ $m.vendor }} · {{ $m.freq }}MHz · {{ $m.sram }}KB</small></a>
+              <a class="rec-chip" href="{{ printf "/mcu/%s/" $m.id | relLangURL }}"><b>{{ $m.name }}</b><small>{{ partial "vendor-label.html" $m }} · {{ $m.freq }}MHz · {{ $m.sram }}KB</small></a>
               {{ else }}<span class="rec-chip">{{ . }}</span>{{ end }}
             {{ end }}
           </div>
-          <h3 style="margin-top:16px">为什么这样选</h3>
+          <h3 style="margin-top:16px">{{ i18n "solutions_why" }}</h3>
           <ul>{{ range .why }}<li>{{ . }}</li>{{ end }}</ul>
         </div>
         <div>
-          <h3>风险与取舍</h3>
+          <h3>{{ i18n "solutions_risks" }}</h3>
           <ul>{{ range .risks }}<li>{{ . }}</li>{{ end }}</ul>
           {{ with .toolchain }}
-          <h3 style="margin-top:16px">工具链与生态</h3>
+          <h3 style="margin-top:16px">{{ i18n "solutions_toolchain" }}</h3>
           <div style="display:flex;flex-wrap:wrap;gap:4px">{{ range . }}<span class="tag tag--teal">{{ . }}</span>{{ end }}</div>
           {{ end }}
         </div>
       </div>
 
       <div class="solution-foot">
-        <a class="btn btn--primary" href="{{ printf "/mcu/?%s" .query | relURL }}">打开对应筛选 {{ partial "icon.html" (dict "name" "arrow" "size" 15) }}</a>
-        <a class="btn btn--outline" href="{{ "/mcu/" | relURL }}">浏览全部 MCU</a>
-        <span class="small muted" style="margin-left:auto">更新于 {{ .updated }}</span>
+        <a class="btn btn--primary" href="{{ printf "%s?%s" ("/mcu/" | relLangURL) .query | safeURL }}">{{ i18n "solutions_open_filter" }} {{ partial "icon.html" (dict "name" "arrow" "size" 15) }}</a>
+        <a class="btn btn--outline" href="{{ "/mcu/" | relLangURL }}">{{ i18n "solutions_browse_all" }}</a>
+        <span class="small muted" style="margin-left:auto">{{ i18n "solutions_updated" }} {{ .updated }}</span>
       </div>
     </article>
     {{ end }}

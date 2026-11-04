@@ -1,0 +1,85 @@
+# エコシステムのツールチェーン、RTOS、開発ボード（公開資料の整理）
+toolchains:
+  - name: MounRiver Studio
+    vendor: 沁恒 WCH
+    url: https://www.mounriver.com/
+    desc: Eclipse ベースの統合開発環境です。WCH の RISC-V MCU 全シリーズに対応し、GCC とデバッガを内蔵しています。
+    parts: [wch]
+  - name: Nuclei Studio
+    vendor: 芯来科技
+    url: https://www.nucleisys.com/download.php
+    desc: Nuclei コア向けの IDE と SDK です。N100/N200/N300/UX シリーズに対応しています。
+    parts: [nuclei]
+  - name: 剑池 CDK
+    vendor: 平头哥
+    url: https://www.t-head.cn/
+    desc: 玄铁エコシステムの統合開発環境です。YoC ソフトウェアプラットフォームと RTOS を組み合わせて使用します。
+    parts: [thead]
+  - name: RT-Thread Studio
+    vendor: RT-Thread
+    url: https://www.rt-thread.org/studio.html
+    desc: 中国製 RTOS のオールインワン IDE です。多数の RISC-V 開発ボードとチップパッケージに対応しています。
+    parts: [rtthread]
+  - name: PlatformIO
+    vendor: PlatformIO
+    url: https://platformio.org/
+    desc: クロスプラットフォームの組込みビルドシステムです。コミュニティが一部の RISC-V 開発ボードをサポートしています。
+    parts: [community]
+  - name: Zephyr Project
+    vendor: Zephyr / Linux Foundation
+    url: https://zephyrproject.org/
+    desc: 多くの RISC-V SoC を upstream でサポートしています。長期保守や認証が必要な製品に適しています。
+    parts: [zephyr]
+
+rtos:
+  - name: RT-Thread
+    url: https://www.rt-thread.org/
+    desc: 中国製のオープンソース RTOS です。RISC-V チップパッケージは沁恒、兆易、乐鑫、博流などをカバーしています。
+  - name: FreeRTOS
+    url: https://www.freertos.org/
+    desc: 最も幅広いエコシステムを持ち、RISC-V への移植は各メーカーの SDK が提供しています。
+  - name: Zephyr
+    url: https://zephyrproject.org/
+    desc: デバイスツリーと Kconfig を採用しています。無線や多数のペリフェラルを持つプロジェクトに適し、upstream で保守されています。
+  - name: NuttX
+    url: https://nuttx.apache.org/
+    desc: Apache プロジェクトです。POSIX に沿った設計で、ファイルシステムとネットワークを伴う製品に適しています。
+  - name: OpenHarmony
+    url: https://www.openharmony.cn/
+    desc: 画面付き・接続機器向けの中国製 OS です。一部の RISC-V ボードがすでに対応しています。
+
+boards:
+  - name: CH32V003 シリーズ評価ボード
+    vendor: 沁恒
+    url: https://www.wch.cn/
+    desc: 低コストの入門ボードです。教育や GPIO/ADC の実験に適しています。
+  - name: GD32VF103C-START
+    vendor: 兆易创新
+    url: https://www.gigadevice.com.cn/
+    desc: 定番の RISC-V MCU 開発ボードです。資料とコミュニティのサンプルが豊富です。
+  - name: ESP32-C3-DevKitM-1
+    vendor: 乐鑫
+    url: https://www.espressif.com.cn/
+    desc: Wi-Fi と BLE に対応した RISC-V 開発ボードです。ESP-IDF のエコシステムが成熟しています。
+  - name: BL602 / BL616 開発ボード
+    vendor: 博流智能
+    url: https://www.bouffalolab.com/
+    desc: 低コストの Wi-Fi / BLE 向けです。接続機器の迅速な検証に適しています。
+  - name: VisionFive 2
+    vendor: 赛昉科技
+    url: https://www.starfivetech.com/
+    desc: クアッドコア RISC-V の Linux 開発ボードです。アプリケーションプロセッサやエッジ演算の検証に適しています。
+  - name: MUSE Pi / K1
+    vendor: 进迭时空
+    url: https://www.spacemit.com/
+    desc: 8 コア RISC-V と AI 演算を搭載した開発ボードです。エッジ AI 向けです。
+
+communities:
+  - name: RISC-V International
+    url: https://riscv.org/
+  - name: 中国 RISC-V 产业联盟
+    url: http://www.risc-v.org.cn/
+  - name: 中国开放指令生态联盟
+    url: https://crva.ict.ac.cn/
+  - name: 香山处理器
+    url: https://xiangshan.github.io/

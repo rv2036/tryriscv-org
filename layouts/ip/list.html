@@ -5,13 +5,13 @@
 {{- $vendors = $vendors | uniq -}}
 <section class="page-head">
   <div class="wrap">
-    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>IP 核</span></nav>
+    <nav class="breadcrumb" aria-label="breadcrumb"><a href="{{ site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a><span>/</span><span>{{ i18n "nav_ip" }}</span></nav>
     <h1>{{ .Title }}</h1>
     <div class="lede prose">{{ .Content }}</div>
     <div class="page-stats">
-      <span><b>{{ len $all }}</b> 个 IP 核</span>
-      <span><b>{{ len $vendors }}</b> 个 IP 品牌</span>
-      <span><b>{{ site.Params.updated }}</b> 数据快照</span>
+      <span><b>{{ len $all }}</b> {{ i18n "ip_count" }}</span>
+      <span><b>{{ len $vendors }}</b> {{ i18n "ip_brand_count" }}</span>
+      <span><b>{{ site.Params.updated }}</b> {{ i18n "page_stats_snapshot" }}</span>
     </div>
   </div>
 </section>
@@ -19,72 +19,72 @@
 <div class="wrap">
   <div class="catalog" id="ip-app" data-json="{{ "data/ips.json" | relURL }}" data-view="table">
     <div class="filter-scrim" id="filter-scrim"></div>
-    <aside class="filters" id="mcu-filters" aria-label="IP 筛选器">
+    <aside class="filters" id="mcu-filters" aria-label="{{ i18n "filter_aria" }}">
       <div class="filters-head">
-        <span class="filters-title">{{ partial "icon.html" (dict "name" "filter" "size" 16) }} 筛选</span>
+        <span class="filters-title">{{ partial "icon.html" (dict "name" "filter" "size" 16) }} {{ i18n "filter_title" }}</span>
         <div>
-          <button type="button" class="filters-clear" id="reset-filters">重置</button>
-          <button type="button" class="filters-close" id="close-filters" aria-label="关闭筛选">{{ partial "icon.html" (dict "name" "close" "size" 16) }}</button>
+          <button type="button" class="filters-clear" id="reset-filters">{{ i18n "filter_reset" }}</button>
+          <button type="button" class="filters-close" id="close-filters" aria-label="{{ i18n "filter_close" }}">{{ partial "icon.html" (dict "name" "close" "size" 16) }}</button>
         </div>
       </div>
-      <details class="fgroup" open><summary>IP 品牌 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="vendor"></div></details>
-      <details class="fgroup" open><summary>归属地 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="country"></div></details>
-      <details class="fgroup" open><summary>位宽 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="bits"></div></details>
-      <details class="fgroup" open><summary>特性 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="features"></div></details>
-      <details class="fgroup"><summary>授权模式 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="license"></div></details>
-      <details class="fgroup"><summary>成熟度 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="maturity"></div></details>
+      <details class="fgroup" open><summary>{{ i18n "filter_ip_brand" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="vendor"></div></details>
+      <details class="fgroup" open><summary>{{ i18n "table_country" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="country"></div></details>
+      <details class="fgroup" open><summary>{{ i18n "table_bits_isa" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="bits"></div></details>
+      <details class="fgroup" open><summary>{{ i18n "table_features" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="features"></div></details>
+      <details class="fgroup"><summary>{{ i18n "table_license" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="license"></div></details>
+      <details class="fgroup"><summary>{{ i18n "table_maturity" }} {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="maturity"></div></details>
       <details class="fgroup" open>
-        <summary>最高频率 (MHz) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <summary>{{ i18n "table_max_freq" }} (MHz) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
         <div class="fgroup-body">
           <div class="range-row">
-            <input type="number" inputmode="numeric" id="freq-min" placeholder="最低" aria-label="最低频率" min="0" max="5000">
+            <input type="number" inputmode="numeric" id="freq-min" placeholder="{{ i18n "filter_min" }}" aria-label="{{ i18n "filter_min" }}" min="0" max="5000">
             <span class="sep">—</span>
-            <input type="number" inputmode="numeric" id="freq-max" placeholder="最高" aria-label="最高频率" min="0" max="5000">
+            <input type="number" inputmode="numeric" id="freq-max" placeholder="{{ i18n "filter_max" }}" aria-label="{{ i18n "filter_max" }}" min="0" max="5000">
           </div>
-          <p class="range-hint">频率与工艺、实现相关，仅作量级参考</p>
+          <p class="range-hint">{{ i18n "filter_hint_ip_freq" }}</p>
         </div>
       </details>
     </aside>
 
     <div class="results">
       <div class="toolbar">
-        <button type="button" class="btn btn--outline btn--sm filter-open" id="open-filters">{{ partial "icon.html" (dict "name" "filter" "size" 15) }} 筛选</button>
+        <button type="button" class="btn btn--outline btn--sm filter-open" id="open-filters">{{ partial "icon.html" (dict "name" "filter" "size" 15) }} {{ i18n "filter_title" }}</button>
         <div class="search-field">
           {{ partial "icon.html" (dict "name" "search" "size" 16) }}
-          <input type="search" id="ip-search" placeholder="搜索 IP、厂商、指令集、代表芯片…" aria-label="搜索 IP">
+          <input type="search" id="ip-search" placeholder="{{ i18n "search_ip" }}" aria-label="{{ i18n "search_ip" }}">
         </div>
-        <select class="select" id="ip-sort" aria-label="排序方式">
-          <option value="recommended">推荐排序</option>
-          <option value="freq-desc">频率从高到低</option>
-          <option value="freq-asc">频率从低到高</option>
-          <option value="bits-desc">位宽 64 位优先</option>
-          <option value="name">名称排序</option>
+        <select class="select" id="ip-sort" aria-label="{{ i18n "sort_label" }}">
+          <option value="recommended">{{ i18n "sort_recommended" }}</option>
+          <option value="freq-desc">{{ i18n "sort_ip_freq_desc" }}</option>
+          <option value="freq-asc">{{ i18n "sort_ip_freq_asc" }}</option>
+          <option value="bits-desc">{{ i18n "sort_ip_bits_desc" }}</option>
+          <option value="name">{{ i18n "sort_ip_name" }}</option>
         </select>
       </div>
       <div class="active-filters" id="active-filters"></div>
-      <div class="toolbar-meta"><div class="result-count" id="result-count">加载中…</div></div>
+      <div class="toolbar-meta"><div class="result-count" id="result-count">{{ i18n "results_loading" }}</div></div>
 
       <div class="table-wrap mcu-table-wrap">
         <table class="data-table ip-table">
-          <colgroup><col style="width:190px"><col style="width:76px"><col style="width:112px"><col style="width:135px"><col style="width:74px"><col style="width:150px"><col style="width:74px"><col style="width:62px"></colgroup>
-          <thead><tr><th>IP 核 / 厂商</th><th>归属地</th><th>位宽 / ISA</th><th>流水线</th><th>最高频率</th><th>特性</th><th>授权</th><th>成熟度</th></tr></thead>
+          {{ if eq site.Language.Lang "zh" }}<colgroup><col style="width:160px"><col style="width:70px"><col style="width:105px"><col style="width:125px"><col style="width:74px"><col style="width:135px"><col style="width:72px"><col style="width:100px"></colgroup>{{ else }}<colgroup><col style="width:190px"><col style="width:80px"><col style="width:115px"><col style="width:90px"><col style="width:150px"><col style="width:90px"><col style="width:110px"></colgroup>{{ end }}
+          <thead><tr><th>{{ i18n "table_ip_name_vendor" }}</th><th>{{ i18n "table_country" }}</th><th>{{ i18n "table_bits_isa" }}</th>{{ if eq site.Language.Lang "zh" }}<th>{{ i18n "table_pipeline" }}</th>{{ end }}<th>{{ i18n "table_max_freq" }}</th><th>{{ i18n "table_features" }}</th><th>{{ i18n "table_license" }}</th><th>{{ i18n "table_maturity" }}</th></tr></thead>
           <tbody id="ip-tbody"></tbody>
         </table>
       </div>
       <div class="mcu-cards" id="ip-cards"></div>
       <div class="empty-state" id="ip-empty" hidden>
         {{ partial "icon.html" (dict "name" "search" "size" 34) }}
-        <h3>没有符合条件的 IP</h3>
-        <p>尝试放宽特性或频率条件。</p>
+        <h3>{{ i18n "results_none_ip_title" }}</h3>
+        <p>{{ i18n "results_none_ip_desc" }}</p>
       </div>
 
       <noscript>
         <div class="table-wrap" style="margin-top:20px">
           <table class="data-table">
-            <thead><tr><th>IP 核</th><th>厂商</th><th>位宽</th><th>ISA</th><th>最高频率</th><th>授权</th><th>成熟度</th></tr></thead>
+            <thead><tr><th>{{ i18n "table_ip_name_vendor" }}</th><th>{{ i18n "table_bits_isa" }}</th><th>{{ i18n "table_max_freq" }}</th><th>{{ i18n "table_license" }}</th><th>{{ i18n "table_maturity" }}</th></tr></thead>
             <tbody>
               {{ range $all }}
-              <tr><td><a class="model-link" href="{{ .url | relURL }}">{{ .name }}</a></td><td>{{ .vendor }}</td><td>{{ .bits }} 位</td><td>{{ .isa }}</td><td>{{ with .freq }}{{ . }} MHz{{ else }}未公开{{ end }}</td><td>{{ .license }}</td><td>{{ .maturity }}</td></tr>
+              <tr><td><a class="model-link" href="{{ printf "/ip/%s/" .id | relLangURL }}">{{ .name }}</a></td><td>{{ .bits }} {{ i18n "detail_bits" }} · {{ .isa }}</td><td>{{ with .freq }}{{ . }} MHz{{ else }}{{ i18n "detail_unknown" }}{{ end }}</td><td>{{ partial "license-label.html" .license }}</td><td>{{ partial "maturity-badge.html" .maturity }}</td></tr>
               {{ end }}
             </tbody>
           </table>

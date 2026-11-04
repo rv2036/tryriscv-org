@@ -3,43 +3,42 @@
 {{- $vendors := slice -}}
 {{- range $mcu }}{{ $vendors = $vendors | append .vendor }}{{ end -}}
 {{- $vendors = $vendors | uniq -}}
-
 <footer class="site-footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
-      <a class="brand brand--footer" href="{{ "/" | relURL }}">
+      <a class="brand brand--footer" href="{{ site.Home.RelPermalink }}">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 32 32" width="28" height="28" fill="none"><rect x="2" y="2" width="28" height="28" rx="8" fill="#1f4ed8"/><path d="M10 22V10h6.2c2.6 0 4.3 1.5 4.3 3.9 0 1.8-1 3.1-2.6 3.6l3.3 4.5h-3.4l-2.8-4.1h-2v4.1H10Zm3-6.6h2.8c1.3 0 2-.6 2-1.5s-.7-1.5-2-1.5H13v3Z" fill="#fff"/><path d="M23 10.5 27 14l-4 3.5v-7Z" fill="#5eead4"/></svg>
         </span>
         <span class="brand-text"><strong>tryriscv</strong><span>.org</span></span>
       </a>
-      <p>{{ site.Params.tagline }}。公开、可筛选、可追溯来源的 RISC-V 选型情报站。</p>
-      <p class="footer-note">非官方项目，与各芯片厂商无隶属关系。</p>
+      <p>{{ i18n "footer_tagline" }}</p>
+      <p class="footer-note">{{ i18n "footer_non_official" }}</p>
     </div>
-    <nav class="footer-col" aria-label="站点导航">
-      <h3>选型</h3>
-      <a href="{{ "/mcu/" | relURL }}">MCU 选型</a>
-      <a href="{{ "/ip/" | relURL }}">IP 核</a>
-      <a href="{{ "/solutions/" | relURL }}">解决方案</a>
-      <a href="{{ "/ai/" | relURL }}">AI 算力</a>
+    <nav class="footer-col" aria-label="{{ i18n "footer_select" }}">
+      <h3>{{ i18n "footer_select" }}</h3>
+      <a href="{{ "/mcu/" | relLangURL }}">{{ i18n "nav_mcu" }}</a>
+      <a href="{{ "/ip/" | relLangURL }}">{{ i18n "nav_ip" }}</a>
+      <a href="{{ "/solutions/" | relLangURL }}">{{ i18n "nav_solutions" }}</a>
+      <a href="{{ "/ai/" | relLangURL }}">{{ i18n "nav_ai" }}</a>
     </nav>
-    <nav class="footer-col" aria-label="关于与贡献">
-      <h3>关于</h3>
-      <a href="{{ "/about/" | relURL }}">关于本站</a>
-      <a href="{{ "/contribute/" | relURL }}">参与贡献</a>
-      <a href="{{ "/ecosystem/" | relURL }}">生态图谱</a>
-      <a href="{{ site.Params.github }}" target="_blank" rel="noopener">GitHub 仓库</a>
+    <nav class="footer-col" aria-label="{{ i18n "footer_about" }}">
+      <h3>{{ i18n "footer_about" }}</h3>
+      <a href="{{ "/about/" | relLangURL }}">{{ i18n "nav_about" }}</a>
+      <a href="{{ "/contribute/" | relLangURL }}">{{ i18n "footer_contribute" }}</a>
+      <a href="{{ "/ecosystem/" | relLangURL }}">{{ i18n "footer_ecosystem" }}</a>
+      <a href="{{ site.Params.github }}" target="_blank" rel="noopener">{{ i18n "footer_github" }}</a>
     </nav>
-    <nav class="footer-col" aria-label="反馈">
-      <h3>反馈</h3>
-      <a href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">我想选 / 提交需求</a>
-      <a href="{{ site.Params.issue_error }}" target="_blank" rel="noopener">提交数据错误</a>
-      <a href="{{ site.Params.issue_add }}" target="_blank" rel="noopener">推荐新器件</a>
-      <a href="{{ site.Params.issues }}" target="_blank" rel="noopener">全部 Issues</a>
+    <nav class="footer-col" aria-label="{{ i18n "footer_feedback" }}">
+      <h3>{{ i18n "footer_feedback" }}</h3>
+      <a href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">{{ i18n "footer_ask" }}</a>
+      <a href="{{ site.Params.issue_error }}" target="_blank" rel="noopener">{{ i18n "footer_report" }}</a>
+      <a href="{{ site.Params.issue_add }}" target="_blank" rel="noopener">{{ i18n "footer_new_device" }}</a>
+      <a href="{{ site.Params.issues }}" target="_blank" rel="noopener">{{ i18n "footer_issues" }}</a>
     </nav>
   </div>
   <div class="wrap footer-bottom">
-    <span>© {{ now.Year }} tryriscv.org · 数据 CC BY 4.0 · 代码 MIT</span>
-    <span>{{ len $mcu }} 款 MCU / {{ len $vendors }} 家厂商 / {{ len $ips }} 个 IP 核 · 更新于 {{ site.Params.updated }}</span>
+    <span>© {{ now.Year }} tryriscv.org · {{ i18n "footer_license" }}</span>
+    <span>{{ i18n "footer_counts" (dict "mcu" (len $mcu) "vendors" (len $vendors) "ips" (len $ips)) }} · {{ i18n "footer_updated" }} {{ site.Params.updated }}</span>
   </div>
 </footer>

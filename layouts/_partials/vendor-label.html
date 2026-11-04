@@ -1,0 +1,3 @@
+{{- $v := .vendor -}}
+{{- if ne site.Language.Lang "zh" -}}{{- with .vendor_en }}{{ return . }}{{ end -}}{{- end -}}
+{{- return $v -}}

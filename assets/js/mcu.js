@@ -6,27 +6,48 @@
   if (!app) return;
   var TR = window.TR;
   var esc = TR.esc;
+  var I18N = window.__TR_I18N__ || {};
+  var TXT = I18N.text || {};
+  var IS_ZH = I18N.isZh !== undefined ? I18N.isZh : (document.documentElement.lang || '').indexOf('zh') === 0;
+  function txt(k, fallback) { return TXT[k] || fallback; }
+  function fmt(str, vars) {
+    return String(str).replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; });
+  }
+  function statusLabel(s) { return (I18N.status && I18N.status[s]) || s || txt('statusUnknown', '—'); }
+  function maturityLabel(s) { return (I18N.maturity && I18N.maturity[s]) || s; }
+  function countryLabel(c) { return (I18N.country && I18N.country[c]) || c; }
+  function vendorName(p) { return (!IS_ZH && p.vendor_en) ? p.vendor_en : p.vendor; }
+  function brandName(b) { return (!IS_ZH && I18N.brand && I18N.brand[b]) ? I18N.brand[b] : b; }
+  var VENDOR_EN = {};
+  function vendorLabel(v) {
+    if (IS_ZH) return v;
+    if (!VENDOR_EN[v]) {
+      for (var i = 0; i < DATA.length; i++) { if (DATA[i].vendor === v) { VENDOR_EN[v] = DATA[i].vendor_en || v; break; } }
+    }
+    return VENDOR_EN[v] || v;
+  }
+  var LANG_PREFIX = (I18N.lang && I18N.lang !== 'zh') ? '/' + I18N.lang : '';
+  function urlFor(u) { return u && u.indexOf('/') === 0 ? LANG_PREFIX + u : u; }
 
   var PERI_ORDER = ['uart', 'spi', 'i2c', 'can', 'usb_fs', 'usb_hs', 'eth', 'ble', 'wifi', 'i2s', 'sdio', 'lcd', 'cam', 'iso7816', 'opamp', 'comp', 'touch', 'dma_ch'];
   var PERI_LABEL = {
     uart: 'UART', spi: 'SPI', i2c: 'I²C', can: 'CAN', usb_fs: 'USB FS', usb_hs: 'USB HS',
-    eth: '以太网', ble: 'BLE', wifi: 'Wi-Fi', i2s: 'I²S', sdio: 'SDIO', lcd: 'LCD',
-    cam: 'CAM', iso7816: 'ISO7816', opamp: '运放', comp: '比较器', touch: '触摸', dma_ch: 'DMA'
+    eth: txt('periEth', 'Ethernet'), ble: 'BLE', wifi: 'Wi-Fi', i2s: 'I²S', sdio: 'SDIO', lcd: 'LCD',
+    cam: 'CAM', iso7816: 'ISO7816', opamp: txt('periOpamp', 'Op-amp'), comp: txt('periComp', 'Comparator'), touch: txt('periTouch', 'Touch'), dma_ch: txt('periDma', 'DMA')
   };
-  var COUNTRY = { CN: '中国大陆', TW: '中国台湾', US: '美国', EU: '欧洲', JP: '日本', other: '其他/未披露' };
   var STATUS_ORDER = ['量产', '送样', '预告', '停产'];
   var PAGE_SIZE = 30;
 
   var VOLT_OPTS = [
-    { value: 'wide', label: '5V 宽压（≥4.5V）', test: function (p) { return p.voltage && p.voltage[1] >= 4.5; } },
-    { value: 'v33', label: '3.3V 典型（≤3.6V）', test: function (p) { return p.voltage && p.voltage[1] <= 3.6; } },
-    { value: 'low18', label: '1.8V 低压（最低 ≤1.8V）', test: function (p) { return p.voltage && p.voltage[0] <= 1.8; } }
+    { value: 'wide', label: txt('voltWide', '5V wide (≥4.5V)'), test: function (p) { return p.voltage && p.voltage[1] >= 4.5; } },
+    { value: 'v33', label: txt('voltV33', '3.3V typical (≤3.6V)'), test: function (p) { return p.voltage && p.voltage[1] <= 3.6; } },
+    { value: 'low18', label: txt('voltLow18', '1.8V low (min ≤1.8V)'), test: function (p) { return p.voltage && p.voltage[0] <= 1.8; } }
   ];
   var ADC_OPTS = [
-    { value: 0, label: '不限' }, { value: 10, label: '≥ 10 位' }, { value: 12, label: '≥ 12 位' }, { value: 16, label: '≥ 16 位' }
+    { value: 0, label: txt('adcAny', 'Any') }, { value: 10, label: txt('adcGe10', '≥ 10 bit') }, { value: 12, label: txt('adcGe12', '≥ 12 bit') }, { value: 16, label: txt('adcGe16', '≥ 16 bit') }
   ];
   var TEMP_OPTS = [
-    { value: 0, label: '不限' }, { value: 85, label: '≥ 85 ℃（工业级）' }, { value: 105, label: '≥ 105 ℃' }, { value: 125, label: '≥ 125 ℃（车规/宽温）' }
+    { value: 0, label: txt('tempAny', 'Any') }, { value: 85, label: txt('tempGe85', '≥ 85 ℃') }, { value: 105, label: txt('tempGe105', '≥ 105 ℃') }, { value: 125, label: txt('tempGe125', '≥ 125 ℃') }
   ];
 
   var state, DATA = [], defs = {}, limit = PAGE_SIZE, pendingCompare = [];
@@ -124,9 +145,9 @@
   }
 
   function buildFacets() {
-    defs.vendor = tally(DATA, function (p) { return valuesFor('vendor', p); });
-    defs.ip = tally(DATA, function (p) { return valuesFor('ip', p); });
-    defs.ipc = tally(DATA, function (p) { return valuesFor('ipc', p); }, function (v) { return COUNTRY[v] || v; });
+    defs.vendor = tally(DATA, function (p) { return valuesFor('vendor', p); }, vendorLabel);
+    defs.ip = tally(DATA, function (p) { return valuesFor('ip', p); }, brandName);
+    defs.ipc = tally(DATA, function (p) { return valuesFor('ipc', p); }, function (v) { return countryLabel(v); });
     defs.isa = tally(DATA, function (p) { return valuesFor('isa', p); }).sort(function (a, b) {
       return String(a.label).localeCompare(String(b.label), 'en');
     });
@@ -137,7 +158,7 @@
     defs.eco = tally(DATA, function (p) { return valuesFor('eco', p); });
     defs.status = STATUS_ORDER.filter(function (s) {
       return DATA.some(function (p) { return p.status === s; });
-    }).map(function (s) { return { value: s, label: s, count: 0 }; });
+    }).map(function (s) { return { value: s, label: statusLabel(s), count: 0 }; });
   }
 
   function renderCheckFacet(key, options) {
@@ -325,12 +346,12 @@
   /* ---------- formatting ---------- */
   function mem(kb) {
     if (kb == null) return '—';
-    if (kb === 0) return '无';
-    if (kb >= 1024) return (kb / 1024).toFixed(kb % 1024 === 0 ? 0 : 1) + ' MB';
-    return kb + ' KB';
+    if (kb === 0) return txt('none', '—');
+    if (kb >= 1024) return (kb / 1024).toFixed(kb % 1024 === 0 ? 0 : 1) + txt('memMb', ' MB');
+    return kb + txt('memKb', ' KB');
   }
   function price(p) {
-    if (p.price_cny == null) return '询价';
+    if (p.price_cny == null) return txt('inquire', '—');
     var v = Number(p.price_cny);
     var s = v < 1 ? v.toFixed(3) : v.toFixed(2);
     return '¥' + s.replace(/0+$/, '').replace(/\.$/, '');
@@ -368,41 +389,41 @@
 
   function rowHtml(p) {
     var url = p.url;
-    var run = p.power && p.power.run != null ? p.power.run + ' µA/MHz' : '—';
-    var sleep = p.power && p.power.sleep != null ? '<span class="sleep">休眠 ' + p.power.sleep + ' µA</span>' : '';
+    var run = p.power && p.power.run != null ? p.power.run + txt('runSuffix', ' µA/MHz') : '—';
+    var sleep = p.power && p.power.sleep != null ? '<span class="sleep">' + txt('sleepPrefix', 'Sleep ') + p.power.sleep + txt('sleepSuffix', ' µA') + '</span>' : '';
     var checked = TR.readCompare().indexOf(p.id) !== -1;
     return '<tr data-id="' + esc(p.id) + '">' +
-      '<td><input type="checkbox" class="cmp-check" data-id="' + esc(p.id) + '" aria-label="对比 ' + esc(p.name) + '"' + (checked ? ' checked' : '') + '></td>' +
-      '<td><a class="model-link" href="' + esc(url) + '">' + esc(p.name) + '</a><span class="sub-line">' + esc(p.vendor) + ' · <span class="' + badgeClass(p.status) + '">' + esc(p.status || '未知') + '</span></span></td>' +
-      '<td class="ip-cell">' + esc(p.ip_vendor) + '<span class="sub-line">' + esc(p.core) + ' · ' + esc(p.isa) + '</span></td>' +
+      '<td><input type="checkbox" class="cmp-check" data-id="' + esc(p.id) + '" aria-label="' + esc(txt('compareOpen', 'Compare')) + ' ' + esc(p.name) + '"' + (checked ? ' checked' : '') + '></td>' +
+      '<td><a class="model-link" href="' + esc(urlFor(url)) + '">' + esc(p.name) + '</a><span class="sub-line">' + esc(vendorName(p)) + ' · <span class="' + badgeClass(p.status) + '">' + esc(statusLabel(p.status)) + '</span></span></td>' +
+      '<td class="ip-cell">' + esc(brandName(p.ip_vendor)) + '<span class="sub-line">' + esc(p.core) + ' · ' + esc(p.isa) + '</span></td>' +
       '<td class="num">' + p.freq + ' MHz</td>' +
       '<td class="num">' + mem(p.sram) + '</td>' +
       '<td class="num">' + mem(p.flash) + '</td>' +
       '<td class="num power-cell"><span class="run">' + run + '</span>' + sleep + '</td>' +
       '<td><div class="periph-text">' + periphText(p, 3) + '</div></td>' +
-      '<td class="num">' + price(p) + (p.price_cny != null ? '<span class="sub-line">1k 参考</span>' : '') + '</td>' +
+      '<td class="num">' + price(p) + (p.price_cny != null ? '<span class="sub-line">' + esc(txt('priceK', '1k ref')) + '</span>' : '') + '</td>' +
       '</tr>';
   }
 
   function cardHtml(p) {
     var url = p.url;
     var checked = TR.readCompare().indexOf(p.id) !== -1;
-    var run = p.power && p.power.run != null ? p.power.run + ' µA/MHz' : '功耗未公开';
-    var sleep = p.power && p.power.sleep != null ? ' · 休眠 ' + p.power.sleep + ' µA' : '';
+    var run = p.power && p.power.run != null ? p.power.run + txt('runSuffix', ' µA/MHz') : txt('powerUnknown', '—');
+    var sleep = p.power && p.power.sleep != null ? ' · ' + txt('sleepPrefix', 'Sleep ') + p.power.sleep + txt('sleepSuffix', ' µA') : '';
     var pkg = (p.packages || [])[0] || '—';
     return '<article class="mcu-card" data-id="' + esc(p.id) + '">' +
       '<div class="mcu-card-head">' +
-      '<input type="checkbox" class="cmp-check" data-id="' + esc(p.id) + '" aria-label="对比 ' + esc(p.name) + '"' + (checked ? ' checked' : '') + '>' +
-      '<div><h3 class="mcu-card-title"><a href="' + esc(url) + '">' + esc(p.name) + '</a></h3>' +
-      '<div class="mcu-card-sub">' + esc(p.vendor) + ' · ' + esc(p.ip_vendor) + ' ' + esc(p.core) + '</div></div>' +
-      '<div class="mcu-card-badges"><span class="' + badgeClass(p.status) + '">' + esc(p.status || '未知') + '</span></div>' +
+      '<input type="checkbox" class="cmp-check" data-id="' + esc(p.id) + '" aria-label="' + esc(txt('compareOpen', 'Compare')) + ' ' + esc(p.name) + '"' + (checked ? ' checked' : '') + '>' +
+      '<div><h3 class="mcu-card-title"><a href="' + esc(urlFor(url)) + '">' + esc(p.name) + '</a></h3>' +
+      '<div class="mcu-card-sub">' + esc(vendorName(p)) + ' · ' + esc(brandName(p.ip_vendor)) + ' ' + esc(p.core) + '</div></div>' +
+      '<div class="mcu-card-badges"><span class="' + badgeClass(p.status) + '">' + esc(statusLabel(p.status)) + '</span></div>' +
       '</div>' +
       '<dl class="mcu-card-specs">' +
-      '<div><dt>主频</dt><dd>' + p.freq + ' <small>MHz</small></dd></div>' +
+      '<div><dt>' + esc(txt('chipFreq', 'Freq')) + '</dt><dd>' + p.freq + ' <small>MHz</small></dd></div>' +
       '<div><dt>SRAM</dt><dd>' + mem(p.sram) + '</dd></div>' +
       '<div><dt>Flash</dt><dd>' + mem(p.flash) + '</dd></div>' +
       '</dl>' +
-      '<div class="small muted">' + run + sleep + ' · ' + (p.voltage ? p.voltage[0] + '–' + p.voltage[1] + 'V' : '电压未公开') + '</div>' +
+      '<div class="small muted">' + run + sleep + ' · ' + (p.voltage ? p.voltage[0] + '–' + p.voltage[1] + 'V' : txt('voltageUnknown', '—')) + '</div>' +
       '<div class="periph-cell" style="margin-top:8px">' + periphTags(p, 4) + '</div>' +
       '<div class="mcu-card-foot"><span>' + esc(pkg) + '</span><span class="price">' + price(p) + '</span></div>' +
       '</article>';
@@ -452,25 +473,29 @@
     ['vendor', 'ip', 'ipc', 'isa', 'peri', 'pkg', 'volt', 'eco', 'status'].forEach(function (key) {
       state[key].forEach(function (v) {
         var label = v;
-        if (key === 'ipc') label = COUNTRY[v] || v;
+        if (key === 'ipc') label = countryLabel(v);
+        if (key === 'vendor') label = vendorLabel(v);
+        if (key === 'ip') label = brandName(v);
         if (key === 'peri') label = PERI_LABEL[v] || v;
+        if (key === 'status') label = statusLabel(v);
         if (key === 'volt') {
           var o = VOLT_OPTS.filter(function (x) { return x.value === v; })[0];
           label = o ? o.label : v;
         }
-        add((key === 'vendor' ? '厂商：' : key === 'ip' ? 'IP：' : key === 'ipc' ? '归属地：' : key === 'isa' ? 'ISA：' : key === 'peri' ? '外设：' : key === 'pkg' ? '封装：' : key === 'volt' ? '电压：' : key === 'eco' ? '生态：' : '状态：') + label, function () { state[key].delete(v); });
+        var prefix = { vendor: txt('chipVendor', 'Vendor: '), ip: txt('chipIp', 'IP: '), ipc: txt('chipCountry', 'Country: '), isa: 'ISA: ', peri: txt('chipPeri', 'Peripheral: '), pkg: txt('chipPkg', 'Package: '), volt: txt('chipVolt', 'Voltage: '), eco: txt('chipEco', 'Ecosystem: '), status: txt('chipStatus', 'Status: ') }[key] || '';
+        add(prefix + label, function () { state[key].delete(v); });
       });
     });
-    [['freq', '主频', 'MHz'], ['sram', 'SRAM', 'KB'], ['flash', 'Flash', 'KB'], ['run', '动态功耗', 'µA/MHz'], ['sleep', '休眠', 'µA'], ['standby', '待机', 'µA']].forEach(function (it) {
+    [['freq', txt('chipFreq', 'Freq'), 'MHz'], ['sram', 'SRAM', 'KB'], ['flash', 'Flash', 'KB'], ['run', txt('chipRun', 'Active'), 'µA/MHz'], ['sleep', txt('chipSleep', 'Sleep'), 'µA'], ['standby', txt('chipStandby', 'Standby'), 'µA']].forEach(function (it) {
       var r = state[it[0]];
       if (r[0] != null || r[1] != null) {
         var label = r[0] != null && r[1] != null ? it[1] + ' ' + r[0] + '–' + r[1] + ' ' + it[2] : r[0] != null ? it[1] + ' ≥ ' + r[0] + ' ' + it[2] : it[1] + ' ≤ ' + r[1] + ' ' + it[2];
         add(label, function () { state[it[0]] = [null, null]; });
       }
     });
-    if (state.adc) add('ADC ≥ ' + state.adc + ' 位', function () { state.adc = 0; });
-    if (state.temp) add('温度 ≥ ' + state.temp + ' ℃', function () { state.temp = 0; });
-    if (state.hasPower) add('有功耗数据', function () { state.hasPower = false; });
+    if (state.adc) add(fmt(txt('chipAdc', 'ADC ≥ {n} bit'), { n: state.adc }), function () { state.adc = 0; });
+    if (state.temp) add(fmt(txt('chipTemp', 'Temp ≥ {n} ℃'), { n: state.temp }), function () { state.temp = 0; });
+    if (state.hasPower) add(txt('chipHasPower', 'Has power data'), function () { state.hasPower = false; });
     return chips;
   }
 
@@ -480,7 +505,7 @@
     var chips = activeChips();
     box.innerHTML = chips.map(function (c, i) {
       return '<button type="button" class="chip" data-chip="' + i + '">' + esc(c.label) + ' ' + '<span aria-hidden="true">×</span></button>';
-    }).join('') + (chips.length ? '<button type="button" class="chip chip--clear" id="clear-all-chips">清空全部</button>' : '');
+    }).join('') + (chips.length ? '<button type="button" class="chip chip--clear" id="clear-all-chips">' + esc(txt('clearAll', 'Clear all')) + '</button>' : '');
     box.querySelectorAll('[data-chip]').forEach(function (btn) {
       btn.addEventListener('click', function () {
         chips[Number(btn.getAttribute('data-chip'))].remove();
@@ -510,8 +535,9 @@
     if (load) load.hidden = parts.length <= limit;
     var count = document.getElementById('result-count');
     if (count) {
-      count.innerHTML = '共 <b>' + parts.length + '</b> 款符合条件' + (parts.length > visible.length ? '，已显示 ' + visible.length : '') +
-        '（全库 ' + DATA.length + ' 款）';
+      var line = fmt(txt('resultCount', '{count}'), { count: '<b>' + parts.length + '</b>', total: DATA.length });
+      if (parts.length > visible.length) line += fmt(txt('shown', ' (showing {shown})'), { shown: visible.length });
+      count.innerHTML = line;
     }
     updateCompareBar();
   }
@@ -551,7 +577,7 @@
     if (slots) {
       slots.innerHTML = ids.map(function (id) {
         var p = partById(id);
-        return '<span class="compare-slot">' + esc(p.name) + '<button type="button" data-remove-compare="' + esc(id) + '" aria-label="移除 ' + esc(p.name) + '">×</button></span>';
+        return '<span class="compare-slot">' + esc(p.name) + '<button type="button" data-remove-compare="' + esc(id) + '" aria-label="' + esc(txt('compareRemove', 'Remove')) + ' ' + esc(p.name) + '">×</button></span>';
       }).join('');
     }
     if (open) open.disabled = ids.length < 2;
@@ -575,34 +601,34 @@
 
   function compareRows() {
     return [
-      { label: '厂商', get: function (p) { return p.vendor; } },
-      { label: 'IP 核', get: function (p) { return p.ip_vendor + ' · ' + p.core; } },
-      { label: '指令集', get: function (p) { return p.isa; } },
-      { label: '最高主频', get: function (p) { return p.freq + ' MHz'; }, key: 'freq', better: 'max' },
+      { label: txt('detail_vendor', 'Vendor'), get: function (p) { return vendorName(p); } },
+      { label: txt('table_ip_core', 'IP core'), get: function (p) { return brandName(p.ip_vendor) + ' · ' + p.core; } },
+      { label: txt('compareIsa', 'ISA'), get: function (p) { return p.isa; } },
+      { label: txt('detail_max_freq', 'Max frequency'), get: function (p) { return p.freq + ' MHz'; }, key: 'freq', better: 'max' },
       { label: 'SRAM', get: function (p) { return mem(p.sram); }, key: 'sram', better: 'max' },
       { label: 'Flash', get: function (p) { return mem(p.flash); }, key: 'flash', better: 'max' },
-      { label: '动态功耗', get: function (p) { return p.power && p.power.run != null ? p.power.run + ' µA/MHz' : '—'; }, key: 'run', better: 'min' },
-      { label: '休眠电流', get: function (p) { return p.power && p.power.sleep != null ? p.power.sleep + ' µA' : '—'; }, key: 'sleep', better: 'min' },
-      { label: '供电电压', get: function (p) { return p.voltage ? p.voltage[0] + '–' + p.voltage[1] + ' V' : '—'; } },
-      { label: 'ADC', get: function (p) { return p.peripherals && p.peripherals.adc_bits ? p.peripherals.adc_bits + ' 位 / ' + (p.peripherals.adc_ch || 0) + ' 通道' : '—'; }, key: 'adc', better: 'max' },
-      { label: '外设', get: function (p) { return PERI_ORDER.filter(function (k) { return p.peripherals && p.peripherals[k] > 0; }).map(function (k) { return PERI_LABEL[k]; }).join('、') || '—'; } },
-      { label: '封装', get: function (p) { return (p.packages || []).join('、') || '—'; } },
-      { label: '温度', get: function (p) { return p.temp_min + ' ~ ' + p.temp_max + ' ℃'; } },
-      { label: '安全', get: function (p) { return (p.security || []).join('、') || '—'; } },
-      { label: '生态', get: function (p) { return (p.ecosystem || []).join('、') || '—'; } },
-      { label: '状态', get: function (p) { return p.status || '—'; } },
-      { label: '参考价', get: function (p) { return price(p) + (p.price_note ? '（' + p.price_note + '）' : ''); }, key: 'price', better: 'min' },
-      { label: '数据来源', get: function (p) { return '<a href="' + esc(p.url) + '">详情页</a> · ' + (p.sources || []).length + ' 个来源'; } }
+      { label: txt('detail_run_current', 'Active current'), get: function (p) { return p.power && p.power.run != null ? p.power.run + ' µA/MHz' : '—'; }, key: 'run', better: 'min' },
+      { label: txt('detail_sleep_current', 'Sleep current'), get: function (p) { return p.power && p.power.sleep != null ? p.power.sleep + ' µA' : '—'; }, key: 'sleep', better: 'min' },
+      { label: txt('detail_voltage', 'Voltage'), get: function (p) { return p.voltage ? p.voltage[0] + '–' + p.voltage[1] + ' V' : '—'; } },
+      { label: 'ADC', get: function (p) { return p.peripherals && p.peripherals.adc_bits ? p.peripherals.adc_bits + ' ' + txt('detail_bits', 'bit') + ' / ' + (p.peripherals.adc_ch || 0) + ' ' + txt('detail_channels', 'ch') : '—'; }, key: 'adc', better: 'max' },
+      { label: txt('table_periph', 'Peripherals'), get: function (p) { return PERI_ORDER.filter(function (k) { return p.peripherals && p.peripherals[k] > 0; }).map(function (k) { return PERI_LABEL[k]; }).join(', ') || '—'; } },
+      { label: txt('table_package', 'Package'), get: function (p) { return (p.packages || []).join(', ') || '—'; } },
+      { label: txt('detail_temp', 'Temperature'), get: function (p) { return p.temp_min + ' ~ ' + p.temp_max + ' ℃'; } },
+      { label: txt('compareSecurity', 'Security'), get: function (p) { return (p.security || []).join(', ') || '—'; } },
+      { label: txt('compareEco', 'Ecosystem'), get: function (p) { return (p.ecosystem || []).join(', ') || '—'; } },
+      { label: txt('table_status', 'Status'), get: function (p) { return statusLabel(p.status); } },
+      { label: txt('table_price', 'Price'), get: function (p) { return price(p) + (p.price_note ? ' (' + p.price_note + ')' : ''); }, key: 'price', better: 'min' },
+      { label: txt('compareSources', 'Sources'), get: function (p) { return '<a href="' + esc(urlFor(p.url)) + '">' + esc(txt('compareDetails', 'Details')) + '</a> · ' + esc(txt('compareSources', 'Sources')) + ': ' + (p.sources || []).length; } }
     ];
   }
 
   function openCompare() {
     var ids = TR.readCompare().filter(function (id) { return partById(id); });
-    if (ids.length < 2) { TR.toast('至少选择 2 款才能对比'); return; }
+    if (ids.length < 2) { TR.toast(txt('compareNeed', 'Select at least 2 parts to compare')); return; }
     var parts = ids.map(partById);
     var rows = compareRows();
-    var html = '<table class="compare-table"><thead><tr><th>参数</th>' + parts.map(function (p) {
-      return '<th><a href="' + esc(p.url) + '">' + esc(p.name) + '</a><br><span class="sub-line">' + esc(p.vendor) + '</span></th>';
+    var html = '<table class="compare-table"><thead><tr><th>' + esc(txt('compareParam', 'Parameter')) + '</th>' + parts.map(function (p) {
+      return '<th><a href="' + esc(urlFor(p.url)) + '">' + esc(p.name) + '</a><br><span class="sub-line">' + esc(p.vendor) + '</span></th>';
     }).join('') + '</tr></thead><tbody>';
     rows.forEach(function (row) {
       var bestVal = null;
@@ -681,7 +707,7 @@
       var id = cb.getAttribute('data-id');
       if (cb.checked) {
         var res = TR.addCompare(id);
-        if (!res.ok) { cb.checked = false; TR.toast('最多同时对比 4 款，请先移除一款'); }
+        if (!res.ok) { cb.checked = false; TR.toast(txt('compareMax', 'You can compare up to 4 parts')); }
       } else {
         TR.removeCompare(id);
       }
@@ -744,11 +770,11 @@
 
   function fail(err) {
     var count = document.getElementById('result-count');
-    if (count) count.innerHTML = '数据加载失败，请刷新重试。';
+    if (count) count.innerHTML = esc(txt('loadError', 'Failed to load data. Please refresh.'));
     var empty = document.getElementById('mcu-empty');
     if (empty) {
       empty.hidden = false;
-      empty.innerHTML = '<h3>数据加载失败</h3><p>无法读取筛选数据，请刷新页面；若持续失败，请在 GitHub Issues 反馈。</p>';
+      empty.innerHTML = '<h3>' + esc(txt('loadErrorTitle', 'Failed to load data')) + '</h3><p>' + esc(txt('loadErrorDesc', 'Please refresh the page.')) + '</p>';
     }
     if (window.console) console.error(err);
   }

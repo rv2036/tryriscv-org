@@ -1,32 +1,33 @@
 {{ define "main" }}
 {{- $ip := partial "find-ip.html" (dict "id" .Params.pid) -}}
-{{- if not $ip }}<div class="wrap" style="padding:60px 0"><h1>未找到该 IP</h1><p><a href="{{ "/ip/" | relURL }}">返回 IP 目录</a></p></div>{{ else }}
+{{- if not $ip }}<div class="wrap" style="padding:60px 0"><h1>{{ i18n "detail_not_found" }}</h1><p><a href="{{ "/ip/" | relLangURL }}">{{ i18n "nav_ip" }}</a></p></div>{{ else }}
+{{- $vendor := partial "vendor-label.html" (dict "vendor" $ip.vendor "vendor_en" $ip.vendor_en) -}}
 <section class="detail-head">
   <div class="wrap">
-    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><a href="{{ "/ip/" | relURL }}">IP 核</a><span>/</span><span>{{ $ip.name }}</span></nav>
+    <nav class="breadcrumb" aria-label="breadcrumb"><a href="{{ site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a><span>/</span><a href="{{ "/ip/" | relLangURL }}">{{ i18n "nav_ip" }}</a><span>/</span><span>{{ $ip.name }}</span></nav>
     <div class="detail-title-row">
       <div>
         <h1 class="detail-title">{{ $ip.name }}</h1>
-        <p class="detail-sub">{{ $ip.vendor }}{{ with $ip.vendor_en }}（{{ . }}）{{ end }} · {{ $ip.family }}</p>
+        <p class="detail-sub">{{ $vendor }}{{ if eq site.Language.Lang "zh" }}{{ with $ip.vendor_en }}（{{ . }}）{{ end }}{{ end }} · {{ $ip.family }}</p>
         <div class="detail-badges">
-          <span class="badge badge--blue">{{ $ip.bits }} 位</span>
-          <span class="badge badge--green">{{ $ip.maturity }}</span>
-          <span class="badge badge--outline">{{ $ip.license }}</span>
-          {{ range $ip.features }}<span class="tag">{{ . }}</span>{{ end }}
+          <span class="badge badge--blue">{{ $ip.bits }} {{ i18n "detail_bits" }}</span>
+          {{ partial "maturity-badge.html" $ip.maturity }}
+          <span class="badge badge--outline">{{ partial "license-label.html" $ip.license }}</span>
+          {{ range $ip.features }}<span class="tag">{{ partial "feature-label.html" . }}</span>{{ end }}
         </div>
       </div>
       <div class="detail-actions">
-        {{ if gt $ip.brand_mcu_count 0 }}<a class="btn btn--primary" href="{{ printf "/mcu/?ip=%s" (urlquery $ip.vendor) | relURL }}">查看该 IP 品牌的 {{ $ip.brand_mcu_count }} 款 MCU</a>{{ else }}<a class="btn btn--primary" href="{{ "/mcu/" | relURL }}">去 MCU 选型</a>{{ end }}
-        <a class="btn btn--outline" href="{{ site.Params.issue_error }}&title=%5B%E6%95%B0%E6%8D%AE%E7%BA%A0%E9%94%99%5D%20{{ $ip.name }}" target="_blank" rel="noopener">报错</a>
+        {{ if gt $ip.brand_mcu_count 0 }}<a class="btn btn--primary" href="{{ printf "%s?ip=%s" ("/mcu/" | relLangURL) (urlquery $ip.vendor) | safeURL }}">{{ i18n "detail_brand_mcu_link" (dict "count" $ip.brand_mcu_count) }}</a>{{ else }}<a class="btn btn--primary" href="{{ "/mcu/" | relLangURL }}">{{ i18n "detail_go_mcu" }}</a>{{ end }}
+        <a class="btn btn--outline" href="{{ site.Params.issue_error }}&title=%5Bdata%5D%20{{ $ip.name }}" target="_blank" rel="noopener">{{ i18n "detail_report" }}</a>
       </div>
     </div>
     <div class="key-specs">
-      <div class="key-spec"><div class="k">位宽</div><div class="v">{{ $ip.bits }}<small>bit</small></div></div>
-      <div class="key-spec"><div class="k">最高频率</div><div class="v">{{ with $ip.freq }}{{ . }}<small>MHz</small>{{ else }}<span style="font-size:14px">未公开</span>{{ end }}</div></div>
-      <div class="key-spec"><div class="k">流水线</div><div class="v" style="font-size:15px">{{ $ip.pipeline }}</div></div>
+      <div class="key-spec"><div class="k">{{ i18n "ip_bits" }}</div><div class="v">{{ $ip.bits }}<small>{{ i18n "detail_bits" }}</small></div></div>
+      <div class="key-spec"><div class="k">{{ i18n "ip_max_freq" }}</div><div class="v">{{ with $ip.freq }}{{ . }}<small>MHz</small>{{ else }}<span style="font-size:14px">{{ i18n "detail_unknown" }}</span>{{ end }}</div></div>
+      <div class="key-spec"><div class="k">{{ i18n "table_pipeline" }}</div><div class="v" style="font-size:15px">{{ $ip.pipeline }}</div></div>
       <div class="key-spec"><div class="k">CoreMark/MHz</div><div class="v">{{ $ip.coremark_mhz | default "—" }}</div></div>
-      <div class="key-spec"><div class="k">授权</div><div class="v" style="font-size:15px">{{ $ip.license }}</div></div>
-      <div class="key-spec"><div class="k">成熟度</div><div class="v" style="font-size:15px">{{ $ip.maturity }}</div></div>
+      <div class="key-spec"><div class="k">{{ i18n "table_license" }}</div><div class="v" style="font-size:15px">{{ partial "license-label.html" $ip.license }}</div></div>
+      <div class="key-spec"><div class="k">{{ i18n "table_maturity" }}</div><div class="v" style="font-size:15px">{{ partial "maturity-badge.html" $ip.maturity }}</div></div>
     </div>
   </div>
 </section>
@@ -34,33 +35,32 @@
   <div class="detail-grid">
     <div>
       <section class="spec-section">
-        <h2>{{ partial "icon.html" (dict "name" "ip" "size" 18) }} 架构与指令集</h2>
+        <h2>{{ partial "icon.html" (dict "name" "ip" "size" 18) }} {{ i18n "detail_ip_arch" }}</h2>
         <table class="spec-table">
           <tbody>
-            <tr><th>厂商 / 归属地</th><td>{{ $ip.vendor }}（{{ partial "country.html" $ip.country }}）</td></tr>
-            <tr><th>指令集</th><td class="mono">{{ $ip.isa }}</td></tr>
-            <tr><th>位宽</th><td>{{ $ip.bits }} 位</td></tr>
-            <tr><th>流水线</th><td>{{ $ip.pipeline }}</td></tr>
-            <tr><th>特性</th><td>{{ delimit $ip.features " / " }}</td></tr>
-            <tr><th>最高频率</th><td>{{ with $ip.freq }}{{ . }} MHz（与工艺、实现相关）{{ else }}官方未公开，随工艺库与实现变化{{ end }}</td></tr>
+            <tr><th>{{ i18n "detail_vendor" }} / {{ i18n "table_country" }}</th><td>{{ $vendor }}（{{ partial "country.html" $ip.country }}）</td></tr>
+            <tr><th>{{ i18n "table_bits_isa" }}</th><td class="mono">{{ $ip.bits }} {{ i18n "detail_bits" }} · {{ $ip.isa }}</td></tr>
+            <tr><th>{{ i18n "table_pipeline" }}</th><td>{{ $ip.pipeline }}{{ if ne site.Language.Lang "zh" }} <span class="badge badge--outline">{{ i18n "detail_source_zh_note" }}</span>{{ end }}</td></tr>
+            <tr><th>{{ i18n "table_features" }}</th><td>{{ range $ip.features }}{{ partial "feature-label.html" . }} {{ end }}</td></tr>
+            <tr><th>{{ i18n "ip_max_freq" }}</th><td>{{ with $ip.freq }}{{ . }} MHz（{{ i18n "filter_hint_ip_freq" }}）{{ else }}{{ i18n "detail_unknown" }}{{ end }}</td></tr>
           </tbody>
         </table>
       </section>
       <section class="spec-section">
-        <h2>{{ partial "icon.html" (dict "name" "layers" "size" 18) }} 生态与工具链</h2>
+        <h2>{{ partial "icon.html" (dict "name" "layers" "size" 18) }} {{ i18n "detail_ip_eco" }}</h2>
         <table class="spec-table">
           <tbody>
-            <tr><th>工具链</th><td>{{ delimit $ip.toolchain " / " | default "—" }}</td></tr>
-            <tr><th>操作系统</th><td>{{ delimit $ip.os " / " | default "—" }}</td></tr>
-            <tr><th>代表芯片</th><td>{{ delimit $ip.silicon " / " | default "—" }}</td></tr>
-            <tr><th>本站收录该品牌 MCU</th><td>{{ $ip.brand_mcu_count }} 款（不代表均采用此核）</td></tr>
+            <tr><th>{{ i18n "detail_ip_toolchain" }}</th><td>{{ delimit $ip.toolchain " / " | default "—" }}</td></tr>
+            <tr><th>{{ i18n "detail_ip_os" }}</th><td>{{ delimit $ip.os " / " | default "—" }}</td></tr>
+            <tr><th>{{ i18n "detail_ip_silicon" }}</th><td>{{ delimit $ip.silicon " / " | default "—" }}</td></tr>
+            <tr><th>{{ i18n "detail_ip_brand_mcu" }}</th><td>{{ $ip.brand_mcu_count }} MCU {{ i18n "detail_brand_mcu_count_note" }}</td></tr>
           </tbody>
         </table>
       </section>
       <section class="spec-section">
-        <h2>{{ partial "icon.html" (dict "name" "book" "size" 18) }} 来源与说明</h2>
-        {{ with $ip.notes }}<p style="font-size:13.5px">{{ . }}</p>{{ end }}
-        <p class="small muted">最后校验 {{ $ip.updated }}</p>
+        <h2>{{ partial "icon.html" (dict "name" "book" "size" 18) }} {{ i18n "detail_source_note" }}</h2>
+        {{ with $ip.notes }}<p style="font-size:13.5px">{{ if ne site.Language.Lang "zh" }}<span class="badge badge--outline">{{ i18n "detail_source_zh_note" }}</span> {{ end }}{{ . }}</p>{{ end }}
+        <p class="small muted">{{ i18n "detail_last_verified" }} {{ $ip.updated }}</p>
         <ul class="source-list">
           {{ range $ip.sources }}<li><a href="{{ . }}" target="_blank" rel="noopener nofollow">{{ partial "icon.html" (dict "name" "link" "size" 14) }} {{ . }}</a></li>{{ end }}
         </ul>
@@ -68,33 +68,33 @@
     </div>
     <aside class="detail-aside">
       <div class="aside-card">
-        <h3>快速链接</h3>
+        <h3>{{ i18n "detail_quick_links" }}</h3>
         <ul class="aside-links">
-          {{ with $ip.links.product }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "external" "size" 14) }} 厂商 IP 页面</a></li>{{ end }}
-          {{ with $ip.links.datasheet }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "download" "size" 14) }} 技术文档</a></li>{{ end }}
-          <li><a href="{{ site.Params.issue_error }}&title=%5B%E6%95%B0%E6%8D%AE%E7%BA%A0%E9%94%99%5D%20{{ $ip.name }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "alert" "size" 14) }} 报告数据错误</a></li>
+          {{ with $ip.links.product }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "external" "size" 14) }} {{ i18n "detail_product_page" }}</a></li>{{ end }}
+          {{ with $ip.links.datasheet }}<li><a href="{{ . }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "download" "size" 14) }} {{ i18n "detail_datasheet" }}</a></li>{{ end }}
+          <li><a href="{{ site.Params.issue_error }}&title=%5Bdata%5D%20{{ $ip.name }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "alert" "size" 14) }} {{ i18n "detail_report" }}</a></li>
         </ul>
       </div>
       {{ $related := where hugo.Data.ips "vendor" $ip.vendor }}
       {{ if gt (len $related) 1 }}
       <div class="aside-card">
-        <h3>同厂商其他 IP</h3>
+        <h3>{{ i18n "detail_related" }}</h3>
         <div class="related-list">
           {{ range first 8 $related }}{{ if ne .id $ip.id }}
-          <a class="related-item" href="{{ printf "/ip/%s/" .id | relURL }}"><b>{{ .name }}</b><span>{{ .bits }} 位</span></a>
+          <a class="related-item" href="{{ printf "/ip/%s/" .id | relLangURL }}"><b>{{ .name }}</b><span>{{ .bits }} {{ i18n "detail_bits" }}</span></a>
           {{ end }}{{ end }}
         </div>
       </div>
       {{ end }}
       <div class="aside-card">
-        <h3>下一步</h3>
-        <p class="small muted" style="margin:0 0 10px">选 MCU 时不只看核，还要看功耗、外设与工具链成熟度。</p>
-        <a class="btn btn--outline btn--sm btn--block" href="{{ "/mcu/" | relURL }}">进入 MCU 选型</a>
+        <h3>{{ i18n "detail_next_step" }}</h3>
+        <p class="small muted" style="margin:0 0 10px">{{ i18n "detail_select_tip" }}</p>
+        <a class="btn btn--outline btn--sm btn--block" href="{{ "/mcu/" | relLangURL }}">{{ i18n "detail_go_mcu" }}</a>
       </div>
     </aside>
   </div>
 </div>
-{{ $ld := dict "@context" "https://schema.org" "@type" "TechArticle" "headline" $ip.name "about" (printf "%s RISC-V CPU IP" $ip.name) "author" (dict "@type" "Organization" "name" $ip.vendor) "description" (printf "%s 是 %s 的 %v 位 RISC-V CPU IP，指令集 %s。" $ip.name $ip.vendor $ip.bits $ip.isa) }}
+{{ $ld := dict "@context" "https://schema.org" "@type" "TechArticle" "headline" $ip.name "about" (printf "%s RISC-V CPU IP" $ip.name) "author" (dict "@type" "Organization" "name" $ip.vendor) "description" (printf "%s — %s · %v-bit RISC-V CPU IP · %s" $ip.name $ip.vendor $ip.bits $ip.isa) }}
 <script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
 {{ end }}
 {{ end }}

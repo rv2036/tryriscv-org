@@ -1,0 +1,85 @@
+# Ecosystem toolchains, RTOSes, and development boards (from public sources)
+toolchains:
+  - name: MounRiver Studio
+    vendor: WCH
+    url: https://www.mounriver.com/
+    desc: An Eclipse-based IDE that supports the full WCH RISC-V MCU line, with built-in GCC and debugging.
+    parts: [wch]
+  - name: Nuclei Studio
+    vendor: Nuclei System Technology
+    url: https://www.nucleisys.com/download.php
+    desc: An IDE and SDK for Nuclei cores, covering the N100/N200/N300/UX families.
+    parts: [nuclei]
+  - name: T-Head CDK
+    vendor: T-Head
+    url: https://www.t-head.cn/
+    desc: The IDE for the XuanTie ecosystem, shipped alongside the YoC software platform and RTOS support.
+    parts: [thead]
+  - name: RT-Thread Studio
+    vendor: RT-Thread
+    url: https://www.rt-thread.org/studio.html
+    desc: A one-stop IDE for the domestic RTOS, supporting a range of RISC-V boards and chip packages.
+    parts: [rtthread]
+  - name: PlatformIO
+    vendor: PlatformIO
+    url: https://platformio.org/
+    desc: A cross-platform embedded build system with community support for some RISC-V boards.
+    parts: [community]
+  - name: Zephyr Project
+    vendor: Zephyr / Linux Foundation
+    url: https://zephyrproject.org/
+    desc: Upstream support for many RISC-V SoCs; suited to products that need long-term maintenance and certification.
+    parts: [zephyr]
+
+rtos:
+  - name: RT-Thread
+    url: https://www.rt-thread.org/
+    desc: A Chinese open-source RTOS whose RISC-V chip packages cover WCH, GigaDevice, Espressif, Bouffalo Lab, and others.
+  - name: FreeRTOS
+    url: https://www.freertos.org/
+    desc: The widest ecosystem; RISC-V ports are provided by each vendor's SDK.
+  - name: Zephyr
+    url: https://zephyrproject.org/
+    desc: Devicetree plus Kconfig, well suited to wireless and multi-peripheral projects and maintained upstream.
+  - name: NuttX
+    url: https://nuttx.apache.org/
+    desc: An Apache project with a POSIX-style API, suited to products with a filesystem and networking.
+  - name: OpenHarmony
+    url: https://www.openharmony.cn/
+    desc: A Chinese operating system for connected devices with displays; some RISC-V boards are already supported.
+
+boards:
+  - name: CH32V003 Series Evaluation Board
+    vendor: WCH
+    url: https://www.wch.cn/
+    desc: A low-cost starter board for teaching and GPIO/ADC experiments.
+  - name: GD32VF103C-START
+    vendor: GigaDevice
+    url: https://www.gigadevice.com.cn/
+    desc: The classic RISC-V MCU development board, with abundant documentation and community examples.
+  - name: ESP32-C3-DevKitM-1
+    vendor: Espressif
+    url: https://www.espressif.com.cn/
+    desc: A Wi-Fi + BLE RISC-V development board with a mature ESP-IDF ecosystem.
+  - name: BL602 / BL616 Development Board
+    vendor: Bouffalo Lab
+    url: https://www.bouffalolab.com/
+    desc: Low-cost Wi-Fi / BLE options for quickly validating connected products.
+  - name: VisionFive 2
+    vendor: StarFive
+    url: https://www.starfivetech.com/
+    desc: A quad-core RISC-V Linux board for application-processor and edge-computing validation.
+  - name: MUSE Pi / K1
+    vendor: SpacemiT
+    url: https://www.spacemit.com/
+    desc: An 8-core RISC-V board with AI compute, aimed at edge intelligence.
+
+communities:
+  - name: RISC-V International
+    url: https://riscv.org/
+  - name: China RISC-V Industry Consortium (CRVIC)
+    url: http://www.risc-v.org.cn/
+  - name: China RISC-V Alliance (CRVA)
+    url: https://crva.ict.ac.cn/
+  - name: XiangShan Processor
+    url: https://xiangshan.github.io/

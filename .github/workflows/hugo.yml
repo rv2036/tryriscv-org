@@ -32,6 +32,9 @@ jobs:
       - name: Validate data and generate JSON/YAML
         run: python3 scripts/normalize.py
 
+      - name: Validate i18n key parity
+        run: python3 scripts/check_i18n.py
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:

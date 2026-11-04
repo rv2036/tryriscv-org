@@ -6,7 +6,25 @@
   if (!app) return;
   var TR = window.TR;
   var esc = TR.esc;
-  var COUNTRY = { CN: '中国大陆', TW: '中国台湾', US: '美国', EU: '欧洲', JP: '日本', other: '其他/未披露' };
+  var I18N = window.__TR_I18N__ || {};
+  var TXT = I18N.text || {};
+  var IS_ZH = I18N.isZh !== undefined ? I18N.isZh : (document.documentElement.lang || '').indexOf('zh') === 0;
+  function txt(k, fallback) { return TXT[k] || fallback; }
+  function fmt(str, vars) { return String(str).replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; }); }
+  function countryLabel(c) { return (I18N.country && I18N.country[c]) || c; }
+  function featureLabel(f) { return (I18N.features && I18N.features[f]) || f; }
+  function licenseLabel(l) { return (I18N.license && I18N.license[l]) || l; }
+  function maturityLabel(m) { return (I18N.maturity && I18N.maturity[m]) || m; }
+  var LANG_PREFIX = (I18N.lang && I18N.lang !== 'zh') ? '/' + I18N.lang : '';
+  function urlFor(u) { return u && u.indexOf('/') === 0 ? LANG_PREFIX + u : u; }
+  var VENDOR_EN = {};
+  function vendorLabel(v) {
+    if (IS_ZH) return v;
+    if (!VENDOR_EN[v]) {
+      for (var i = 0; i < DATA.length; i++) { if (DATA[i].vendor === v) { VENDOR_EN[v] = DATA[i].vendor_en || v; break; } }
+    }
+    return VENDOR_EN[v] || v;
+  }
   var DATA = [], defs = {}, state;
 
   function resetState() {
@@ -66,12 +84,12 @@
     return Array.from(map.values()).sort(function (a, b) { return b.count - a.count || String(a.label).localeCompare(String(b.label), 'zh'); });
   }
   function buildFacets() {
-    defs.vendor = tally(DATA, 'vendor');
-    defs.country = tally(DATA, 'country', function (v) { return COUNTRY[v] || v; });
-    defs.bits = [{ value: '32', label: '32 位', count: 0 }, { value: '64', label: '64 位', count: 0 }];
-    defs.features = tally(DATA, 'features');
-    defs.license = tally(DATA, 'license');
-    defs.maturity = tally(DATA, 'maturity');
+    defs.vendor = tally(DATA, 'vendor', vendorLabel);
+    defs.country = tally(DATA, 'country', countryLabel);
+    defs.bits = [{ value: '32', label: '32 ' + txt('detailBits', 'bit'), count: 0 }, { value: '64', label: '64 ' + txt('detailBits', 'bit'), count: 0 }];
+    defs.features = tally(DATA, 'features', featureLabel);
+    defs.license = tally(DATA, 'license', licenseLabel);
+    defs.maturity = tally(DATA, 'maturity', maturityLabel);
   }
   function renderFacet(key, options) {
     var box = document.querySelector('[data-facet="' + key + '"]');
@@ -168,22 +186,22 @@
   }
   function row(p) {
     return '<tr>' +
-      '<td><a class="model-link" href="' + esc(p.url) + '">' + esc(p.name) + '</a><span class="sub-line">' + esc(p.vendor) + '</span></td>' +
-      '<td>' + esc(COUNTRY[p.country] || p.country) + '</td>' +
-      '<td>' + p.bits + ' 位<span class="sub-line">' + esc(p.isa) + '</span></td>' +
-      '<td>' + esc(p.pipeline || '—') + '</td>' +
-      '<td class="num">' + (p.freq == null ? '未公开' : p.freq + ' MHz') + '</td>' +
-      '<td><div class="periph-cell">' + (tags(p.features, 'tag--indigo') || '—') + '</div></td>' +
-      '<td>' + esc(p.license) + '</td>' +
-      '<td><span class="' + badge(p.maturity) + '">' + esc(p.maturity) + '</span></td>' +
+      '<td><a class="model-link" href="' + esc(urlFor(p.url)) + '">' + esc(p.name) + '</a><span class="sub-line">' + esc(vendorLabel(p.vendor)) + '</span></td>' +
+      '<td>' + esc(countryLabel(p.country)) + '</td>' +
+      '<td>' + p.bits + ' ' + esc(txt('detailBits', 'bit')) + '<span class="sub-line">' + esc(p.isa) + '</span></td>' +
+      (IS_ZH ? '<td>' + esc(p.pipeline || '—') + '</td>' : '') +
+      '<td class="num">' + (p.freq == null ? esc(txt('unknown', 'n/a')) : p.freq + ' MHz') + '</td>' +
+      '<td><div class="periph-cell">' + (tags((p.features || []).map(featureLabel), 'tag--indigo') || '—') + '</div></td>' +
+      '<td>' + esc(licenseLabel(p.license)) + '</td>' +
+      '<td><span class="' + badge(p.maturity) + '">' + esc(maturityLabel(p.maturity)) + '</span></td>' +
       '</tr>';
   }
   function card(p) {
     return '<article class="mcu-card">' +
-      '<div class="mcu-card-head"><div><h3 class="mcu-card-title"><a href="' + esc(p.url) + '">' + esc(p.name) + '</a></h3>' +
-      '<div class="mcu-card-sub">' + esc(p.vendor) + ' · ' + esc(COUNTRY[p.country] || p.country) + '</div></div>' +
+      '<div class="mcu-card-head"><div><h3 class="mcu-card-title"><a href="' + esc(urlFor(p.url)) + '">' + esc(p.name) + '</a></h3>' +
+      '<div class="mcu-card-sub">' + esc(vendorLabel(p.vendor)) + ' · ' + esc(countryLabel(p.country)) + '</div></div>' +
       '<div class="mcu-card-badges"><span class="' + badge(p.maturity) + '">' + esc(p.maturity) + '</span></div></div>' +
-      '<dl class="mcu-card-specs"><div><dt>位宽</dt><dd>' + p.bits + ' bit</dd></div><div><dt>最高频率</dt><dd>' + p.freq + ' <small>MHz</small></dd></div><div><dt>授权</dt><dd style="font-size:12px">' + esc(p.license) + '</dd></div></dl>' +
+      '<dl class="mcu-card-specs"><div><dt>' + esc(txt('ipBits', 'Bits')) + '</dt><dd>' + p.bits + ' bit</dd></div><div><dt>' + esc(txt('ipMaxFreq', 'Max freq')) + '</dt><dd>' + (p.freq == null ? esc(txt('unknown', 'n/a')) : p.freq + ' <small>MHz</small>') + '</dd></div><div><dt>' + esc(txt('ipLicense', 'License')) + '</dt><dd style="font-size:12px">' + esc(licenseLabel(p.license)) + '</dd></div></dl>' +
       '<div class="periph-cell">' + tags(p.features) + '</div>' +
       '<div class="mcu-card-foot"><span>' + esc(p.isa) + '</span></div>' +
       '</article>';
@@ -191,15 +209,15 @@
   function chips() {
     var out = [];
     function add(label, fn) { out.push({ label: label, fn: fn }); }
-    var names = { vendor: '品牌：', country: '归属地：', bits: '位宽：', features: '特性：', license: '授权：', maturity: '成熟度：' };
+    var names = { vendor: txt('chipVendor', 'Brand: '), country: txt('chipCountry', 'Country: '), bits: txt('ipBits', 'Bits') + ': ', features: txt('chipFeatures', 'Features: '), license: txt('table_license', 'License') + ': ', maturity: txt('table_maturity', 'Maturity') + ': ' };
     ['vendor', 'country', 'bits', 'features', 'license', 'maturity'].forEach(function (k) {
       state[k].forEach(function (v) {
-        var label = k === 'country' ? (COUNTRY[v] || v) : k === 'bits' ? v + ' 位' : v;
+        var label = k === 'country' ? countryLabel(v) : k === 'bits' ? v + ' ' + txt('detailBits', 'bit') : k === 'features' ? featureLabel(v) : k === 'license' ? licenseLabel(v) : k === 'maturity' ? maturityLabel(v) : v;
         add(names[k] + label, function () { state[k].delete(v); });
       });
     });
     if (state.freq[0] != null || state.freq[1] != null) {
-      add('频率 ' + (state.freq[0] == null ? '' : state.freq[0]) + '–' + (state.freq[1] == null ? '' : state.freq[1]) + ' MHz', function () { state.freq = [null, null]; });
+      add(txt('ipMaxFreq', 'Frequency') + ' ' + (state.freq[0] == null ? '' : state.freq[0]) + '–' + (state.freq[1] == null ? '' : state.freq[1]) + ' MHz', function () { state.freq = [null, null]; });
     }
     return out;
   }
@@ -208,7 +226,7 @@
     if (!box) return;
     var list = chips();
     box.innerHTML = list.map(function (c, i) { return '<button type="button" class="chip" data-chip="' + i + '">' + esc(c.label) + ' <span aria-hidden="true">×</span></button>'; }).join('') +
-      (list.length ? '<button type="button" class="chip chip--clear" id="clear-ip">清空全部</button>' : '');
+      (list.length ? '<button type="button" class="chip chip--clear" id="clear-ip">' + esc(txt('clearAll', 'Clear all')) + '</button>' : '');
     box.querySelectorAll('[data-chip]').forEach(function (b) {
       b.addEventListener('click', function () { list[Number(b.getAttribute('data-chip'))].fn(); apply(); });
     });
@@ -222,7 +240,7 @@
     if (tbody) tbody.innerHTML = list.map(row).join('');
     if (cards) cards.innerHTML = list.map(card).join('');
     var count = document.getElementById('result-count');
-    if (count) count.innerHTML = '共 <b>' + list.length + '</b> 个 IP 核（全库 ' + DATA.length + ' 个）';
+    if (count) count.innerHTML = fmt(txt('resultIp', '{count} IP cores'), { count: '<b>' + list.length + '</b>', total: DATA.length });
     var empty = document.getElementById('ip-empty');
     if (empty) empty.hidden = list.length !== 0;
     renderChips();
@@ -261,7 +279,7 @@
     apply();
   }).catch(function (e) {
     var count = document.getElementById('result-count');
-    if (count) count.textContent = '数据加载失败，请刷新重试。';
+    if (count) count.textContent = txt('loadError', 'Failed to load data.');
     if (window.console) console.error(e);
   });
 })();

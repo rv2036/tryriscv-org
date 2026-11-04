@@ -4,6 +4,32 @@
 
   var COMPARE_KEY = 'tr-compare';
   var MAX_COMPARE = 4;
+  var I18N = window.__TR_I18N__ || {};
+  var TXT = I18N.text || {};
+  function t(k, fallback) { return TXT[k] || fallback; }
+
+  /* ---------- theme ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.querySelector('.theme-toggle');
+  function themeAria(theme) {
+    return theme === 'dark' ? t('themeLight', 'Switch to light') : t('themeDark', 'Switch to dark');
+  }
+  function setTheme(theme, persist) {
+    root.setAttribute('data-theme', theme);
+    if (persist) {
+      try { localStorage.setItem('tr-theme', theme); } catch (e) { /* ignore */ }
+    }
+    if (themeBtn) {
+      themeBtn.setAttribute('aria-label', themeAria(theme));
+      themeBtn.setAttribute('title', themeAria(theme));
+    }
+  }
+  if (themeBtn) {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light', false);
+    themeBtn.addEventListener('click', function () {
+      setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+    });
+  }
 
   function readCompare() {
     try {
@@ -104,11 +130,11 @@
     e.preventDefault();
     var id = btn.getAttribute('data-compare-add');
     var res = addCompare(id);
-    if (!res.ok) { toast('最多同时对比 ' + MAX_COMPARE + ' 款，请先移除一款'); return; }
-    toast(res.duplicate ? '已在对比列表中' : '已加入对比，去 MCU 页勾选更多型号');
+    if (!res.ok) { toast(t('compareMax', 'You can compare up to ' + MAX_COMPARE + ' parts')); return; }
+    toast(res.duplicate ? t('compareExists', 'Already in the comparison list') : t('compareAdded', 'Added to comparison'));
     btn.classList.add('is-added');
     var label = btn.querySelector('.js-label');
-    if (label) label.textContent = '已加入对比';
+    if (label) label.textContent = t('compareAddedLabel', 'Added');
   });
 
   window.TR = {

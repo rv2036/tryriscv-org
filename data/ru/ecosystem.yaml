@@ -1,0 +1,85 @@
+# Инструментальные цепочки, RTOS и отладочные платы экосистемы (по открытым источникам)
+toolchains:
+  - name: MounRiver Studio
+    vendor: 沁恒 WCH
+    url: https://www.mounriver.com/
+    desc: "Интегрированная среда разработки на базе Eclipse для всех RISC-V MCU WCH со встроенными GCC и отладчиком."
+    parts: [wch]
+  - name: Nuclei Studio
+    vendor: 芯来科技
+    url: https://www.nucleisys.com/download.php
+    desc: "IDE и SDK для ядер Nuclei, поддержка серий N100/N200/N300/UX."
+    parts: [nuclei]
+  - name: 剑池 CDK
+    vendor: 平头哥
+    url: https://www.t-head.cn/
+    desc: "Среда разработки экосистемы XuanTie, работающая вместе с программной платформой YoC и RTOS."
+    parts: [thead]
+  - name: RT-Thread Studio
+    vendor: RT-Thread
+    url: https://www.rt-thread.org/studio.html
+    desc: "Готовая IDE для китайского RTOS с поддержкой ряда RISC-V отладочных плат и пакетов чипов."
+    parts: [rtthread]
+  - name: PlatformIO
+    vendor: PlatformIO
+    url: https://platformio.org/
+    desc: "Кроссплатформенная система сборки для встраиваемых проектов; сообщество поддерживает часть RISC-V плат."
+    parts: [community]
+  - name: Zephyr Project
+    vendor: Zephyr / Linux Foundation
+    url: https://zephyrproject.org/
+    desc: "Поддерживает ряд RISC-V SoC на уровне upstream; подходит для продуктов с длительным сопровождением и сертификацией."
+    parts: [zephyr]
+
+rtos:
+  - name: RT-Thread
+    url: https://www.rt-thread.org/
+    desc: "Китайский RTOS с открытым исходным кодом; пакеты для RISC-V покрывают WCH, GigaDevice, Espressif, Bouffalo Lab и других."
+  - name: FreeRTOS
+    url: https://www.freertos.org/
+    desc: "Самая широкая экосистема; порты для RISC-V поставляются в SDK производителей."
+  - name: Zephyr
+    url: https://zephyrproject.org/
+    desc: "Device Tree + Kconfig; подходит для беспроводных проектов с множеством периферии, поддерживается upstream."
+  - name: NuttX
+    url: https://nuttx.apache.org/
+    desc: "Проект Apache в стиле POSIX; подходит для продуктов с файловой системой и сетью."
+  - name: OpenHarmony
+    url: https://www.openharmony.cn/
+    desc: "Китайская ОС для устройств с экраном и подключением; часть RISC-V плат уже адаптирована."
+
+boards:
+  - name: CH32V003 系列评估板
+    vendor: 沁恒
+    url: https://www.wch.cn/
+    desc: "Недорогая плата для начинающих, подходит для учебных экспериментов с GPIO/ADC."
+  - name: GD32VF103C-START
+    vendor: 兆易创新
+    url: https://www.gigadevice.com.cn/
+    desc: "Классическая отладочная плата RISC-V MCU с богатой документацией и примерами сообщества."
+  - name: ESP32-C3-DevKitM-1
+    vendor: 乐鑫
+    url: https://www.espressif.com.cn/
+    desc: "Отладочная плата RISC-V с Wi-Fi + BLE и зрелой экосистемой ESP-IDF."
+  - name: BL602 / BL616 开发板
+    vendor: 博流智能
+    url: https://www.bouffalolab.com/
+    desc: "Недорогие решения Wi-Fi / BLE для быстрой проверки продуктов с подключением."
+  - name: VisionFive 2
+    vendor: 赛昉科技
+    url: https://www.starfivetech.com/
+    desc: "Четырёхъядерная плата RISC-V с Linux для проверки прикладных процессоров и граничных вычислений."
+  - name: MUSE Pi / K1
+    vendor: 进迭时空
+    url: https://www.spacemit.com/
+    desc: "Плата с 8-ядерным RISC-V и AI-ускорителем для граничного интеллекта."
+
+communities:
+  - name: RISC-V International
+    url: https://riscv.org/
+  - name: 中国 RISC-V 产业联盟
+    url: http://www.risc-v.org.cn/
+  - name: 中国开放指令生态联盟
+    url: https://crva.ict.ac.cn/
+  - name: 香山处理器
+    url: https://xiangshan.github.io/

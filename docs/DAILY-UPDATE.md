@@ -15,6 +15,7 @@ python3 -m pip install --user pyyaml
 
 ```bash
 python3 scripts/normalize.py --check
+python3 scripts/check_i18n.py
 hugo --minify --gc
 ```
 
@@ -54,18 +55,33 @@ hugo --minify --gc
 1. 新建 `data/mcu/<vendor>.yaml`（顶层是列表）；
 2. 厂商中文名写常用简称，不要写完整法定名；完整名放 `notes` 或 `vendor_en`；
 3. 若厂商有多个 IP 来源，按具体型号分别填写 `ip_vendor` / `ip_country`；
-4. 在 `data/site.yaml` 的厂商名录（如需要）与 `layouts/ecosystem/list.html` 的展示逻辑会自动读取，无需改模板。
+4. 厂商名录由 MCU 数据自动汇总；英文展示依赖 `vendor_en`。若新增首页预设或修改 `data/site.yaml`，同步 `data/en|ru|ja/site.yaml`。
 
-## 4. 更新 IP / AI / 方案
+## 4. 多语言与主题
+
+站点有 `zh`（默认，根路径）、`en`、`ru`、`ja` 四个语言：
+
+- 页面内容在 `content/<lang>/`；每种语言都有独立的 `mcu/`、`ip/` 目录和 `_content.gotmpl`，详情页由同一个 `hugo.Data.mcus` / `hugo.Data.ips` 生成。
+- UI 文案在 `i18n/<lang>.yaml`。**新增一个 UI 键必须同时加到四个文件**，然后运行：
+  ```bash
+  python3 scripts/check_i18n.py
+  ```
+- 首页预设、方案包、生态列表的展示文案在 `data/<lang>/{site,solutions,ecosystem}.yaml`；更新中文源后，同步这三个翻译层。
+- 动态 query 链接（如 `/mcu/?freq=...`）必须用 `safeURL` 输出，否则 minifier 会把 `=` 与 `&` 转成 `%3d` / `%26`。
+- 主题切换由 `assets/js/site.js` + `data-theme` 属性实现；改动 CSS 时在明暗两种主题、390px/1440px 下都截图检查。
+- 数据备注（MCU/IP 的 `notes`、`pipeline` 等）保留中文原文；非中文页面用 `detail_source_zh_note` 标注。
+
+## 5. 更新 IP / AI / 方案
 
 - **IP**：`data/ip.yaml`。必填 `id/name/vendor/bits/isa/freq/license/maturity`；`features` 从 FPU、DSP、Vector、MMU、MPU、多核、AI、乱序、实时 中选；`freq` 注明随工艺变化。
 - **AI**：`data/ai.yaml`。必填 `id/name/vendor/type/country`；`tops` 只写公开的 INT8 峰值，没有就 `null`；没有 benchmark 不要编造成熟度分数。
 - **方案**：`data/solutions.yaml`。`recommended` 必须使用真实 MCU `id`；`query` 是 `/mcu/` 的筛选参数，更新后点开验证。
 
-## 5. 校验与构建
+## 6. 校验与构建
 
 ```bash
 python3 scripts/normalize.py          # 失败会列出文件[index]与原因
+python3 scripts/check_i18n.py         # 四种语言键集 / 占位符
 python3 scripts/check_links.py        # 输出 reports/latest-link-check.md
 hugo --minify --gc
 ```
@@ -75,17 +91,19 @@ hugo --minify --gc
 - [ ] `normalize.py` 无 error；warning 中“没有功耗数据”是否可接受；
 - [ ] 新增/修改的详情页 200，标题、关键参数、来源正确；
 - [ ] 筛选页能筛到新条目，URL 参数可复现；
-- [ ] 移动端 390px 宽度下筛选抽屉与卡片正常；
+- [ ] 移动端 390px 与 320px 宽度下筛选抽屉、卡片、语言切换正常；
+- [ ] 四个语言首页/筛选页/详情页均可打开，语言下拉指向对应翻译；
+- [ ] 明暗两套主题下表格、筛选器、方案卡、详情页无白底白字/低对比；
 - [ ] 页尾免责声明与 issue 链接存在；
 - [ ] `data/mcus.yaml`、`static/data/*.json`、`mcus.csv` 已随源数据重新生成。
 
-## 6. 更新快照日期
+## 7. 更新快照日期
 
 - `hugo.toml` → `[params] updated = "YYYY-MM-DD"`
 - `data/site.yaml` 无需改（页面统计由数据计算）
 - 首页/页尾/关于页会读取该日期。
 
-## 7. 提交
+## 8. 提交
 
 ```bash
 git add data scripts static content layouts assets hugo.toml
@@ -96,7 +114,7 @@ git commit -m "data: add CH32V006K8U7 and refresh power figures"
 - 不要提交 `public/`、`.hugo_build.lock`；
 - 除非用户明确要求，**不要 push**；push 到 `main` 会触发 GitHub Pages 部署。
 
-## 8. 常见坑
+## 9. 常见坑
 
 - **ID 重复**：不同厂商文件里用了同一个 `id`，normalize 会报错；ID 用 `vendor-part` 前缀。
 - **功耗单位**：数据手册给 mA@MHz 时换算成 µA/MHz，并在 `power.note` 保留原始条件。
@@ -105,3 +123,7 @@ git commit -m "data: add CH32V006K8U7 and refresh power figures"
 - **厂商名**：用简称；完整法定名会导致筛选器出现超长选项。
 - **日期**：`updated` 用 `YYYY-MM-DD`，YAML 不加引号也可以，normalize 会统一。
 - **Hugo 数据可用性**：模板必须读 `hugo.Data.mcus` / `hugo.Data.ips` / `hugo.Data.ais`（normalize 生成的合并文件），不要直接读 `hugo.Data.mcu`（分文件 map，元素类型会导致模板报错）。
+- **i18n 键集**：只改中文 `i18n/zh.yaml` 会让 en/ru/ja 回退成中文；`check_i18n.py` 会报 missing/extra/占位符不一致。
+- **链接语言前缀**：模板内链用 `relLangURL`，JS 内链用 `urlFor()`（已按 `I18N.lang` 加前缀）；不要硬编码 `/mcu/`。
+- **主题色**：新增组件时优先用 CSS 变量（`--surface`、`--ink`、`--line`），否则暗色模式会出现白底。
+- **query 链接**：动态 query 一律 `safeURL`；静态 `/en/mcu/` 手写链接要带语言前缀。

@@ -1,0 +1,7 @@
+{{- $lang := site.Language.Lang -}}
+{{- $d := hugo.Data.solutions -}}
+{{- if ne $lang "zh" -}}
+  {{- $ld := index hugo.Data $lang -}}
+  {{- with $ld -}}{{ with .solutions }}{{ $d = . }}{{ end }}{{ end -}}
+{{- end -}}
+{{- return $d -}}

@@ -1,7 +1,9 @@
 {{- $s := .Section -}}
+{{- $trans := .AllTranslations -}}
+{{- if not $trans }}{{ $trans = site.Home.AllTranslations }}{{ end -}}
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="{{ "/" | relURL }}" aria-label="tryriscv.org 首页">
+    <a class="brand" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }} · {{ i18n "nav_home" }}">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 32 32" width="30" height="30" fill="none">
           <rect x="2" y="2" width="28" height="28" rx="8" fill="#1f4ed8"/>
@@ -12,18 +14,31 @@
       <span class="brand-text"><strong>tryriscv</strong><span>.org</span></span>
     </a>
 
-    <nav class="site-nav" id="site-nav" aria-label="主导航">
-      <a href="{{ "/mcu/" | relURL }}"{{ if eq $s "mcu" }} class="is-active" aria-current="page"{{ end }}>MCU 选型</a>
-      <a href="{{ "/ip/" | relURL }}"{{ if eq $s "ip" }} class="is-active" aria-current="page"{{ end }}>IP 核</a>
-      <a href="{{ "/solutions/" | relURL }}"{{ if eq $s "solutions" }} class="is-active" aria-current="page"{{ end }}>解决方案</a>
-      <a href="{{ "/ai/" | relURL }}"{{ if eq $s "ai" }} class="is-active" aria-current="page"{{ end }}>AI 算力</a>
-      <a href="{{ "/ecosystem/" | relURL }}"{{ if eq $s "ecosystem" }} class="is-active" aria-current="page"{{ end }}>生态图谱</a>
-      <a href="{{ "/about/" | relURL }}"{{ if eq $s "about" }} class="is-active" aria-current="page"{{ end }}>关于</a>
+    <nav class="site-nav" id="site-nav" aria-label="{{ i18n "nav_home" }}">
+      <a href="{{ "/mcu/" | relLangURL }}"{{ if eq $s "mcu" }} class="is-active" aria-current="page"{{ end }}>{{ i18n "nav_mcu" }}</a>
+      <a href="{{ "/ip/" | relLangURL }}"{{ if eq $s "ip" }} class="is-active" aria-current="page"{{ end }}>{{ i18n "nav_ip" }}</a>
+      <a href="{{ "/solutions/" | relLangURL }}"{{ if eq $s "solutions" }} class="is-active" aria-current="page"{{ end }}>{{ i18n "nav_solutions" }}</a>
+      <a href="{{ "/ai/" | relLangURL }}"{{ if eq $s "ai" }} class="is-active" aria-current="page"{{ end }}>{{ i18n "nav_ai" }}</a>
+      <a href="{{ "/ecosystem/" | relLangURL }}"{{ if eq $s "ecosystem" }} class="is-active" aria-current="page"{{ end }}>{{ i18n "nav_ecosystem" }}</a>
+      <a href="{{ "/about/" | relLangURL }}"{{ if eq $s "about" }} class="is-active" aria-current="page"{{ end }}>{{ i18n "nav_about" }}</a>
+      <a class="nav-ask" href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">{{ i18n "nav_ask" }}</a>
     </nav>
 
     <div class="header-actions">
-      <a class="btn btn--primary btn--sm header-cta" href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">我想选</a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="打开导航">
+      <label class="lang-select-wrap">
+        <span class="sr-only">{{ i18n "lang_switch" }}</span>
+        <select class="lang-select" aria-label="{{ i18n "lang_switch" }}" onchange="if(this.value)location.href=this.value">
+          {{ range $trans }}
+          <option value="{{ .RelPermalink }}"{{ if eq .Language.Lang site.Language.Lang }} selected{{ end }}>{{ .Language.LanguageName }}</option>
+          {{ end }}
+        </select>
+      </label>
+      <button class="theme-toggle" type="button" aria-label="{{ i18n "theme_toggle" }}" title="{{ i18n "theme_toggle" }}">
+        <span class="theme-icon theme-icon--sun" aria-hidden="true">{{ partial "icon.html" (dict "name" "sun" "size" 18) }}</span>
+        <span class="theme-icon theme-icon--moon" aria-hidden="true">{{ partial "icon.html" (dict "name" "moon" "size" 18) }}</span>
+      </button>
+      <a class="btn btn--primary btn--sm header-cta" href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">{{ i18n "nav_ask" }}</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="{{ i18n "nav_home" }}">
         <span></span><span></span><span></span>
       </button>
     </div>

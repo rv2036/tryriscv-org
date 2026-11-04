@@ -1,0 +1,145 @@
+- id: iot-edu
+  title: IoT industry-education teaching and prototyping platform
+  category: Teaching and prototyping
+  summary: Built around low-power RISC-V MCUs in the 100 MHz class, covering sensor acquisition, USB debug, CAN and serial networking, RTOS labs, and course projects, with attention to prototype cost and documentation quality.
+  needs: [64–144 MHz, 20 KB or more SRAM, USB/CAN, RT-Thread, 5 V tolerance]
+  specs:
+    freq: 64–144 MHz
+    sram: 20–64 KB
+    flash: 64–256 KB
+    power: active 49–186 µA/MHz
+  recommended: [wch-ch32v203c8t6, gigadevice-gd32vf103c8t6, wch-ch32v103c8t6, cmiot-cm32m433r]
+  why:
+    - "WCH CH32V203: 144 MHz, 49 µA/MHz, dual USB, CAN; MounRiver Studio and an RT-Thread BSP are both available, making it a good course workhorse."
+    - "GD32VF103: a mature Nuclei N200 ecosystem with plenty of examples and boards, good for side-by-side teaching and porting labs."
+    - "CH32V103: 5 V supply and USB FS, compatible with 5 V sensor modules, which simplifies the power design of a lab platform."
+    - "CMiot CM32M433R: 144 MHz, 144 KB SRAM, dual CAN, and Chinese national cryptographic algorithms, suited to advanced labs and localization topics."
+  risks:
+    - "None of these parts has built-in wireless; BLE/Wi-Fi labs need an external module or an ESP32-C3 / CH582M design."
+    - "Prices move with batch and channel; confirm with a distributor before volume purchases for teaching."
+    - "CH32V203 has only 20 KB of SRAM, so memory use must be kept in check when running a GUI or a large protocol stack."
+  toolchain: [MounRiver Studio, Nuclei Studio, RT-Thread Studio, GCC, OpenOCD]
+  query: "freq=64-160&sram=16-64&sort=run-asc&has_power=1"
+  updated: 2026-11-04
+
+- id: battery-sensor
+  title: Battery-powered sensor nodes (40 MHz / 64 KB class)
+  category: Low-power sensing
+  summary: For battery-powered nodes such as temperature/humidity, current, door, and water-meter sensors. Around 48 MHz with 4–64 KB SRAM is enough; the key is keeping sleep current below 10 µA while leaving enough ADC and comparator resources.
+  needs: [24–96 MHz, 4–64 KB SRAM, sleep <10 µA, 12-bit ADC, small package]
+  specs:
+    freq: 24–96 MHz
+    sram: 4–64 KB
+    flash: 16–128 KB
+    power: sleep 0.37–10 µA
+  recommended: [wch-ch32l103c8t6, wch-ch32v006k8u7, apt-apt32f1023, wch-ch32v002f4p6]
+  why:
+    - "CH32L103: still only 49 µA/MHz at 96 MHz, 0.37 µA standby, LPUART/LPTIM, well suited to long-duty-cycle acquisition."
+    - "CH32V006: 48 MHz, 8 KB SRAM, 62 KB Flash in a small QFN package; the peripherals are enough for multi-channel ADC sampling."
+    - "APT APT32F1023: 48 MHz, 4 KB SRAM, 64 KB Flash; the vendor selection guide quotes 5 µA deep sleep, clearly cost-driven."
+    - "CH32V002: the minimal 4 KB SRAM / 16 KB Flash tier, suited to an architecture that takes one sample and wakes a radio module."
+  risks:
+    - "APT's toolchain and community material are thinner than WCH's; budget time for porting and debugging before production."
+    - "Vendors test power under different conditions (voltage, temperature, peripheral clocks), so re-measure on your own board."
+    - "RAM retention ranges and the number of wake-up sources in low-power modes constrain the protocol stack you can use."
+  toolchain: [MounRiver Studio, APT IDE, GCC, RT-Thread]
+  query: "freq=0-100&sram=0-64&has_power=1&sort=sleep-asc"
+  updated: 2026-11-04
+
+- id: ble-device
+  title: BLE wearables and smart home
+  category: Wireless
+  summary: RISC-V SoCs with built-in BLE remove the external radio and its certification cost. Wearables care about sleep current and package; smart-home products care about Mesh/Matter stacks and Flash headroom.
+  needs: [BLE 5.x, sleep <3 µA, 256 KB or more Flash, LCD/touch optional]
+  specs:
+    freq: 20–96 MHz
+    sram: 26–512 KB
+    flash: 448 KB–4 MB
+    power: sleep 0.7–2.6 µA
+    wireless: BLE 5.0–5.4
+  recommended: [wch-ch582m, telink-tlsr9218, wch-ch592f, bouffalo-bl702c-10-q2h]
+  why:
+    - "CH582M: BLE 5.0, 0.7 µA sleep, 448 KB Flash, with a complete vendor BLE stack and examples; suited to wearables and HID."
+    - "Telink TLSR9218: 96 MHz, 256 KB SRAM, 2 MB Flash, 0.7 µA sleep; suited to products that need larger buffers and OTA."
+    - "CH592F: BLE 5.4 plus a segment LCD driver, suited to thermostats and panel devices with a display."
+    - "Bouffalo Lab BL702: BLE + USB, 132 KB SRAM, suited to peripherals that need USB and wireless at the same time."
+  risks:
+    - "BLE certification (BQB/FCC/CE) is tightly coupled to the stack version; confirm the SDK already supports your target protocol."
+    - "At 20 MHz, some parts leave little headroom to run a display and the wireless stack together."
+    - "OTA partitions and reserved areas in on-chip Flash cut into usable space."
+  toolchain: [MounRiver Studio, Telink IoT Studio, Bouffalo SDK, RT-Thread]
+  query: "peri=ble&sort=sleep-asc"
+  updated: 2026-11-04
+
+- id: wifi-appliance
+  title: Wi-Fi smart appliances and light gateways
+  category: Wireless
+  summary: Appliance controllers, smart plugs, and sensor gateways need Wi-Fi + BLE, enough SRAM to run TLS/MQTT, and reliable OTA. Prefer platforms with mature SDKs and cloud integration.
+  needs: [Wi-Fi 4/6, BLE provisioning, 320 KB or more SRAM, OTA, secure boot]
+  specs:
+    freq: 120–320 MHz
+    sram: 272–532 KB
+    flash: 2–8 MB
+    power: active 100–172 µA/MHz
+    wireless: Wi-Fi + BLE
+  recommended: [espressif-esp32-c3fh4, espressif-esp32-c6fh4, bouffalo-bl616c-50-q2i, gigadevice-gd32vw553kiq7]
+  why:
+    - "ESP32-C3: single-core RISC-V at 160 MHz, 400 KB SRAM, Wi-Fi + BLE 5; the most complete ESP-IDF and Matter ecosystem, with abundant production documentation."
+    - "ESP32-C6: Wi-Fi 6 + BLE 5 + 802.15.4, suited to a new generation of appliances that need Thread/Matter."
+    - "Bouffalo Lab BL616: 320 MHz, 532 KB SRAM, Wi-Fi 6 + BLE; suited to cost-sensitive gateways that still need compute headroom."
+    - "GD32VW553: Nuclei N307 + Wi-Fi 6 + BLE, a smooth migration path for teams already working with GigaDevice MCUs."
+  risks:
+    - "RF certification and antenna design are the main hurdles; module designs usually reach production faster than chip-down designs."
+    - "Wi-Fi peak current can reach hundreds of mA; size the supply and decoupling for the peak."
+    - "For the Wi-Fi 6 target use cases of ESP32-C6, confirm router compatibility and the power budget."
+  toolchain: [ESP-IDF, Bouffalo SDK, MounRiver Studio, GCC]
+  query: "peri=wifi&sort=run-asc"
+  updated: 2026-11-04
+
+- id: motor-foc
+  title: Motor control and FOC
+  category: Motor control
+  summary: Fans, pumps, gimbals, and power tools need 12-bit or better ADCs, complementary PWM, comparators/op-amps, and CAN. RISC-V MCUs at 105–144 MHz already cover single-motor FOC; dual-motor designs depend on the PWM and ADC channel count.
+  needs: [100 MHz or more, 12-bit ADC, complementary PWM, CAN, comparator/op-amp]
+  specs:
+    freq: 96–144 MHz
+    sram: 16–64 KB
+    flash: 64–256 KB
+    power: active 49–186 µA/MHz
+  recommended: [apt-apt32f1730, wch-ch32v203c8t6, wch-ch32v303vct6, gigadevice-gd32vf103c8t6]
+  why:
+    - "APT APT32F1730: 105 MHz, FPU/DSP, CAN; aimed at motor and digital-power designs, with a peripheral mix tuned for PWM/ADC."
+    - "CH32V203: 144 MHz, dual USB, CAN, 49 µA/MHz; suited to small drives that also talk to a host."
+    - "CH32V303: 144 MHz, 64 KB SRAM, 256 KB Flash, CAN; enough resources for dual-motor control or complex protection logic."
+    - "GD32VF103: 108 MHz, dual CAN, 12-bit ADC; a mature ecosystem, good as a control-algorithm validation platform."
+  risks:
+    - "Motor control is sensitive to ADC sampling timing, PWM dead time, and op-amp bandwidth; validate on a real power stage."
+    - "Some parts do not publish their PWM channel count; confirm with the vendor before committing."
+    - "Isolation, gate drive, and current sensing are analog design problems; the MCU is only one part of the loop."
+  toolchain: [MounRiver Studio, APT IDE, Nuclei Studio, GCC]
+  query: "peri=can,pwm&adc=12&sort=run-asc"
+  updated: 2026-11-04
+
+- id: industrial-edge
+  title: Industrial control and edge gateways
+  category: Industrial control
+  summary: Requirements include CAN/CAN FD, Ethernet, wide temperature range, and secure boot. The 144 MHz class handles protocol conversion and device control; dual-core parts above 600 MHz suit edge computing and multi-axis control.
+  needs: [CAN/Ethernet, wide temperature range, 256 KB or more Flash, secure boot, multiple UARTs]
+  specs:
+    freq: 144–816 MHz
+    sram: 64 KB–1 MB
+    flash: 0–992 KB
+    power: active 85–184 µA/MHz
+  recommended: [wch-ch32v307vct6, cmiot-cm32m433r, hpmicro-hpm6360, wch-ch32v407vet6]
+  why:
+    - "CH32V307: 144 MHz, 64 KB SRAM, 256 KB Flash, dual CAN + 10M Ethernet PHY; suited to device control and protocol conversion."
+    - "CMiot CM32M433R: 144 MHz, 144 KB SRAM, 512 KB Flash, dual CAN, SM3/SM4; suited to localization and security-sensitive designs."
+    - "HPMicro HPM6360: 600 MHz, 512 KB SRAM, CAN + Ethernet; suited to high-real-time multi-axis control and edge algorithms."
+    - "CH32V407: 200 MHz, 200 KB SRAM, 992 KB Flash, Ethernet and USB HS; suited to industrial HMI panels with a display."
+  risks:
+    - "The HPM6360 has no on-chip Flash; it needs external NOR/HyperFlash, which affects boot time and BOM."
+    - "Industrial sites demand EMC, isolation, and wide-temperature performance; retest against the full-product standard."
+    - "Whether the Ethernet PHY is integrated and whether external magnetics are needed directly affects layout and cost."
+  toolchain: [MounRiver Studio, HPM SDK, Nuclei Studio, RT-Thread, Zephyr]
+  query: "freq=100-1000&peri=can,eth&sort=freq-asc"
+  updated: 2026-11-04

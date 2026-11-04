@@ -1,0 +1,8 @@
+{{- $m := . -}}
+{{- $cls := "badge" -}}
+{{- $key := "js_maturity_preview" -}}
+{{- if eq $m "量产" -}}{{- $cls = "badge badge--green" -}}{{- $key = "js_maturity_mass" -}}
+{{- else if eq $m "授权中" -}}{{- $cls = "badge badge--amber" -}}{{- $key = "js_maturity_license" -}}
+{{- else if eq $m "预览" -}}{{- $cls = "badge badge--blue" -}}{{- $key = "js_maturity_preview" -}}
+{{- end -}}
+<span class="{{ $cls }}">{{ i18n $key }}</span>
