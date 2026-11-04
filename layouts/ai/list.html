@@ -1,0 +1,99 @@
+{{ define "main" }}
+{{- $all := hugo.Data.ais | default slice -}}
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>AI 算力</span></nav>
+    <h1>{{ .Title }}</h1>
+    <div class="lede prose">{{ .Content }}</div>
+    <div class="page-stats">
+      <span><b>{{ len $all }}</b> 条记录</span>
+      <span><b>{{ site.Params.updated }}</b> 数据快照</span>
+      <span><span class="badge badge--amber">预览版</span></span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="catalog" id="ai-app" data-json="{{ "data/ais.json" | relURL }}">
+    <div class="filter-scrim" id="filter-scrim"></div>
+    <aside class="filters" id="mcu-filters" aria-label="AI 筛选器">
+      <div class="filters-head">
+        <span class="filters-title">{{ partial "icon.html" (dict "name" "filter" "size" 16) }} 筛选</span>
+        <div>
+          <button type="button" class="filters-clear" id="reset-filters">重置</button>
+          <button type="button" class="filters-close" id="close-filters" aria-label="关闭筛选">{{ partial "icon.html" (dict "name" "close" "size" 16) }}</button>
+        </div>
+      </div>
+      <details class="fgroup" open><summary>类型 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="type"></div></details>
+      <details class="fgroup" open><summary>归属地 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="country"></div></details>
+      <details class="fgroup" open><summary>架构 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="arch"></div></details>
+      <details class="fgroup" open><summary>算力 (INT8 TOPS) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body">
+          <div class="range-row">
+            <input type="number" inputmode="numeric" id="tops-min" placeholder="最低" aria-label="最低算力" min="0" max="10000" step="0.1">
+            <span class="sep">—</span>
+            <input type="number" inputmode="numeric" id="tops-max" placeholder="最高" aria-label="最高算力" min="0" max="10000" step="0.1">
+          </div>
+        </div>
+      </details>
+      <details class="fgroup"><summary>精度 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="precision"></div></details>
+      <details class="fgroup"><summary>框架 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="frameworks"></div></details>
+      <details class="fgroup"><summary>成熟度 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="maturity"></div></details>
+    </aside>
+
+    <div class="results">
+      <div class="toolbar">
+        <button type="button" class="btn btn--outline btn--sm filter-open" id="open-filters">{{ partial "icon.html" (dict "name" "filter" "size" 15) }} 筛选</button>
+        <div class="search-field">
+          {{ partial "icon.html" (dict "name" "search" "size" 16) }}
+          <input type="search" id="ai-search" placeholder="搜索产品、厂商、SDK、代表芯片…" aria-label="搜索 AI 算力">
+        </div>
+        <select class="select" id="ai-sort" aria-label="排序方式">
+          <option value="tops-desc">算力从高到低</option>
+          <option value="tops-asc">算力从低到高</option>
+          <option value="recommended">推荐排序</option>
+        </select>
+      </div>
+      <div class="active-filters" id="active-filters"></div>
+      <div class="toolbar-meta"><div class="result-count" id="result-count">加载中…</div></div>
+
+      <div class="table-wrap mcu-table-wrap">
+        <table class="data-table ai-table">
+          <colgroup><col style="width:170px"><col style="width:125px"><col style="width:72px"><col style="width:100px"><col style="width:110px"><col style="width:112px"><col style="width:58px"><col style="width:80px"></colgroup>
+          <thead><tr><th>产品 / 厂商</th><th>类型 / 归属地</th><th>算力</th><th>精度</th><th>框架</th><th>SDK / 工具链</th><th>成熟度</th><th>代表芯片</th></tr></thead>
+          <tbody id="ai-tbody"></tbody>
+        </table>
+      </div>
+      <div class="mcu-cards" id="ai-cards"></div>
+      <div class="empty-state" id="ai-empty" hidden>
+        {{ partial "icon.html" (dict "name" "search" "size" 34) }}
+        <h3>没有符合条件的记录</h3>
+        <p>尝试放宽算力或框架条件。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section section--white">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">路线图</span>
+      <h2 class="section-title">下一步：模型 / 软件版本匹配成熟度</h2>
+      <p class="section-desc">硬件算力只是起点。真正决定项目周期的是“这个模型能否在你的工具链版本上跑通、量化后精度掉多少、算子覆盖是否完整”。未来每条 AI 记录会升级为下面的矩阵。</p>
+    </div>
+    <div class="roadmap">
+      <div class="roadmap-item"><div class="step">01 · 硬件</div><h3>算力与精度</h3><p>INT8 / INT4 / FP16 峰值，内存带宽，功耗与能效比，封装与接口。</p></div>
+      <div class="roadmap-item"><div class="step">02 · 软件</div><h3>工具链版本</h3><p>SDK、编译器、量化工具、驱动与 Runtime 的版本组合，安装与复现步骤。</p></div>
+      <div class="roadmap-item"><div class="step">03 · 模型</div><h3>模型与算子</h3><p>ONNX / TFLite / PyTorch 导出，算子覆盖，动态 shape，量化后精度回归。</p></div>
+    </div>
+    <div class="callout callout--info" style="margin-top:18px">
+      当前页面只覆盖公开可查的硬件规格与工具链信息。<strong>没有公开 benchmark 的项不会编造分数</strong>；欢迎在 <a href="{{ site.Params.issues }}" target="_blank" rel="noopener">GitHub Issues</a> 提交实测数据或纠正参数。
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $js := resources.Get "js/ai.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}

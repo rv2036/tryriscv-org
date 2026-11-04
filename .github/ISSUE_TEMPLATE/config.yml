@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 数据说明与免责声明
+    url: https://tryriscv.org/about/
+    about: 本站数据由 AI 从公开网络自动抓取整理，请以厂商最新数据手册为准。
+  - name: 直接浏览 MCU 选型
+    url: https://tryriscv.org/mcu/
+    about: 按主频、SRAM、Flash、功耗、外设与封装筛选。

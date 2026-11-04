@@ -1,0 +1,40 @@
+name: 推荐新器件
+description: 推荐尚未收录的 RISC-V MCU / IP / AI 加速器
+title: "[新器件] "
+body:
+  - type: input
+    id: name
+    attributes:
+      label: 型号 / IP 名称
+      placeholder: "例如：CH32V006K8U7 / Nuclei N300 / 某 NPU"
+    validations:
+      required: true
+  - type: input
+    id: vendor
+    attributes:
+      label: 厂商
+      placeholder: "例如：沁恒微电子"
+    validations:
+      required: true
+  - type: input
+    id: product
+    attributes:
+      label: 官方产品页
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: input
+    id: datasheet
+    attributes:
+      label: 数据手册链接
+      placeholder: "https://...pdf"
+  - type: textarea
+    id: specs
+    attributes:
+      label: 关键参数
+      description: 主频、SRAM、Flash、功耗、外设、封装、温度；知道多少写多少
+  - type: textarea
+    id: why
+    attributes:
+      label: 为什么值得收录
+      description: 独特定位、价格、生态、已量产案例等

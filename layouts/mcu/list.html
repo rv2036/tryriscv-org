@@ -1,0 +1,271 @@
+{{ define "main" }}
+{{- $all := hugo.Data.mcus -}}
+{{- $vendors := slice -}}
+{{- $ips := slice -}}
+{{- range $all }}{{ $vendors = $vendors | append .vendor }}{{ $ips = $ips | append .ip_vendor }}{{ end -}}
+{{- $vendors = $vendors | uniq -}}
+{{- $ips = $ips | uniq -}}
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>MCU 选型</span></nav>
+    <h1>{{ .Title }}</h1>
+    <div class="lede prose">{{ .Content }}</div>
+    <div class="page-stats">
+      <span><b>{{ len $all }}</b> 款器件</span>
+      <span><b>{{ len $vendors }}</b> 家厂商</span>
+      <span><b>{{ len $ips }}</b> 个 IP 品牌</span>
+      <span><b>{{ site.Params.updated }}</b> 数据快照</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="catalog" id="mcu-app" data-json="{{ "data/mcus.json" | relURL }}" data-view="table">
+    <div class="filter-scrim" id="filter-scrim"></div>
+
+    <aside class="filters" id="mcu-filters" aria-label="MCU 筛选器">
+      <div class="filters-head">
+        <span class="filters-title">{{ partial "icon.html" (dict "name" "filter" "size" 16) }} 筛选</span>
+        <div>
+          <button type="button" class="filters-clear" id="reset-filters">重置</button>
+          <button type="button" class="filters-close" id="close-filters" aria-label="关闭筛选">{{ partial "icon.html" (dict "name" "close" "size" 16) }}</button>
+        </div>
+      </div>
+
+      <details class="fgroup" open>
+        <summary>厂商 <span>{{ len $vendors }}</span>{{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="vendor"></div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>IP 品牌 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="ip"></div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>IP 归属地 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="ipc"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>指令集 / 位宽 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="isa"></div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>主频范围 (MHz) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body">
+          <div class="range-row">
+            <input type="number" inputmode="numeric" id="freq-min" placeholder="最低" aria-label="最低主频 MHz" min="0" max="3000" step="1">
+            <span class="sep">—</span>
+            <input type="number" inputmode="numeric" id="freq-max" placeholder="最高" aria-label="最高主频 MHz" min="0" max="3000" step="1">
+          </div>
+          <p class="range-hint">例：64–128 覆盖 100MHz 档</p>
+        </div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>SRAM 容量 (KB) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body">
+          <div class="range-row">
+            <input type="number" inputmode="numeric" id="sram-min" placeholder="最低" aria-label="最低 SRAM KB" min="0" max="8192" step="1">
+            <span class="sep">—</span>
+            <input type="number" inputmode="numeric" id="sram-max" placeholder="最高" aria-label="最高 SRAM KB" min="0" max="8192" step="1">
+          </div>
+          <p class="range-hint">64KB 小资源可设 0–64</p>
+        </div>
+      </details>
+
+      <details class="fgroup">
+        <summary>片上 Flash (KB) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body">
+          <div class="range-row">
+            <input type="number" inputmode="numeric" id="flash-min" placeholder="最低" aria-label="最低 Flash KB" min="0" max="8192" step="1">
+            <span class="sep">—</span>
+            <input type="number" inputmode="numeric" id="flash-max" placeholder="最高" aria-label="最高 Flash KB" min="0" max="8192" step="1">
+          </div>
+        </div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>动态功耗 (µA/MHz) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body">
+          <div class="range-row">
+            <input type="number" inputmode="numeric" id="run-min" placeholder="最低" aria-label="最低动态功耗" min="0" max="5000" step="1">
+            <span class="sep">—</span>
+            <input type="number" inputmode="numeric" id="run-max" placeholder="最高" aria-label="最高动态功耗" min="0" max="5000" step="1">
+          </div>
+          <label class="check"><input type="checkbox" id="has-power"> 仅显示有功耗数据的型号</label>
+        </div>
+      </details>
+
+      <details class="fgroup">
+        <summary>休眠电流 (µA) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body">
+          <div class="range-row">
+            <input type="number" inputmode="numeric" id="sleep-min" placeholder="最低" aria-label="最低休眠电流" min="0" max="100000" step="0.1">
+            <span class="sep">—</span>
+            <input type="number" inputmode="numeric" id="sleep-max" placeholder="最高" aria-label="最高休眠电流" min="0" max="100000" step="0.1">
+          </div>
+        </div>
+      </details>
+
+      <details class="fgroup" open>
+        <summary>外设协议 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="peri"></div>
+        <p class="range-hint" style="padding:0 4px">多选为“同时具备”，例如 BLE + I²C。</p>
+      </details>
+
+      <details class="fgroup">
+        <summary>ADC 位数 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="adc"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>封装 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="pkg"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>供电特性 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="volt"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>工作温度 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="temp"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>生态 / RTOS {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="eco"></div>
+      </details>
+
+      <details class="fgroup">
+        <summary>供货状态 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body" data-facet="status"></div>
+      </details>
+    </aside>
+
+    <div class="results" id="mcu-results">
+      <div class="toolbar">
+        <button type="button" class="btn btn--outline btn--sm filter-open" id="open-filters">{{ partial "icon.html" (dict "name" "filter" "size" 15) }} 筛选 <span class="badge" id="filter-count" hidden>0</span></button>
+        <div class="search-field">
+          {{ partial "icon.html" (dict "name" "search" "size" 16) }}
+          <input type="search" id="mcu-search" placeholder="搜索型号、厂商、内核、外设…" aria-label="搜索 MCU" autocomplete="off">
+        </div>
+        <select class="select" id="mcu-sort" aria-label="排序方式">
+          <option value="recommended">推荐排序</option>
+          <option value="freq-asc">主频从低到高</option>
+          <option value="freq-desc">主频从高到低</option>
+          <option value="sram-desc">SRAM 从大到小</option>
+          <option value="flash-desc">Flash 从大到小</option>
+          <option value="run-asc">动态功耗从低到高</option>
+          <option value="sleep-asc">休眠电流从低到高</option>
+          <option value="price-asc">价格从低到高</option>
+          <option value="year-desc">最新发布</option>
+        </select>
+        <div class="view-toggle" role="group" aria-label="视图切换">
+          <button type="button" data-view="table" class="is-active" aria-pressed="true">表格</button>
+          <button type="button" data-view="grid" aria-pressed="false">卡片</button>
+        </div>
+        <a class="btn btn--outline btn--sm" href="{{ "data/mcus.csv" | relURL }}" download>下载 CSV</a>
+      </div>
+
+      <div class="active-filters" id="active-filters"></div>
+
+      <div class="toolbar-meta">
+        <div class="result-count" id="result-count" aria-live="polite">加载中…</div>
+        <div class="small muted">勾选 2–4 款可并排对比</div>
+      </div>
+
+      <div class="table-wrap mcu-table-wrap">
+        <table class="data-table mcu-table">
+          <colgroup>
+            <col style="width:32px"><col style="width:158px"><col style="width:140px">
+            <col style="width:60px"><col style="width:58px"><col style="width:58px">
+            <col style="width:108px"><col style="width:160px"><col style="width:66px">
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="col-check"><span class="sr-only">对比</span></th>
+              <th>型号 / 厂商</th>
+              <th>IP 核</th>
+              <th>主频</th>
+              <th>SRAM</th>
+              <th>Flash</th>
+              <th>功耗</th>
+              <th>外设</th>
+              <th>参考价</th>
+            </tr>
+          </thead>
+          <tbody id="mcu-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="mcu-cards" id="mcu-cards"></div>
+
+      <div class="empty-state" id="mcu-empty" hidden>
+        {{ partial "icon.html" (dict "name" "search" "size" 34) }}
+        <h3>没有符合条件的型号</h3>
+        <p>试着放宽功耗、SRAM 或外设条件，或者告诉我们你的需求。</p>
+        <a class="btn btn--outline btn--sm" href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">提交选型需求</a>
+      </div>
+
+      <div class="center" style="margin-top:18px">
+        <button type="button" class="btn btn--outline" id="load-more" hidden>加载更多</button>
+      </div>
+
+      <noscript>
+        <div class="table-wrap" style="margin-top:20px">
+          <table class="data-table">
+            <thead><tr><th>型号</th><th>厂商</th><th>IP 核</th><th>主频</th><th>SRAM</th><th>Flash</th><th>状态</th></tr></thead>
+            <tbody>
+              {{ range $all }}
+              <tr>
+                <td><a class="model-link" href="{{ .url | relURL }}">{{ .name }}</a></td>
+                <td>{{ .vendor }}</td>
+                <td>{{ .core }}</td>
+                <td class="num">{{ .freq }} MHz</td>
+                <td class="num">{{ .sram }} KB</td>
+                <td class="num">{{ if eq .flash 0 }}无{{ else }}{{ .flash }} KB{{ end }}</td>
+                <td>{{ .status }}</td>
+              </tr>
+              {{ end }}
+            </tbody>
+          </table>
+        </div>
+        <p class="small muted">启用 JavaScript 可使用筛选、排序与对比功能。</p>
+      </noscript>
+    </div>
+  </div>
+</div>
+
+<div class="compare-bar" id="compare-bar" aria-label="对比栏">
+  <span class="compare-bar-label">已选 <b id="compare-count">0</b> / 4</span>
+  <div class="compare-slots" id="compare-slots"></div>
+  <span class="compare-hint">再选 1 款即可对比</span>
+  <button type="button" class="btn btn--light btn--sm" id="compare-open" disabled>对比</button>
+  <button type="button" class="btn btn--ghost btn--sm" id="compare-clear">清空</button>
+</div>
+
+<div class="modal" id="compare-modal" role="dialog" aria-modal="true" aria-labelledby="compare-title" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal-panel">
+    <div class="modal-head">
+      <h2 id="compare-title">MCU 参数对比</h2>
+      <button type="button" class="modal-close" data-close-modal aria-label="关闭">{{ partial "icon.html" (dict "name" "close" "size" 18) }}</button>
+    </div>
+    <div class="modal-body">
+      <div id="compare-content"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $js := resources.Get "js/mcu.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}

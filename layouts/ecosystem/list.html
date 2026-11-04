@@ -1,0 +1,92 @@
+{{ define "main" }}
+{{- $eco := hugo.Data.ecosystem -}}
+{{- $mcu := hugo.Data.mcus -}}
+{{- $vendors := slice -}}
+{{- range $mcu }}{{ $vendors = $vendors | append .vendor }}{{ end -}}
+{{- $vendors = $vendors | uniq -}}
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>生态图谱</span></nav>
+    <h1>{{ .Title }}</h1>
+    <div class="lede prose">{{ .Content }}</div>
+    <div class="page-stats">
+      <span><b>{{ len $vendors }}</b> 家 MCU 厂商</span>
+      <span><b>{{ len $eco.toolchains }}</b> 套工具链</span>
+      <span><b>{{ len $eco.boards }}</b> 类开发板</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="eco-section">
+    <span class="eyebrow">组织与联盟</span>
+    <h2>谁在推动 RISC-V</h2>
+    <div class="eco-grid">
+      {{ range hugo.Data.site.orgs }}
+      <div class="eco-item">
+        <div class="org-top"><h3>{{ .name }}</h3><span class="org-region">{{ .region }}</span></div>
+        <p>{{ .desc }}</p>
+        <a href="{{ .url }}" target="_blank" rel="noopener">{{ .url }} {{ partial "icon.html" (dict "name" "external" "size" 12) }}</a>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="eco-section">
+    <span class="eyebrow">厂商名录</span>
+    <h2>已收录的芯片厂商</h2>
+    <div class="rec-list">
+      {{ range $vendors }}
+      {{ $v := . }}
+      {{ $count := 0 }}
+      {{ range $mcu }}{{ if eq .vendor $v }}{{ $count = add $count 1 }}{{ end }}{{ end }}
+      <a class="rec-chip" href="{{ "/mcu/" | relURL }}?vendor={{ urlquery $v }}"><b>{{ $v }}</b><small>{{ $count }} 款在库</small></a>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="eco-section">
+    <span class="eyebrow">工具链</span>
+    <h2>编译、调试与 IDE</h2>
+    <div class="eco-grid">
+      {{ range $eco.toolchains }}
+      <div class="eco-item">
+        <h3>{{ .name }}</h3>
+        <div class="eco-vendor">{{ .vendor }}</div>
+        <p>{{ .desc }}</p>
+        <a href="{{ .url }}" target="_blank" rel="noopener">访问 {{ partial "icon.html" (dict "name" "external" "size" 12) }}</a>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="eco-section">
+    <span class="eyebrow">操作系统</span>
+    <h2>RTOS 与系统软件</h2>
+    <div class="eco-grid">
+      {{ range $eco.rtos }}
+      <div class="eco-item"><h3>{{ .name }}</h3><p>{{ .desc }}</p><a href="{{ .url }}" target="_blank" rel="noopener">项目主页 {{ partial "icon.html" (dict "name" "external" "size" 12) }}</a></div>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="eco-section">
+    <span class="eyebrow">开发板</span>
+    <h2>从开发板开始验证</h2>
+    <div class="eco-grid">
+      {{ range $eco.boards }}
+      <div class="eco-item"><h3>{{ .name }}</h3><div class="eco-vendor">{{ .vendor }}</div><p>{{ .desc }}</p><a href="{{ .url }}" target="_blank" rel="noopener">厂商 / 资料 {{ partial "icon.html" (dict "name" "external" "size" 12) }}</a></div>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="eco-section">
+    <span class="eyebrow">社区</span>
+    <h2>继续查资料的地方</h2>
+    <div class="rec-list">
+      {{ range $eco.communities }}<a class="rec-chip" href="{{ .url }}" target="_blank" rel="noopener"><b>{{ .name }}</b></a>{{ end }}
+    </div>
+    <p class="static-note">以上链接为公开入口整理；本站与各组织、厂商无隶属关系。</p>
+  </section>
+</div>
+{{ end }}

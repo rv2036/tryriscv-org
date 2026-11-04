@@ -1,0 +1,101 @@
+{{ define "main" }}
+{{- $all := hugo.Data.ips -}}
+{{- $vendors := slice -}}
+{{- range $all }}{{ $vendors = $vendors | append .vendor }}{{ end -}}
+{{- $vendors = $vendors | uniq -}}
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>IP 核</span></nav>
+    <h1>{{ .Title }}</h1>
+    <div class="lede prose">{{ .Content }}</div>
+    <div class="page-stats">
+      <span><b>{{ len $all }}</b> 个 IP 核</span>
+      <span><b>{{ len $vendors }}</b> 家 IP 厂商</span>
+      <span><b>{{ site.Params.updated }}</b> 数据快照</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="catalog" id="ip-app" data-json="{{ "data/ips.json" | relURL }}" data-view="table">
+    <div class="filter-scrim" id="filter-scrim"></div>
+    <aside class="filters" id="mcu-filters" aria-label="IP 筛选器">
+      <div class="filters-head">
+        <span class="filters-title">{{ partial "icon.html" (dict "name" "filter" "size" 16) }} 筛选</span>
+        <div>
+          <button type="button" class="filters-clear" id="reset-filters">重置</button>
+          <button type="button" class="filters-close" id="close-filters" aria-label="关闭筛选">{{ partial "icon.html" (dict "name" "close" "size" 16) }}</button>
+        </div>
+      </div>
+      <details class="fgroup" open><summary>IP 品牌 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="vendor"></div></details>
+      <details class="fgroup" open><summary>归属地 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="country"></div></details>
+      <details class="fgroup" open><summary>位宽 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="bits"></div></details>
+      <details class="fgroup" open><summary>特性 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="features"></div></details>
+      <details class="fgroup"><summary>授权模式 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="license"></div></details>
+      <details class="fgroup"><summary>成熟度 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary><div class="fgroup-body" data-facet="maturity"></div></details>
+      <details class="fgroup" open>
+        <summary>最高频率 (MHz) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body">
+          <div class="range-row">
+            <input type="number" inputmode="numeric" id="freq-min" placeholder="最低" aria-label="最低频率" min="0" max="5000">
+            <span class="sep">—</span>
+            <input type="number" inputmode="numeric" id="freq-max" placeholder="最高" aria-label="最高频率" min="0" max="5000">
+          </div>
+          <p class="range-hint">频率与工艺、实现相关，仅作量级参考</p>
+        </div>
+      </details>
+    </aside>
+
+    <div class="results">
+      <div class="toolbar">
+        <button type="button" class="btn btn--outline btn--sm filter-open" id="open-filters">{{ partial "icon.html" (dict "name" "filter" "size" 15) }} 筛选</button>
+        <div class="search-field">
+          {{ partial "icon.html" (dict "name" "search" "size" 16) }}
+          <input type="search" id="ip-search" placeholder="搜索 IP、厂商、指令集、代表芯片…" aria-label="搜索 IP">
+        </div>
+        <select class="select" id="ip-sort" aria-label="排序方式">
+          <option value="recommended">推荐排序</option>
+          <option value="freq-desc">频率从高到低</option>
+          <option value="freq-asc">频率从低到高</option>
+          <option value="bits-desc">位宽 64 位优先</option>
+          <option value="name">名称排序</option>
+        </select>
+      </div>
+      <div class="active-filters" id="active-filters"></div>
+      <div class="toolbar-meta"><div class="result-count" id="result-count">加载中…</div></div>
+
+      <div class="table-wrap mcu-table-wrap">
+        <table class="data-table ip-table">
+          <colgroup><col style="width:190px"><col style="width:76px"><col style="width:112px"><col style="width:135px"><col style="width:74px"><col style="width:150px"><col style="width:74px"><col style="width:62px"></colgroup>
+          <thead><tr><th>IP 核 / 厂商</th><th>归属地</th><th>位宽 / ISA</th><th>流水线</th><th>最高频率</th><th>特性</th><th>授权</th><th>成熟度</th></tr></thead>
+          <tbody id="ip-tbody"></tbody>
+        </table>
+      </div>
+      <div class="mcu-cards" id="ip-cards"></div>
+      <div class="empty-state" id="ip-empty" hidden>
+        {{ partial "icon.html" (dict "name" "search" "size" 34) }}
+        <h3>没有符合条件的 IP</h3>
+        <p>尝试放宽特性或频率条件。</p>
+      </div>
+
+      <noscript>
+        <div class="table-wrap" style="margin-top:20px">
+          <table class="data-table">
+            <thead><tr><th>IP 核</th><th>厂商</th><th>位宽</th><th>ISA</th><th>最高频率</th><th>授权</th><th>成熟度</th></tr></thead>
+            <tbody>
+              {{ range $all }}
+              <tr><td><a class="model-link" href="{{ .url | relURL }}">{{ .name }}</a></td><td>{{ .vendor }}</td><td>{{ .bits }} 位</td><td>{{ .isa }}</td><td>{{ with .freq }}{{ . }} MHz{{ else }}未公开{{ end }}</td><td>{{ .license }}</td><td>{{ .maturity }}</td></tr>
+              {{ end }}
+            </tbody>
+          </table>
+        </div>
+      </noscript>
+    </div>
+  </div>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $js := resources.Get "js/ip.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}

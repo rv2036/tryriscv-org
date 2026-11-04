@@ -1,0 +1,47 @@
+baseURL = "https://tryriscv.org/"
+locale = "zh-CN"
+defaultContentLanguage = "zh"
+title = "tryriscv.org"
+enableRobotsTXT = true
+enableGitInfo = false
+disableKinds = ["taxonomy", "term"]
+
+# 数据目录：data/mcu/*.yaml 为唯一事实来源。
+# 构建前请运行 `python3 scripts/normalize.py` 生成 static/data/*.json。
+
+[pagination]
+  pagerSize = 24
+
+[params]
+  tagline = "把 RISC-V 选型变简单"
+  subtitle = "公开、可筛选、可对比的 RISC-V MCU / IP / 方案情报库"
+  description = "面向 RISC-V MCU 选型的公开情报站：厂商、IP、主频、内存、功耗、外设与生态，一站式筛选与对比。"
+  keywords = "RISC-V,MCU,国产芯片,选型,低功耗,沁恒,兆易创新,乐鑫,芯来,平头哥"
+  github = "https://github.com/rv2036/tryriscv-org"
+  issues = "https://github.com/rv2036/tryriscv-org/issues"
+  issue_new = "https://github.com/rv2036/tryriscv-org/issues/new/choose"
+  issue_select = "https://github.com/rv2036/tryriscv-org/issues/new?template=selection-request.yml"
+  issue_error = "https://github.com/rv2036/tryriscv-org/issues/new?template=data-error.yml"
+  issue_add = "https://github.com/rv2036/tryriscv-org/issues/new?template=new-device.yml"
+  updated = "2026-11-04"
+  author = "tryriscv.org 社区"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+  [markup.highlight]
+    noClasses = false
+
+[minify]
+  minifyOutput = true
+  [minify.tdewolff.html]
+    keepWhitespace = false
+
+[server]
+  [[server.headers]]
+    for = "/data/*.json"
+    [server.headers.values]
+      Cache-Control = "public, max-age=300"

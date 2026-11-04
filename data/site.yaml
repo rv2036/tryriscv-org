@@ -1,0 +1,49 @@
+# 站点级文案与配置（非器件数据）
+title: tryriscv.org
+tagline: 把 RISC-V 选型变简单
+subtitle: 公开、可筛选、可对比的 RISC-V MCU / IP / 方案情报库
+
+# 首页统计口径提示
+stats_note: 数据来自厂商官网、数据手册与公开渠道，由 AI 辅助整理；参数请以最新版数据手册为准。
+
+# 客户高频需求（首页“需求直通车”），query 为 /mcu/ 的筛选参数
+presets:
+  - id: iot-100m
+    title: IoT 产教融合 · 100MHz 低功耗
+    desc: 64–128MHz，优先展示低动态功耗与休眠电流，适合传感节点、教学平台与量产 IoT。
+    query: "freq=64-128&sort=run-asc&has_power=1"
+    tag: 客户诉求
+  - id: tiny-40m
+    title: 极小资源 · 40MHz / 64KB Flash
+    desc: 主频 ≤ 64MHz、Flash 32–128KB、优先低功耗；按“64KB 内存=Flash”的常见口径。若你指 SRAM，把 SRAM 下限设为 64KB。
+    query: "freq=0-64&flash=32-128&has_power=1&sort=run-asc"
+    tag: 客户诉求
+  - id: wireless
+    title: 无线连接 · BLE / Wi-Fi
+    desc: 内置 BLE 或 Wi-Fi 的 RISC-V SoC，减少射频外围与认证成本。
+    query: "peri=ble,wifi&sort=freq-asc"
+    tag: 场景
+  - id: motor
+    title: 电机控制 · FOC
+    desc: 12 位 ADC、互补 PWM、比较器与运放，面向风机、泵类与云台。
+    query: "peri=pwm,adc,comp&adc=12&sort=price-asc"
+    tag: 场景
+
+# 生态组织（首页与 /ecosystem/ 共用）
+orgs:
+  - name: RISC-V International
+    region: 瑞士 / 全球
+    url: https://riscv.org/
+    desc: 全球 RISC-V 指令集与扩展标准的制定者，负责 ISA 规范、认证与生态推广。
+  - name: 中国 RISC-V 产业联盟（CRVIC）
+    region: 中国 · 上海
+    url: http://www.risc-v.org.cn/
+    desc: 国内 RISC-V 产业联盟，推动 IP、芯片、工具链与人才培养的协同。
+  - name: 中国开放指令生态（RISC-V）联盟（CRVA）
+    region: 中国 · 北京
+    url: https://crva.ict.ac.cn/
+    desc: 由中科院计算所牵头发起，聚焦开源指令集生态、香山处理器与开源社区。
+  - name: RISC-V 基金会中国社区
+    region: 中国
+    url: https://riscv.org/community/
+    desc: 全球基金会在中国的社区活动、技术工作组与开发者聚会入口。

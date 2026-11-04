@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>{{ partial "head.html" . }}</head>
+<body class="page-404">
+  {{ partial "header.html" . }}
+  <main id="main" class="wrap" style="padding:80px 24px;text-align:center">
+    <p style="font-size:64px;font-weight:800;margin:0;color:var(--brand)">404</p>
+    <h1>这个页面没有找到</h1>
+    <p class="muted">可能是链接过期，或型号尚未收录。</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px">
+      <a class="btn btn--primary" href="{{ "/mcu/" | relURL }}">去选 MCU</a>
+      <a class="btn btn--outline" href="{{ "/" | relURL }}">返回首页</a>
+      <a class="btn btn--outline" href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">我想选</a>
+    </div>
+  </main>
+  {{ partial "disclaimer.html" . }}
+  {{ partial "footer.html" . }}
+</body>
+</html>

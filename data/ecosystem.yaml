@@ -1,0 +1,85 @@
+# 生态工具链、RTOS 与开发板（公开资料整理）
+toolchains:
+  - name: MounRiver Studio
+    vendor: 沁恒 WCH
+    url: https://www.mounriver.com/
+    desc: 基于 Eclipse 的集成开发环境，支持 WCH 全系 RISC-V MCU，内置 GCC 与调试。
+    parts: [wch]
+  - name: Nuclei Studio
+    vendor: 芯来科技
+    url: https://www.nucleisys.com/download.php
+    desc: 面向 Nuclei 核的 IDE 与 SDK，支持 N100/N200/N300/UX 系列。
+    parts: [nuclei]
+  - name: 剑池 CDK
+    vendor: 平头哥
+    url: https://www.t-head.cn/
+    desc: 玄铁生态的集成开发环境，配套 YoC 软件平台与 RTOS。
+    parts: [thead]
+  - name: RT-Thread Studio
+    vendor: RT-Thread
+    url: https://www.rt-thread.org/studio.html
+    desc: 国产 RTOS 的一站式 IDE，支持多款 RISC-V 开发板与芯片包。
+    parts: [rtthread]
+  - name: PlatformIO
+    vendor: PlatformIO
+    url: https://platformio.org/
+    desc: 跨平台嵌入式构建系统，社区支持部分 RISC-V 开发板。
+    parts: [community]
+  - name: Zephyr Project
+    vendor: Zephyr / Linux Foundation
+    url: https://zephyrproject.org/
+    desc: 上游支持多款 RISC-V SoC，适合需要长期维护与认证的产品。
+    parts: [zephyr]
+
+rtos:
+  - name: RT-Thread
+    url: https://www.rt-thread.org/
+    desc: 国产开源 RTOS，RISC-V 芯片包覆盖沁恒、兆易、乐鑫、博流等。
+  - name: FreeRTOS
+    url: https://www.freertos.org/
+    desc: 生态最广，RISC-V 移植由各厂商 SDK 提供。
+  - name: Zephyr
+    url: https://zephyrproject.org/
+    desc: 设备树 + Kconfig，适合无线与多外设项目，上游维护。
+  - name: NuttX
+    url: https://nuttx.apache.org/
+    desc: Apache 项目，POSIX 风格，适合带文件系统与网络的产品。
+  - name: OpenHarmony
+    url: https://www.openharmony.cn/
+    desc: 面向带屏与连接设备的国产操作系统，部分 RISC-V 板卡已适配。
+
+boards:
+  - name: CH32V003 系列评估板
+    vendor: 沁恒
+    url: https://www.wch.cn/
+    desc: 低成本入门板，适合教学与 GPIO/ADC 实验。
+  - name: GD32VF103C-START
+    vendor: 兆易创新
+    url: https://www.gigadevice.com.cn/
+    desc: 经典 RISC-V MCU 开发板，资料与社区例程丰富。
+  - name: ESP32-C3-DevKitM-1
+    vendor: 乐鑫
+    url: https://www.espressif.com.cn/
+    desc: Wi-Fi + BLE 的 RISC-V 开发板，ESP-IDF 生态成熟。
+  - name: BL602 / BL616 开发板
+    vendor: 博流智能
+    url: https://www.bouffalolab.com/
+    desc: 低成本 Wi-Fi / BLE 方案，适合快速验证连接类产品。
+  - name: VisionFive 2
+    vendor: 赛昉科技
+    url: https://www.starfivetech.com/
+    desc: 四核 RISC-V Linux 开发板，适合应用处理器与边缘计算验证。
+  - name: MUSE Pi / K1
+    vendor: 进迭时空
+    url: https://www.spacemit.com/
+    desc: 8 核 RISC-V + AI 算力的开发板，面向边缘智能。
+
+communities:
+  - name: RISC-V International
+    url: https://riscv.org/
+  - name: 中国 RISC-V 产业联盟
+    url: http://www.risc-v.org.cn/
+  - name: 中国开放指令生态联盟
+    url: https://crva.ict.ac.cn/
+  - name: 香山处理器
+    url: https://xiangshan.github.io/

@@ -1,0 +1,87 @@
+{{ define "main" }}
+{{- $solutions := hugo.Data.solutions | default slice -}}
+{{- $cats := slice -}}
+{{- range $solutions }}{{ $cats = $cats | append .category }}{{ end -}}
+{{- $cats = $cats | uniq -}}
+<section class="page-head">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="面包屑"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>解决方案</span></nav>
+    <h1>{{ .Title }}</h1>
+    <div class="lede prose">{{ .Content }}</div>
+    <div class="page-stats">
+      <span><b>{{ len $solutions }}</b> 个方案包</span>
+      <span><b>{{ len $cats }}</b> 类场景</span>
+      <span><b>{{ site.Params.updated }}</b> 数据快照</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="toolbar" style="margin-top:24px" id="solution-filters">
+    <button type="button" class="chip is-active" data-category="all">全部场景</button>
+    {{ range $cats }}<button type="button" class="chip" data-category="{{ . }}">{{ . }}</button>{{ end }}
+  </div>
+
+  <div class="solution-list" id="solution-list">
+    {{ range $solutions }}
+    {{- $s := . -}}
+    <article class="solution-card" data-category="{{ .category }}">
+      <div class="solution-head">
+        <span class="solution-icon">{{ partial "icon.html" (dict "name" "solution" "size" 22) }}</span>
+        <div>
+          <h2>{{ .title }}</h2>
+          <p>{{ .summary }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">
+            <span class="tag tag--indigo">{{ .category }}</span>
+            {{ range .needs }}<span class="tag">{{ . }}</span>{{ end }}
+          </div>
+        </div>
+      </div>
+
+      <dl class="solution-meta">
+        {{ with index .specs "freq" }}<div><dt>主频</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with index .specs "sram" }}<div><dt>SRAM</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with index .specs "flash" }}<div><dt>Flash</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with index .specs "power" }}<div><dt>功耗</dt><dd>{{ . }}</dd></div>{{ end }}
+        {{ with index .specs "wireless" }}<div><dt>连接</dt><dd>{{ . }}</dd></div>{{ end }}
+      </dl>
+
+      <div class="solution-cols">
+        <div>
+          <h3>推荐器件</h3>
+          <div class="rec-list">
+            {{ range .recommended }}
+              {{ $m := partial "find-mcu.html" (dict "id" .) }}
+              {{ if $m }}
+              <a class="rec-chip" href="{{ printf "/mcu/%s/" $m.id | relURL }}"><b>{{ $m.name }}</b><small>{{ $m.vendor }} · {{ $m.freq }}MHz · {{ $m.sram }}KB</small></a>
+              {{ else }}<span class="rec-chip">{{ . }}</span>{{ end }}
+            {{ end }}
+          </div>
+          <h3 style="margin-top:16px">为什么这样选</h3>
+          <ul>{{ range .why }}<li>{{ . }}</li>{{ end }}</ul>
+        </div>
+        <div>
+          <h3>风险与取舍</h3>
+          <ul>{{ range .risks }}<li>{{ . }}</li>{{ end }}</ul>
+          {{ with .toolchain }}
+          <h3 style="margin-top:16px">工具链与生态</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:4px">{{ range . }}<span class="tag tag--teal">{{ . }}</span>{{ end }}</div>
+          {{ end }}
+        </div>
+      </div>
+
+      <div class="solution-foot">
+        <a class="btn btn--primary" href="{{ printf "/mcu/?%s" .query | relURL }}">打开对应筛选 {{ partial "icon.html" (dict "name" "arrow" "size" 15) }}</a>
+        <a class="btn btn--outline" href="{{ "/mcu/" | relURL }}">浏览全部 MCU</a>
+        <span class="small muted" style="margin-left:auto">更新于 {{ .updated }}</span>
+      </div>
+    </article>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $js := resources.Get "js/solutions.js" | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}

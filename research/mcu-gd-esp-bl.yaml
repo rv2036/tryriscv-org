@@ -1,0 +1,1891 @@
+- id: gigadevice-gd32vf103c8t6
+  name: GD32VF103C8T6
+  family: GD32VF103
+  vendor: 兆易创新
+  vendor_en: GigaDevice
+  vendor_country: CN
+  ip_vendor: 芯来 Nuclei
+  ip_country: CN
+  core: Nuclei N200 (Bumblebee)
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 108
+  sram_kb: 20
+  flash_kb: 64
+  psram_kb: 0
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.6
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 185.6
+    sleep_ua: 460
+    standby_ua: 6.32
+    wakeup_us: 6
+    note: 数据手册 Rev2.0 典型值 VDD=3.3V/25°C：Run 20.05mA@108MHz（外设时钟全关）→185.6µA/MHz；deep-sleep 460µA（LDO 正常、RTC 关）；standby 6.32µA（IRC40K/RTC
+      关）；唤醒 deep-sleep 6µs、standby 118.8ms。
+  peripherals:
+    uart: 3
+    spi: 3
+    i2c: 2
+    can: 2
+    usb_fs: 1
+    adc_ch: 10
+    adc_bits: 12
+    dac_ch: 2
+    pwm_ch: 22
+    i2s: 2
+    dma_ch: 12
+    other: 2x 12-bit ADC；DMA 7+5 通道；4x 通用定时器 + 1x 高级定时器
+  packages:
+  - LQFP48
+  temp_min: -40
+  temp_max: 85
+  security:
+  - CRC
+  debug:
+  - JTAG
+  ecosystem:
+  - Nuclei SDK
+  - RT-Thread
+  - FreeRTOS
+  status: 量产
+  release_year: 2019
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.gigadevice.com/product/mcu/main-stream-mcus/gd32vf103-series/gd32vf103
+    datasheet: https://www.gigadevice.com.cn/Public/Uploads/uploadfile/files/20241008/GD32VF103_Datasheet_Rev2.0.pdf
+    toolchain: https://doc.nucleisys.com/nuclei_sdk/
+  tags:
+  - 通用MCU
+  - RISC-V
+  - 电机控制
+  notes: RISC-V 内核为芯来 N200（Bumblebee），RV32IMAC，带 ECLIC。家族最大 128KB Flash/32KB SRAM；不存在 512KB 的 GD32VF103VET6（VET6 属 ARM 的 GD32F103）。LQFP48，37
+    GPIO，64KB Flash/20KB SRAM；同族 C6T6 为 32KB/10KB。
+  sources:
+  - https://www.gigadevice.com.cn/Public/Uploads/uploadfile/files/20241008/GD32VF103_Datasheet_Rev2.0.pdf
+  - https://www.gigadevice.com/product/mcu/main-stream-mcus/gd32vf103-series/gd32vf103
+  - https://doc.nucleisys.com/nuclei_sdk/design/soc/gd32vf103.html
+  confidence: high
+  updated: 2026-11-04
+- id: gigadevice-gd32vf103rbt6
+  name: GD32VF103RBT6
+  family: GD32VF103
+  vendor: 兆易创新
+  vendor_en: GigaDevice
+  vendor_country: CN
+  ip_vendor: 芯来 Nuclei
+  ip_country: CN
+  core: Nuclei N200 (Bumblebee)
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 108
+  sram_kb: 32
+  flash_kb: 128
+  psram_kb: 0
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.6
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 185.6
+    sleep_ua: 460
+    standby_ua: 6.32
+    wakeup_us: 6
+    note: 数据手册 Rev2.0 典型值 VDD=3.3V/25°C：Run 20.05mA@108MHz（外设时钟全关）→185.6µA/MHz；deep-sleep 460µA（LDO 正常、RTC 关）；standby 6.32µA（IRC40K/RTC
+      关）；唤醒 deep-sleep 6µs、standby 118.8ms。
+  peripherals:
+    uart: 5
+    spi: 3
+    i2c: 2
+    can: 2
+    usb_fs: 1
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 2
+    pwm_ch: 22
+    i2s: 2
+    dma_ch: 12
+    other: 2x 12-bit ADC；DMA 7+5 通道；4x 通用定时器 + 1x 高级定时器
+  packages:
+  - LQFP64
+  temp_min: -40
+  temp_max: 85
+  security:
+  - CRC
+  debug:
+  - JTAG
+  ecosystem:
+  - Nuclei SDK
+  - RT-Thread
+  - FreeRTOS
+  status: 量产
+  release_year: 2019
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.gigadevice.com/product/mcu/main-stream-mcus/gd32vf103-series/gd32vf103
+    datasheet: https://www.gigadevice.com.cn/Public/Uploads/uploadfile/files/20241008/GD32VF103_Datasheet_Rev2.0.pdf
+    toolchain: https://doc.nucleisys.com/nuclei_sdk/
+  tags:
+  - 通用MCU
+  - RISC-V
+  - 电机控制
+  notes: RISC-V 内核为芯来 N200（Bumblebee），RV32IMAC，带 ECLIC。家族最大 128KB Flash/32KB SRAM；不存在 512KB 的 GD32VF103VET6（VET6 属 ARM 的 GD32F103）。LQFP64，51
+    GPIO，128KB Flash/32KB SRAM；R8T6 为 64KB/20KB。
+  sources:
+  - https://www.gigadevice.com.cn/Public/Uploads/uploadfile/files/20241008/GD32VF103_Datasheet_Rev2.0.pdf
+  - https://www.gigadevice.com/product/mcu/main-stream-mcus/gd32vf103-series/gd32vf103
+  - https://doc.nucleisys.com/nuclei_sdk/design/soc/gd32vf103.html
+  confidence: high
+  updated: 2026-11-04
+- id: gigadevice-gd32vf103vbt6
+  name: GD32VF103VBT6
+  family: GD32VF103
+  vendor: 兆易创新
+  vendor_en: GigaDevice
+  vendor_country: CN
+  ip_vendor: 芯来 Nuclei
+  ip_country: CN
+  core: Nuclei N200 (Bumblebee)
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 108
+  sram_kb: 32
+  flash_kb: 128
+  psram_kb: 0
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.6
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 185.6
+    sleep_ua: 460
+    standby_ua: 6.32
+    wakeup_us: 6
+    note: 数据手册 Rev2.0 典型值 VDD=3.3V/25°C：Run 20.05mA@108MHz（外设时钟全关）→185.6µA/MHz；deep-sleep 460µA（LDO 正常、RTC 关）；standby 6.32µA（IRC40K/RTC
+      关）；唤醒 deep-sleep 6µs、standby 118.8ms。
+  peripherals:
+    uart: 5
+    spi: 3
+    i2c: 2
+    can: 2
+    usb_fs: 1
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 2
+    pwm_ch: 22
+    i2s: 2
+    dma_ch: 12
+    other: EXMC 外部存储器接口；2x 12-bit ADC；DMA 7+5 通道；4x 通用定时器 + 1x 高级定时器
+  packages:
+  - LQFP100
+  temp_min: -40
+  temp_max: 85
+  security:
+  - CRC
+  debug:
+  - JTAG
+  ecosystem:
+  - Nuclei SDK
+  - RT-Thread
+  - FreeRTOS
+  status: 量产
+  release_year: 2019
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.gigadevice.com/product/mcu/main-stream-mcus/gd32vf103-series/gd32vf103
+    datasheet: https://www.gigadevice.com.cn/Public/Uploads/uploadfile/files/20241008/GD32VF103_Datasheet_Rev2.0.pdf
+    toolchain: https://doc.nucleisys.com/nuclei_sdk/
+  tags:
+  - 通用MCU
+  - RISC-V
+  - 电机控制
+  notes: RISC-V 内核为芯来 N200（Bumblebee），RV32IMAC，带 ECLIC。家族最大 128KB Flash/32KB SRAM；不存在 512KB 的 GD32VF103VET6（VET6 属 ARM 的 GD32F103）。LQFP100，80
+    GPIO，带 EXMC 外部存储器控制器；V8T6 为 64KB/20KB。
+  sources:
+  - https://www.gigadevice.com.cn/Public/Uploads/uploadfile/files/20241008/GD32VF103_Datasheet_Rev2.0.pdf
+  - https://www.gigadevice.com/product/mcu/main-stream-mcus/gd32vf103-series/gd32vf103
+  - https://doc.nucleisys.com/nuclei_sdk/design/soc/gd32vf103.html
+  confidence: high
+  updated: 2026-11-04
+- id: gigadevice-gd32vw553kiq7
+  name: GD32VW553KIQ7
+  family: GD32VW553
+  vendor: 兆易创新
+  vendor_en: GigaDevice
+  vendor_country: CN
+  ip_vendor: 芯来 Nuclei
+  ip_country: CN
+  core: Nuclei N307
+  isa: RV32IMAFDC
+  bits: 32
+  max_freq_mhz: 160
+  sram_kb: 320
+  flash_kb: 2048
+  psram_kb: 0
+  otp_kb: 0.25
+  cache_kb: null
+  voltage_min: 1.8
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 117.0
+    sleep_ua: 130.77
+    standby_ua: 2.73
+    wakeup_us: 66.6
+    note: 数据手册 VDD=3.3V/25°C：Run 18.72mA@160MHz（外设时钟全关）→117.0µA/MHz；deep-sleep 130.77µA（LDO 低功耗+低驱动）；standby 2.73µA；唤醒 66.6µs。Wi-Fi
+      TX 265–331mA、RX 99–107mA；Wi-Fi sleep 37.6mA；DTIM=10 时 0.31mA；shutdown 1µA。
+  peripherals:
+    uart: 3
+    spi: 1
+    i2c: 2
+    ble: 1
+    wifi: 1
+    adc_ch: 9
+    adc_bits: 12
+    dma_ch: 8
+    other: 1x QSPI，CAU/HAU/PKCAU，TRNG，EFUSE；4x 通用定时器 + 1x 高级 + 1x 基本定时器
+  packages:
+  - QFN32
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - CRC
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Nuclei SDK
+  - RT-Thread
+  - FreeRTOS
+  status: 量产
+  release_year: 2023
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.gigadevice.com/product/mcu/wireless-mcus/gd32vw553-series/gd32vw553
+    datasheet: https://download.gigadevice.com/Datasheet/GD32VW553xx%20Datasheet_Rev1.6.pdf
+    toolchain: https://doc.nucleisys.com/nuclei_sdk/design/soc/gd32vw55x.html
+  tags:
+  - Wi-Fi 6
+  - BLE
+  - 无线MCU
+  - RISC-V
+  notes: Wi-Fi 6 (802.11b/g/n/ax, 2.4GHz, HT20) + BLE。数据手册特性表写 BLE5.3，产品页写 BLE5.2，存在冲突。内核为芯来 N307（N300 系列），SDK 以 rv32imafdc
+    + Zba/Zbb/Zbc/Zbs 编译。无 USB/CAN。本型号 QFN32 封装，21 GPIO，2MB SiP Flash。
+  sources:
+  - https://download.gigadevice.com/Datasheet/GD32VW553xx%20Datasheet_Rev1.6.pdf
+  - https://www.gigadevice.com/product/mcu/wireless-mcus/gd32vw553-series/gd32vw553
+  - https://demo.nucleisys.com/newsdetail.php?id=301
+  confidence: high
+  updated: 2026-11-04
+- id: gigadevice-gd32vw553hmq7
+  name: GD32VW553HMQ7
+  family: GD32VW553
+  vendor: 兆易创新
+  vendor_en: GigaDevice
+  vendor_country: CN
+  ip_vendor: 芯来 Nuclei
+  ip_country: CN
+  core: Nuclei N307
+  isa: RV32IMAFDC
+  bits: 32
+  max_freq_mhz: 160
+  sram_kb: 320
+  flash_kb: 4096
+  psram_kb: 0
+  otp_kb: 0.25
+  cache_kb: null
+  voltage_min: 1.8
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 117.0
+    sleep_ua: 130.77
+    standby_ua: 2.73
+    wakeup_us: 66.6
+    note: 数据手册 VDD=3.3V/25°C：Run 18.72mA@160MHz（外设时钟全关）→117.0µA/MHz；deep-sleep 130.77µA（LDO 低功耗+低驱动）；standby 2.73µA；唤醒 66.6µs。Wi-Fi
+      TX 265–331mA、RX 99–107mA；Wi-Fi sleep 37.6mA；DTIM=10 时 0.31mA；shutdown 1µA。
+  peripherals:
+    uart: 3
+    spi: 1
+    i2c: 2
+    ble: 1
+    wifi: 1
+    adc_ch: 9
+    adc_bits: 12
+    dma_ch: 8
+    other: 1x QSPI，CAU/HAU/PKCAU，TRNG，EFUSE；4x 通用定时器 + 1x 高级 + 1x 基本定时器
+  packages:
+  - QFN40
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - CRC
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Nuclei SDK
+  - RT-Thread
+  - FreeRTOS
+  status: 量产
+  release_year: 2023
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.gigadevice.com/product/mcu/wireless-mcus/gd32vw553-series/gd32vw553
+    datasheet: https://download.gigadevice.com/Datasheet/GD32VW553xx%20Datasheet_Rev1.6.pdf
+    toolchain: https://doc.nucleisys.com/nuclei_sdk/design/soc/gd32vw55x.html
+  tags:
+  - Wi-Fi 6
+  - BLE
+  - 无线MCU
+  - RISC-V
+  notes: Wi-Fi 6 (802.11b/g/n/ax, 2.4GHz, HT20) + BLE。数据手册特性表写 BLE5.3，产品页写 BLE5.2，存在冲突。内核为芯来 N307（N300 系列），SDK 以 rv32imafdc
+    + Zba/Zbb/Zbc/Zbs 编译。无 USB/CAN。本型号 QFN40 封装，29 GPIO，4MB SiP Flash。
+  sources:
+  - https://download.gigadevice.com/Datasheet/GD32VW553xx%20Datasheet_Rev1.6.pdf
+  - https://www.gigadevice.com/product/mcu/wireless-mcus/gd32vw553-series/gd32vw553
+  - https://demo.nucleisys.com/newsdetail.php?id=301
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp8684h2x
+  name: ESP8684H2X
+  family: ESP32-C2 (ESP8684)
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif ESP-RISC-V (single core)
+  isa: RV32IMC
+  bits: 32
+  max_freq_mhz: 120
+  sram_kb: 272
+  flash_kb: 2048
+  psram_kb: 0
+  otp_kb: 0.125
+  cache_kb: 16
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 122.5
+    sleep_ua: 5
+    standby_ua: 1
+    wakeup_us: null
+    note: Wi-Fi SoC。Modem-sleep 且 CPU 全速运行（外设时钟关）14.7mA@120MHz→122.5µA/MHz；deep-sleep 5µA；light-sleep 140µA；power-off 1µA。Wi-Fi
+      TX 370mA@22dBm(11b)/RX 65mA；BLE TX 150mA@0dBm、RX 62mA。
+  peripherals:
+    uart: 2
+    spi: 3
+    i2c: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 5
+    adc_bits: 12
+    pwm_ch: 6
+    dma_ch: 2
+    other: LEDC 6 通道，GDMA 1TX+1RX，温度传感器；无 I2S/USB/CAN
+  packages:
+  - QFN24
+  temp_min: -40
+  temp_max: 105
+  security:
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  - RT-Thread
+  status: 量产
+  release_year: 2021
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-c2
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp8684_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - Wi-Fi 4
+  - BLE 5.3
+  - 低成本
+  - 无线SoC
+  notes: 2.4GHz Wi-Fi 4 (802.11b/g/n, 1T1R) + BLE 5.3；数据手册标 BLE 5.3，产品页标 Bluetooth 5 (LE)，存在表述差异。QFN24 4x4mm；14 GPIO（H2X/H4X
+    均 14 GPIO）。2MB SiP Flash。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp8684_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-c2
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp8684h4x
+  name: ESP8684H4X
+  family: ESP32-C2 (ESP8684)
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif ESP-RISC-V (single core)
+  isa: RV32IMC
+  bits: 32
+  max_freq_mhz: 120
+  sram_kb: 272
+  flash_kb: 4096
+  psram_kb: 0
+  otp_kb: 0.125
+  cache_kb: 16
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 122.5
+    sleep_ua: 5
+    standby_ua: 1
+    wakeup_us: null
+    note: Wi-Fi SoC。Modem-sleep 且 CPU 全速运行（外设时钟关）14.7mA@120MHz→122.5µA/MHz；deep-sleep 5µA；light-sleep 140µA；power-off 1µA。Wi-Fi
+      TX 370mA@22dBm(11b)/RX 65mA；BLE TX 150mA@0dBm、RX 62mA。
+  peripherals:
+    uart: 2
+    spi: 3
+    i2c: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 5
+    adc_bits: 12
+    pwm_ch: 6
+    dma_ch: 2
+    other: LEDC 6 通道，GDMA 1TX+1RX，温度传感器；无 I2S/USB/CAN
+  packages:
+  - QFN24
+  temp_min: -40
+  temp_max: 105
+  security:
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  - RT-Thread
+  status: 量产
+  release_year: 2021
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-c2
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp8684_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - Wi-Fi 4
+  - BLE 5.3
+  - 低成本
+  - 无线SoC
+  notes: 2.4GHz Wi-Fi 4 (802.11b/g/n, 1T1R) + BLE 5.3；数据手册标 BLE 5.3，产品页标 Bluetooth 5 (LE)，存在表述差异。QFN24 4x4mm；14 GPIO（H2X/H4X
+    均 14 GPIO）。4MB SiP Flash。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp8684_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-c2
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-c3fh4
+  name: ESP32-C3FH4
+  family: ESP32-C3
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif ESP-RISC-V (single core)
+  isa: RV32IMC
+  bits: 32
+  max_freq_mhz: 160
+  sram_kb: 400
+  flash_kb: 4096
+  psram_kb: 0
+  otp_kb: 0.5
+  cache_kb: 16
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 143.75
+    sleep_ua: 5
+    standby_ua: 1
+    wakeup_us: null
+    note: Wi-Fi SoC。Modem-sleep、CPU 运行、外设时钟关 23mA@160MHz→143.75µA/MHz；deep-sleep 5µA；light-sleep 130µA；power-off 1µA。Wi-Fi
+      TX 335mA@21dBm(11b)、RX 84mA。
+  peripherals:
+    uart: 2
+    spi: 3
+    i2c: 1
+    can: 1
+    usb_fs: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 6
+    adc_bits: 12
+    pwm_ch: 6
+    i2s: 1
+    dma_ch: 6
+    other: USB Serial/JTAG，TWAI(CAN 2.0)，RMT 2TX+2RX，2x 54-bit 定时器
+  packages:
+  - QFN32
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  - RT-Thread
+  status: 量产
+  release_year: 2020
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-c3
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - Wi-Fi 4
+  - BLE 5.0
+  - USB-JTAG
+  - 无线SoC
+  notes: 2.4GHz Wi-Fi 4 + BLE 5.0；QFN32 5x5mm；22 GPIO；400KB SRAM 含 16KB cache，384KB ROM。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-c3
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-c6fh4
+  name: ESP32-C6FH4
+  family: ESP32-C6
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif HP RISC-V + LP RISC-V
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 160
+  sram_kb: 512
+  flash_kb: 4096
+  psram_kb: 0
+  otp_kb: 0.5
+  cache_kb: 32
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 168.75
+    sleep_ua: 7
+    standby_ua: 1
+    wakeup_us: null
+    note: Wi-Fi SoC。Modem-sleep、CPU 运行、外设时钟关 27mA@160MHz→168.75µA/MHz；deep-sleep 7µA；light-sleep 180µA（另 35µA 全关）；power-off
+      1µA。Wi-Fi TX 354mA@21dBm(11b)/RX 78mA(HT20)。
+  peripherals:
+    uart: 2
+    spi: 3
+    i2c: 1
+    can: 2
+    usb_fs: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 7
+    adc_bits: 12
+    pwm_ch: 6
+    i2s: 1
+    sdio: 1
+    dma_ch: 6
+    other: 802.15.4 (Zigbee/Thread)，LP 内核 20MHz + LP UART/I2C，2x TWAI，SDIO slave，PARLIO
+  packages:
+  - QFN32
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  - TEE
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  - RT-Thread
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-c6
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - Wi-Fi 6
+  - BLE 5.3
+  - 802.15.4
+  - Matter
+  - 无线SoC
+  notes: Wi-Fi 6 (802.11ax 20MHz) + BLE 5.3 + 802.15.4；HP SRAM 512KB + LP SRAM 16KB；320KB ROM；30 GPIO(QFN40)/22 GPIO(QFN32)。4MB
+    SiP Flash。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-c6
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-c6fh8
+  name: ESP32-C6FH8
+  family: ESP32-C6
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif HP RISC-V + LP RISC-V
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 160
+  sram_kb: 512
+  flash_kb: 8192
+  psram_kb: 0
+  otp_kb: 0.5
+  cache_kb: 32
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 168.75
+    sleep_ua: 7
+    standby_ua: 1
+    wakeup_us: null
+    note: Wi-Fi SoC。Modem-sleep、CPU 运行、外设时钟关 27mA@160MHz→168.75µA/MHz；deep-sleep 7µA；light-sleep 180µA（另 35µA 全关）；power-off
+      1µA。Wi-Fi TX 354mA@21dBm(11b)/RX 78mA(HT20)。
+  peripherals:
+    uart: 2
+    spi: 3
+    i2c: 1
+    can: 2
+    usb_fs: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 7
+    adc_bits: 12
+    pwm_ch: 6
+    i2s: 1
+    sdio: 1
+    dma_ch: 6
+    other: 802.15.4 (Zigbee/Thread)，LP 内核 20MHz + LP UART/I2C，2x TWAI，SDIO slave，PARLIO
+  packages:
+  - QFN32
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  - TEE
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  - RT-Thread
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-c6
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - Wi-Fi 6
+  - BLE 5.3
+  - 802.15.4
+  - Matter
+  - 无线SoC
+  notes: Wi-Fi 6 (802.11ax 20MHz) + BLE 5.3 + 802.15.4；HP SRAM 512KB + LP SRAM 16KB；320KB ROM；30 GPIO(QFN40)/22 GPIO(QFN32)。8MB
+    SiP Flash。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-c6_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-c6
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-h2fh2s
+  name: ESP32-H2FH2S
+  family: ESP32-H2
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif ESP-RISC-V (single core)
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 96
+  sram_kb: 320
+  flash_kb: 2048
+  psram_kb: 0
+  otp_kb: 0.5
+  cache_kb: 16
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 104.17
+    sleep_ua: 7
+    standby_ua: 1
+    wakeup_us: null
+    note: BLE/802.15.4 SoC（无 Wi-Fi）。Modem-sleep、CPU 运行、外设时钟关 10mA@96MHz→104.17µA/MHz；deep-sleep 7µA；light-sleep 85µA。
+  peripherals:
+    uart: 2
+    spi: 3
+    i2c: 2
+    can: 1
+    usb_fs: 1
+    ble: 1
+    adc_ch: 5
+    adc_bits: 12
+    pwm_ch: 6
+    i2s: 1
+    dma_ch: 6
+    other: 802.15.4 (Thread/Zigbee)，MCPWM，RMT，PARLIO，ETM，4KB LP 存储
+  packages:
+  - QFN32
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  - RT-Thread
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-h2
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - BLE 5.3
+  - 802.15.4
+  - Thread
+  - Zigbee
+  - 低功耗
+  notes: BLE 5.3 + 802.15.4，无 Wi-Fi；QFN32 4x4mm；19 GPIO；320KB SRAM + 4KB LP 存储、128KB ROM。2MB SiP Flash。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-h2
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-h2fh4s
+  name: ESP32-H2FH4S
+  family: ESP32-H2
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif ESP-RISC-V (single core)
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 96
+  sram_kb: 320
+  flash_kb: 4096
+  psram_kb: 0
+  otp_kb: 0.5
+  cache_kb: 16
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 104.17
+    sleep_ua: 7
+    standby_ua: 1
+    wakeup_us: null
+    note: BLE/802.15.4 SoC（无 Wi-Fi）。Modem-sleep、CPU 运行、外设时钟关 10mA@96MHz→104.17µA/MHz；deep-sleep 7µA；light-sleep 85µA。
+  peripherals:
+    uart: 2
+    spi: 3
+    i2c: 2
+    can: 1
+    usb_fs: 1
+    ble: 1
+    adc_ch: 5
+    adc_bits: 12
+    pwm_ch: 6
+    i2s: 1
+    dma_ch: 6
+    other: 802.15.4 (Thread/Zigbee)，MCPWM，RMT，PARLIO，ETM，4KB LP 存储
+  packages:
+  - QFN32
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  - RT-Thread
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-h2
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - BLE 5.3
+  - 802.15.4
+  - Thread
+  - Zigbee
+  - 低功耗
+  notes: BLE 5.3 + 802.15.4，无 Wi-Fi；QFN32 4x4mm；19 GPIO；320KB SRAM + 4KB LP 存储、128KB ROM。4MB SiP Flash。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-h2_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-h2
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-p4nrw16x
+  name: ESP32-P4NRW16X
+  family: ESP32-P4
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif HP dual-core RISC-V + LP RISC-V
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 400
+  sram_kb: 768
+  flash_kb: 0
+  psram_kb: 16384
+  otp_kb: 0.5
+  cache_kb: null
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 172.5
+    sleep_ua: 12
+    standby_ua: 1
+    wakeup_us: null
+    note: 高性能 MCU（无无线）。Active 双核 while(1)、外设时钟关 69mA@400MHz→172.5µA/MHz；deep-sleep 12µA（LP 定时器+LP 存储）；light-sleep 75µA（全外设关）/85µA（USB
+      连接）。
+  peripherals:
+    uart: 5
+    spi: 4
+    i2c: 2
+    can: 1
+    usb_fs: 1
+    usb_hs: 1
+    eth: 1
+    adc_ch: 14
+    adc_bits: 12
+    i2s: 3
+    sdio: 1
+    lcd: 1
+    cam: 1
+    touch: 1
+    other: MIPI-CSI/DSI，H.264 编码，JPEG，ISP，LEDC/MCPWM，GDMA/VDMA/2D-DMA，SDHOST，EMAC，LP UART/SPI/I2C，I3C
+  packages:
+  - QFN104
+  temp_min: -40
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  status: 量产
+  release_year: 2025
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-p4
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-p4_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - 高性能MCU
+  - MIPI
+  - H.264
+  - 以太网
+  - AI
+  notes: 无内置 Flash（仅外置 SPI Flash），SiP PSRAM 16MB；HP SRAM 768KB + LP SRAM 32KB + 8KB SPM；QFN104 10x10mm；55 GPIO。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-p4_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-p4
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-p4nrw32x
+  name: ESP32-P4NRW32X
+  family: ESP32-P4
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif HP dual-core RISC-V + LP RISC-V
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 400
+  sram_kb: 768
+  flash_kb: 0
+  psram_kb: 32768
+  otp_kb: 0.5
+  cache_kb: null
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 172.5
+    sleep_ua: 12
+    standby_ua: 1
+    wakeup_us: null
+    note: 高性能 MCU（无无线）。Active 双核 while(1)、外设时钟关 69mA@400MHz→172.5µA/MHz；deep-sleep 12µA（LP 定时器+LP 存储）；light-sleep 75µA（全外设关）/85µA（USB
+      连接）。
+  peripherals:
+    uart: 5
+    spi: 4
+    i2c: 2
+    can: 1
+    usb_fs: 1
+    usb_hs: 1
+    eth: 1
+    adc_ch: 14
+    adc_bits: 12
+    i2s: 3
+    sdio: 1
+    lcd: 1
+    cam: 1
+    touch: 1
+    other: MIPI-CSI/DSI，H.264 编码，JPEG，ISP，LEDC/MCPWM，GDMA/VDMA/2D-DMA，SDHOST，EMAC，LP UART/SPI/I2C，I3C
+  packages:
+  - QFN104
+  temp_min: -40
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  status: 量产
+  release_year: 2025
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-p4
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-p4_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - 高性能MCU
+  - MIPI
+  - H.264
+  - 以太网
+  - AI
+  notes: 无内置 Flash（仅外置 SPI Flash），SiP PSRAM 32MB；HP SRAM 768KB + LP SRAM 32KB + 8KB SPM；QFN104 10x10mm；55 GPIO。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-p4_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-p4
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-c61hf4
+  name: ESP32-C61HF4
+  family: ESP32-C61
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif ESP-RISC-V (single core)
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 160
+  sram_kb: 320
+  flash_kb: 4096
+  psram_kb: 0
+  otp_kb: 0.5
+  cache_kb: 32
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 100.0
+    sleep_ua: 10
+    standby_ua: 1
+    wakeup_us: null
+    note: Wi-Fi SoC。Modem-sleep、CPU while loop、外设时钟关 16mA@160MHz→100µA/MHz；deep-sleep 10µA；light-sleep 200µA/50µA；power-off
+      1µA。Wi-Fi TX 360mA@21dBm(11b)。
+  peripherals:
+    uart: 3
+    spi: 3
+    i2c: 1
+    usb_fs: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 4
+    adc_bits: 12
+    pwm_ch: 6
+    i2s: 1
+    sdio: 1
+    dma_ch: 4
+    other: SDIO 2.0 slave，ETM，JTAG；无 CAN/802.15.4
+  packages:
+  - QFN40
+  temp_min: -40
+  temp_max: 105
+  security:
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  status: 量产
+  release_year: 2025
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-c61
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-c61_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - Wi-Fi 6
+  - BLE 6.0
+  - 低成本
+  - 无线SoC
+  notes: Wi-Fi 6 (802.11ax 20MHz) + BLE 6.0，无 802.15.4；QFN40 5x5mm；30 GPIO；256KB ROM；320KB SRAM 含 32KB L1 cache；4MB SiP Flash。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-c61_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-c61
+  confidence: high
+  updated: 2026-11-04
+- id: espressif-esp32-c5hf4
+  name: ESP32-C5HF4
+  family: ESP32-C5
+  vendor: 乐鑫信息科技
+  vendor_en: Espressif
+  vendor_country: CN
+  ip_vendor: 乐鑫自研
+  ip_country: CN
+  core: Espressif HP RISC-V + LP RISC-V
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 240
+  sram_kb: 384
+  flash_kb: 4096
+  psram_kb: 0
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 3.0
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 108.33
+    sleep_ua: 12
+    standby_ua: 2
+    wakeup_us: null
+    note: 双频 Wi-Fi SoC。Modem-sleep、CPU while loop、外设时钟关 26mA@240MHz→108.33µA/MHz；deep-sleep 12µA；light-sleep 250µA/60µA；power-off
+      2µA。2.4GHz TX 320mA@20dBm、RX 87mA；5GHz TX 408mA@18dBm、RX 110mA。
+  peripherals:
+    uart: 2
+    spi: 3
+    i2c: 1
+    can: 2
+    usb_fs: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 6
+    adc_bits: 12
+    pwm_ch: 6
+    i2s: 1
+    sdio: 1
+    dma_ch: 6
+    other: 802.15.4 (Thread/Zigbee)，双频 Wi-Fi 6，2x CAN FD，LP 内核 48MHz + LP UART/I2C，MCPWM 6ch
+  packages:
+  - LGA48
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  - TEE
+  debug:
+  - JTAG
+  ecosystem:
+  - ESP-IDF
+  - Arduino
+  - MicroPython
+  - Zephyr
+  - RT-Thread
+  status: 量产
+  release_year: 2025
+  price_cny: null
+  price_note: null
+  links:
+    product: https://www.espressif.com/en/products/socs/esp32-c5
+    datasheet: https://www.espressif.com/sites/default/files/documentation/esp32-c5_datasheet_en.pdf
+    toolchain: https://www.espressif.com/en/products/sdks/esp-idf
+  tags:
+  - Wi-Fi 6
+  - 双频5GHz
+  - BLE 6.0
+  - 802.15.4
+  - 无线SoC
+  notes: 2.4/5GHz 双频 Wi-Fi 6 + BLE 6.0 + 802.15.4；LGA48 6x6mm（HF4 为 LGA）；29 GPIO；320KB ROM；HP SRAM 384KB + LP SRAM 16KB；4MB
+    SiP Flash。
+  sources:
+  - https://www.espressif.com/sites/default/files/documentation/esp32-c5_datasheet_en.pdf
+  - https://www.espressif.com/en/products/socs/esp32-c5
+  confidence: high
+  updated: 2026-11-04
+- id: bouffalo-bl602c-20-q2i
+  name: BL602C-20-Q2I
+  family: BL602/BL604
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: SiFive
+  ip_country: US
+  core: SiFive E24
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 192
+  sram_kb: 276
+  flash_kb: 2048
+  psram_kb: 0
+  otp_kb: 0.125
+  cache_kb: 32
+  voltage_min: 2.1
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: null
+    standby_ua: null
+    wakeup_us: null
+    note: 数据手册未给 Run/Deep-sleep 电流；官方产品页仅给“系统联网待机约 40µA”（Wi-Fi DTIM，非 RTC deep-sleep）。RF：WLAN RX 39mA/TX 310mA，BLE RX 31mA/TX
+      133mA（3V DC/DC）。
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 12
+    adc_bits: 12
+    dac_ch: 2
+    pwm_ch: 5
+    sdio: 1
+    dma_ch: 4
+    other: 1x SDIO 2.0 slave，IR remote，2x ACOMP，PIR，16/23 GPIO
+  packages:
+  - QFN32
+  temp_min: -30
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2020
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/?type=detail&id=1
+    datasheet: https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL602_DS/en/BL602_BL604_DS_1.6_en.pdf
+  tags:
+  - Wi-Fi 4
+  - BLE 5.0
+  - 低成本
+  - 无线SoC
+  notes: Wi-Fi 4 (802.11b/g/n) + BLE 5.0（不支持 2M/Coded PHY）；无 USB；276KB RAM/128KB ROM；温度 -30~85°C 为多芯片 SiP（含 Flash）限值。QFN32
+    4x4mm，16 GPIO，2MB SiP Flash。
+  sources:
+  - https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL602_DS/en/BL602_BL604_DS_1.6_en.pdf
+  - https://bouffalolab.com/product/?type=detail&id=1
+  - https://docs.zephyrproject.org/latest/boards/aithinker/ai_wb2_12f_kit/doc/index.html
+  confidence: high
+  updated: 2026-11-04
+- id: bouffalo-bl604e-20-q2i
+  name: BL604E-20-Q2I
+  family: BL602/BL604
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: SiFive
+  ip_country: US
+  core: SiFive E24
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 192
+  sram_kb: 276
+  flash_kb: 2048
+  psram_kb: 0
+  otp_kb: 0.125
+  cache_kb: 32
+  voltage_min: 2.1
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: null
+    standby_ua: null
+    wakeup_us: null
+    note: 数据手册未给 Run/Deep-sleep 电流；官方产品页仅给“系统联网待机约 40µA”（Wi-Fi DTIM，非 RTC deep-sleep）。RF：WLAN RX 39mA/TX 310mA，BLE RX 31mA/TX
+      133mA（3V DC/DC）。
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 12
+    adc_bits: 12
+    dac_ch: 2
+    pwm_ch: 5
+    sdio: 1
+    dma_ch: 4
+    other: 1x SDIO 2.0 slave，IR remote，2x ACOMP，PIR，16/23 GPIO
+  packages:
+  - QFN40
+  temp_min: -30
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2020
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/?type=detail&id=1
+    datasheet: https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL602_DS/en/BL602_BL604_DS_1.6_en.pdf
+  tags:
+  - Wi-Fi 4
+  - BLE 5.0
+  - 低成本
+  - 无线SoC
+  notes: Wi-Fi 4 (802.11b/g/n) + BLE 5.0（不支持 2M/Coded PHY）；无 USB；276KB RAM/128KB ROM；温度 -30~85°C 为多芯片 SiP（含 Flash）限值。QFN40，23
+    GPIO，2MB SiP Flash（BL604 为增强型）。
+  sources:
+  - https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL602_DS/en/BL602_BL604_DS_1.6_en.pdf
+  - https://bouffalolab.com/product/?type=detail&id=1
+  - https://docs.zephyrproject.org/latest/boards/aithinker/ai_wb2_12f_kit/doc/index.html
+  confidence: high
+  updated: 2026-11-04
+- id: bouffalo-bl702c-10-q2h
+  name: BL702C-10-Q2H
+  family: BL702/BL704/BL706
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: SiFive
+  ip_country: US
+  core: SiFive E24
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 132
+  flash_kb: 1024
+  psram_kb: 0
+  otp_kb: 0.125
+  cache_kb: 16
+  voltage_min: 1.8
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: null
+    standby_ua: null
+    wakeup_us: null
+    note: 数据手册未给 Run/Deep-sleep 电流；官方页 RF：RX 3.5mA、TX 45mA（3V DC/DC）。
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    usb_fs: 1
+    ble: 1
+    adc_ch: 12
+    adc_bits: 12
+    dac_ch: 2
+    pwm_ch: 5
+    i2s: 1
+    dma_ch: 8
+    other: 802.15.4/Zigbee 3.0/Thread，IR，QDEC，KeyScan，PIR，2x ACOMP，15 GPIO
+  packages:
+  - QFN32
+  temp_min: -40
+  temp_max: 105
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2021
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/?type=detail&id=4
+    datasheet: https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL702_DS/en/BL702_704_706_DS_en_2.6.pdf
+  tags:
+  - BLE 5.0
+  - Zigbee
+  - Thread
+  - Matter
+  - USB
+  notes: BLE 5.0 + 802.15.4（Zigbee/Thread），132KB RAM/192KB ROM；QFN32，15 GPIO；1MB SiP Flash；-40~105°C（Q2H）。同族 BL704 增加以太网 RMII，BL706
+    再增加摄像头接口与 31 GPIO。
+  sources:
+  - https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL702_DS/en/BL702_704_706_DS_en_2.6.pdf
+  - https://bouffalolab.com/product/?type=detail&id=4
+  - https://docs.zephyrproject.org/latest/boards/sipeed/m0sense/doc/index.html
+  confidence: high
+  updated: 2026-11-04
+- id: bouffalo-bl706c-22-q2i
+  name: BL706C-22-Q2I
+  family: BL702/BL704/BL706
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: SiFive
+  ip_country: US
+  core: SiFive E24
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 132
+  flash_kb: 2048
+  psram_kb: 2048
+  otp_kb: 0.125
+  cache_kb: 16
+  voltage_min: 1.8
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: null
+    standby_ua: null
+    wakeup_us: null
+    note: 数据手册未给 Run/Deep-sleep 电流；RF：RX 3.5mA、TX 45mA。
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    usb_fs: 1
+    eth: 1
+    ble: 1
+    adc_ch: 12
+    adc_bits: 12
+    dac_ch: 2
+    pwm_ch: 5
+    i2s: 1
+    cam: 1
+    dma_ch: 8
+    other: 802.15.4/Zigbee/Thread，Ethernet RMII，Camera，IR，QDEC，KeyScan，31 GPIO
+  packages:
+  - QFN48
+  temp_min: -40
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2021
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/?type=detail&id=8
+    datasheet: https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL702_DS/en/BL702_704_706_DS_en_2.6.pdf
+  tags:
+  - BLE 5.0
+  - Zigbee
+  - 以太网
+  - 摄像头
+  notes: BLE 5.0 + 802.15.4，QFN48，31 GPIO；16Mb Flash + 16Mb pSRAM SiP；以太网 RMII 与摄像头接口；132KB RAM/192KB ROM。
+  sources:
+  - https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL702_DS/en/BL702_704_706_DS_en_2.6.pdf
+  - https://bouffalolab.com/product/?type=detail&id=8
+  confidence: high
+  updated: 2026-11-04
+- id: bouffalo-bl702l-10-q2i
+  name: BL702L-10-Q2I
+  family: BL702L/BL704L
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: SiFive
+  ip_country: US
+  core: SiFive E24 (推断)
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 128
+  sram_kb: 200
+  flash_kb: 1024
+  psram_kb: 0
+  otp_kb: 0.125
+  cache_kb: 16
+  voltage_min: 1.8
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: null
+    standby_ua: null
+    wakeup_us: null
+    note: 数据手册未给 Run/Deep-sleep 电流；支持 Active/Idle/PDS/Hibernate/Off 模式。
+  peripherals:
+    uart: 1
+    spi: 1
+    i2c: 1
+    ble: 1
+    adc_bits: 12
+    pwm_ch: 5
+    dma_ch: 4
+    other: 802.15.4/Zigbee 3.0/Thread/Matter，Audio ADC，高精度 ADC，IR TX，KeyScan，29 GPIO
+  packages:
+  - QFN32
+  temp_min: -40
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2023
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/
+    datasheet: https://dev.bouffalolab.com/media/doc/702l/open/datasheet/en/html/
+  tags:
+  - BLE 5.0
+  - Zigbee
+  - Thread
+  - Matter
+  - 低功耗
+  notes: 低功耗版 BL702L：128MHz、3 级流水线、2.92 CoreMark/MHz；100KB RAM + 80KB OCRAM + 16KB cache + 4KB HBN（共约 200KB）、256KB ROM；QFN32，1MB
+    SiP Flash。数据手册只写“32-bit RISC CPU”，核心型号未点名（同系列按 E24 推断）。
+  sources:
+  - https://dev.bouffalolab.com/media/doc/702l/open/datasheet/en/html/
+  - https://dev.bouffalolab.com/media/doc/702l/open/datasheet/en/html/content/OrderingInformation.html
+  - https://www.sekorm.com/ai/doc/578566446.html
+  confidence: medium
+  updated: 2026-11-04
+- id: bouffalo-bl616c-50-q2i
+  name: BL616C-50-Q2I
+  family: BL616/BL618
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: 平头哥玄铁
+  ip_country: CN
+  core: T-Head E907
+  isa: RV32IMAFCP
+  bits: 32
+  max_freq_mhz: 320
+  sram_kb: 532
+  flash_kb: 4096
+  psram_kb: 0
+  otp_kb: 0.5
+  cache_kb: 48
+  voltage_min: 2.97
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: null
+    standby_ua: null
+    wakeup_us: null
+    note: 数据手册未给 Run/Deep-sleep 电流；Hibernate <1µA（特性表），Off 模式。
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 2
+    usb_hs: 1
+    eth: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 12
+    adc_bits: 12
+    dac_ch: 1
+    pwm_ch: 4
+    i2s: 1
+    sdio: 1
+    lcd: 1
+    cam: 1
+    dma_ch: 4
+    other: 802.15.4 (Zigbee/Thread)，SD 卡接口，MJPEG 编码，USB2.0 HS OTG，19/35 GPIO
+  packages:
+  - QFN40
+  temp_min: -40
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/
+    datasheet: https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL616_DS/en/BL616_BL618_DS_1.5_en.pdf
+  tags:
+  - Wi-Fi 6
+  - BLE 5.3
+  - 802.15.4
+  - USB HS
+  - Matter
+  notes: Wi-Fi 6 + BT 5.3 双模 + 802.15.4；T-Head E907 @320MHz；532KB SRAM（含 48KB cache）/128KB ROM；USB2.0 HS OTG、以太网 RMII、DVP
+    摄像头、QSPI/DBI/RGB LCD、MJPEG。QFN40 5x5mm，19 GPIO，4MB SiP Flash。
+  sources:
+  - https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL616_DS/en/BL616_BL618_DS_1.5_en.pdf
+  - https://raw.githubusercontent.com/openocd-org/openocd/master/tcl/target/bl616.cfg
+  - https://bouffalolab.com/product/
+  confidence: high
+  updated: 2026-11-04
+- id: bouffalo-bl618m-05-q2i
+  name: BL618M-05-Q2I
+  family: BL616/BL618
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: 平头哥玄铁
+  ip_country: CN
+  core: T-Head E907
+  isa: RV32IMAFCP
+  bits: 32
+  max_freq_mhz: 320
+  sram_kb: 532
+  flash_kb: 0
+  psram_kb: 4096
+  otp_kb: 0.5
+  cache_kb: 48
+  voltage_min: 2.97
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: null
+    standby_ua: null
+    wakeup_us: null
+    note: 数据手册未给 Run/Deep-sleep 电流；Hibernate <1µA（特性表），Off 模式。
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 2
+    usb_hs: 1
+    eth: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 12
+    adc_bits: 12
+    dac_ch: 1
+    pwm_ch: 4
+    i2s: 1
+    sdio: 1
+    lcd: 1
+    cam: 1
+    dma_ch: 4
+    other: 802.15.4 (Zigbee/Thread)，SD 卡接口，MJPEG 编码，USB2.0 HS OTG，19/35 GPIO
+  packages:
+  - QFN56
+  temp_min: -40
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/
+    datasheet: https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL616_DS/en/BL616_BL618_DS_1.5_en.pdf
+  tags:
+  - Wi-Fi 6
+  - BLE 5.3
+  - 802.15.4
+  - USB HS
+  - Matter
+  notes: Wi-Fi 6 + BT 5.3 双模 + 802.15.4；T-Head E907 @320MHz；532KB SRAM（含 48KB cache）/128KB ROM；USB2.0 HS OTG、以太网 RMII、DVP
+    摄像头、QSPI/DBI/RGB LCD、MJPEG。QFN56 7x7mm，35 GPIO，无 Flash，4MB SiP pSRAM；带视频/显示接口。
+  sources:
+  - https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL616_DS/en/BL616_BL618_DS_1.5_en.pdf
+  - https://raw.githubusercontent.com/openocd-org/openocd/master/tcl/target/bl616.cfg
+  - https://bouffalolab.com/product/
+  confidence: high
+  updated: 2026-11-04
+- id: bouffalo-bl808c-09-q2i
+  name: BL808C-09-Q2I
+  family: BL808
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: 平头哥玄铁
+  ip_country: CN
+  core: T-Head C906 (D0) + E907 (M0) + E902 (LP)
+  isa: RV64IMAFCV / RV32IMAFCP / RV32EMC
+  bits: 64
+  max_freq_mhz: 480
+  sram_kb: 224
+  flash_kb: 0
+  psram_kb: 65536
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 3.0
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: 70.8
+    standby_ua: 7.9
+    wakeup_us: null
+    note: 数据手册仅给 RF/低功耗模式电流：RX 13mA、TX 295mA@21dBm；PDS7 70.8µA（Vdd11_aon=0.9V）；HBN0 7.9µA；shutdown <0.5µA。无 Run 电流数据。
+  peripherals:
+    uart: 4
+    spi: 2
+    i2c: 4
+    usb_hs: 1
+    eth: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 12
+    adc_bits: 12
+    pwm_ch: 8
+    i2s: 1
+    lcd: 1
+    cam: 1
+    touch: 12
+    dma_ch: 20
+    other: 802.15.4，H.264/MJPEG 编码，NPU BLAI-100，MIPI-CSI/DSI，DVP，SD 卡，PDM，36/40 GPIO
+  packages:
+  - QFN88
+  temp_min: -40
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/
+    datasheet: https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL808_DS/en/BL808_DS_1.2_en.pdf
+  tags:
+  - Wi-Fi 4
+  - BLE 5.x
+  - 三核
+  - AI
+  - 视频
+  notes: 三核：C906 480MHz (RV64IMAFCV) + E907 320MHz (RV32IMAFCP) + E902 160MHz (RV32EMC)；224KB 内部 SRAM + 512KB MM DRAM + 32KB
+    VRAM，SiP 64MB pSRAM；无内置 Flash；QFN88；Wi-Fi 4 + BT/BLE + 802.15.4。LP E902 频率：Zephyr 文档 160MHz、NuttX 文档 150MHz，数据手册未列，存在冲突。BL808C
+    面向 IPC 摄像头，BL808D 面向可视门铃。
+  sources:
+  - https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL808_DS/en/BL808_DS_1.2_en.pdf
+  - https://nuttx.apache.org/docs/12.6.0/platforms/risc-v/bl808/index.html
+  - https://bouffalolab.com/product/
+  confidence: high
+  updated: 2026-11-04
+- id: bouffalo-bl808d-09-q2i
+  name: BL808D-09-Q2I
+  family: BL808
+  vendor: 博流智能
+  vendor_en: Bouffalo Lab
+  vendor_country: CN
+  ip_vendor: 平头哥玄铁
+  ip_country: CN
+  core: T-Head C906 (D0) + E907 (M0) + E902 (LP)
+  isa: RV64IMAFCV / RV32IMAFCP / RV32EMC
+  bits: 64
+  max_freq_mhz: 480
+  sram_kb: 224
+  flash_kb: 0
+  psram_kb: 65536
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 3.0
+  voltage_max: 3.63
+  power:
+    run_ua_mhz: null
+    sleep_ua: 70.8
+    standby_ua: 7.9
+    wakeup_us: null
+    note: 数据手册仅给 RF/低功耗模式电流：RX 13mA、TX 295mA@21dBm；PDS7 70.8µA（Vdd11_aon=0.9V）；HBN0 7.9µA；shutdown <0.5µA。无 Run 电流数据。
+  peripherals:
+    uart: 4
+    spi: 2
+    i2c: 4
+    usb_hs: 1
+    eth: 1
+    ble: 1
+    wifi: 1
+    adc_ch: 12
+    adc_bits: 12
+    pwm_ch: 8
+    i2s: 1
+    lcd: 1
+    cam: 1
+    touch: 12
+    dma_ch: 20
+    other: 802.15.4，H.264/MJPEG 编码，NPU BLAI-100，MIPI-CSI/DSI，DVP，SD 卡，PDM，36/40 GPIO
+  packages:
+  - QFN88
+  temp_min: -40
+  temp_max: 85
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Bouffalo SDK
+  - RT-Thread
+  - Zephyr
+  - NuttX
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: https://bouffalolab.com/product/
+    datasheet: https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL808_DS/en/BL808_DS_1.2_en.pdf
+  tags:
+  - Wi-Fi 4
+  - BLE 5.x
+  - 三核
+  - AI
+  - 视频
+  notes: 三核：C906 480MHz (RV64IMAFCV) + E907 320MHz (RV32IMAFCP) + E902 160MHz (RV32EMC)；224KB 内部 SRAM + 512KB MM DRAM + 32KB
+    VRAM，SiP 64MB pSRAM；无内置 Flash；QFN88；Wi-Fi 4 + BT/BLE + 802.15.4。LP E902 频率：Zephyr 文档 160MHz、NuttX 文档 150MHz，数据手册未列，存在冲突。BL808C
+    面向 IPC 摄像头，BL808D 面向可视门铃。
+  sources:
+  - https://raw.githubusercontent.com/bouffalolab/bl_docs/main/BL808_DS/en/BL808_DS_1.2_en.pdf
+  - https://nuttx.apache.org/docs/12.6.0/platforms/risc-v/bl808/index.html
+  - https://bouffalolab.com/product/
+  confidence: high
+  updated: 2026-11-04

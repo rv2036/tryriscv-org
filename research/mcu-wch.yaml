@@ -1,0 +1,2048 @@
+# WCH (沁恒微电子 / Nanjing Qinheng Microelectronics) RISC-V MCU/SoC catalogue
+# All numbers extracted from official WCH datasheets (wch-ic.com PDF endpoints) and
+# official product pages / official news posts. No value invented; null = not published.
+# run_ua_mhz is normalised from the datasheet Run-mode table at VDD=3.3V, HSI clock,
+# "all peripherals disabled" unless the note says otherwise.
+
+- id: wch-ch32v003f4p6
+  name: CH32V003F4P6
+  family: CH32V003
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V2A
+  isa: RV32EC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 2
+  flash_kb: 16
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.7
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 83
+    sleep_ua: 1700
+    standby_ua: 7.6
+    wakeup_us: 30
+    note: "DS V1.8 表3-6-1/3-7-1/3-8: VDD=3.3V, 25°C, HSI 48MHz, 外设全关 4.0mA → 83µA/MHz（外设全开 6.4mA → 133µA/MHz）; Sleep 48MHz 外设全关 1.7mA; Standby 7.6µA（LSI 关）/9.1µA（LSI 开）; Sleep 唤醒 30µs, Standby 唤醒 200µs"
+  peripherals:
+    uart: 1
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 0
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 8
+    adc_bits: 10
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 1
+    comp: 0
+    touch: 0
+    dma_ch: 7
+    other: "1x16-bit 高级定时器, 1x16-bit 通用定时器, 2x看门狗, 32-bit SysTick; OPA/CMP 为同一模拟块（未重复计数）"
+  packages: [TSSOP20]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "1-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V003.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=359"
+    toolchain: "https://www.mounriver.com/"
+  tags: [低成本, 超小封装, 5V工作, 单线调试]
+  notes: "官方 DS 写 16KB CodeFlash + 1920B BootLoader，产品页/选型表标 17KB；本条目取 16KB 应用区。CH32V003 无 C8T6 型号，实际封装只有 TSSOP20/QFN20/SOP16/SOP8（F4P6/F4U6/A4M6/J4M6）。RV32EC 无硬件乘法器。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=359"
+    - "https://www.wch.cn/downloads/CH32V003DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V003.html"
+    - "https://www.wch.cn/api/official/website/about_us/news?current=1&pageSize=400"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v003f4u6
+  name: CH32V003F4U6
+  family: CH32V003
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V2A
+  isa: RV32EC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 2
+  flash_kb: 16
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.7
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 83
+    sleep_ua: 1700
+    standby_ua: 7.6
+    wakeup_us: 30
+    note: "同 CH32V003F4P6（DS 表3-6-1，VDD=3.3V/25°C，HSI 48MHz 外设全关 4.0mA → 83µA/MHz）"
+  peripherals:
+    uart: 1
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 0
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 8
+    adc_bits: 10
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 1
+    comp: 0
+    touch: 0
+    dma_ch: 7
+    other: "QFN20 3*3mm，与 F4P6 同 Die、同 18 GPIO"
+  packages: [QFN20]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "1-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V003.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=359"
+    toolchain: "https://www.mounriver.com/"
+  tags: [低成本, QFN20, 5V工作]
+  notes: "CH32V003 官方封装只有 TSSOP20(F4P6)/QFN20(F4U6)/SOP16(A4M6)/SOP8(J4M6)，没有 C8T6。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=359"
+    - "https://www.wch-ic.com/products/CH32V003.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v003a4m6
+  name: CH32V003A4M6
+  family: CH32V003
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V2A
+  isa: RV32EC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 2
+  flash_kb: 16
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.7
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 83
+    sleep_ua: 1700
+    standby_ua: 7.6
+    wakeup_us: 30
+    note: "同 CH32V003F4P6（DS 表3-6-1，VDD=3.3V/25°C，HSI 48MHz 外设全关 4.0mA）; 封装小、可用 IO 少，实测电流略低但 DS 未单列"
+  peripherals:
+    uart: 1
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 0
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 6
+    adc_bits: 10
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 1
+    comp: 0
+    touch: 0
+    dma_ch: 7
+    other: "SOP16 封装只有 14 个 IO、6 路 ADC 输入"
+  packages: [SOP16]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "1-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V003.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=359"
+    toolchain: "https://www.mounriver.com/"
+  tags: [低成本, SOP16, 5V工作]
+  notes: "选型表：16 pin / 14 GPIO / 6 路 ADC。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=359"
+    - "https://www.wch-ic.com/products/CH32V003.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v003j4m6
+  name: CH32V003J4M6
+  family: CH32V003
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V2A
+  isa: RV32EC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 2
+  flash_kb: 16
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.7
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 83
+    sleep_ua: 1700
+    standby_ua: 7.6
+    wakeup_us: 30
+    note: "同 CH32V003F4P6 系列典型值（VDD=3.3V/25°C，HSI 48MHz，外设全关）"
+  peripherals:
+    uart: 1
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 0
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 6
+    adc_bits: 10
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 1
+    comp: 0
+    touch: 0
+    dma_ch: 7
+    other: "SOP8 封装：8 pin / 6 GPIO / 6 路 ADC"
+  packages: [SOP8]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "1-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V003.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=359"
+    toolchain: "https://www.mounriver.com/"
+  tags: [低成本, SOP8, 极小封装]
+  notes: "全系列最小封装（SOP8, 6 IO）。同一晶圆，仅封装与引出不同。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=359"
+    - "https://www.wch-ic.com/products/CH32V003.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v002f4p6
+  name: CH32V002F4P6
+  family: CH32V002
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V2C
+  isa: RV32EmC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 4
+  flash_kb: 16
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.0
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 71
+    sleep_ua: null
+    standby_ua: 17.5
+    wakeup_us: null
+    note: "DS V1.7 表3-6: VDD=3.3V, 25°C, HSI 48MHz, 外设全关 3.4mA → 71µA/MHz（全开 4.3mA）; 表3-8 Standby VDD=3.3V 17.5µA（IWDG/LSI 关），18.1µA（IWDG+LSI 开）"
+  peripherals:
+    uart: 1
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 0
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 8
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 0
+    comp: 0
+    touch: 8
+    dma_ch: 7
+    other: "12-bit ADC 3Msps（8 外部 + 2 内部通道）; 1x16-bit 高级定时器, 1x16-bit 通用定时器"
+  packages: [TSSOP20]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "1-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2024
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V002.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=397"
+    toolchain: "https://www.mounriver.com/"
+  tags: [超值型, 12-bit ADC, 5V工作, 引脚兼容CH32V003]
+  notes: "官方 DS 写 RV32EmC（V2C 核，带硬件乘法扩展，WCH 私有命名）; 引脚/功能与 CH32V003 兼容，ADC 升级到 12-bit 3Msps，但无 OPA。2024-04-12 官方新闻称其为 2*2mm 超小型 32 位 MCU 新成员。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=397"
+    - "https://www.wch.cn/downloads/CH32V002DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V002.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v006k8u7
+  name: CH32V006K8U7
+  family: CH32V006
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V2C
+  isa: RV32EmC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 8
+  flash_kb: 62
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.0
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 73
+    sleep_ua: null
+    standby_ua: 10.2
+    wakeup_us: null
+    note: "DS V2.0 表3-6/3-8-1: VDD=3.3V, 25°C, 外部时钟 48MHz 外设全关 3.5mA → 73µA/MHz（全开 4.4mA）; Standby 10.2µA（VDD=3.3V, IWDG 与 LSI 关）/10.7µA（开）"
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 0
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 8
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 1
+    comp: 0
+    touch: 8
+    dma_ch: 7
+    other: "12-bit ADC 3Msps（8+2）; 同一 OPA/PGA/CMP 模拟块支持高速模式、P 端 3 通道轮询; 1x16-bit 高级 + 1x16-bit 通用 + 1x16-bit 精简定时器"
+  packages: [QFN32]
+  temp_min: -40
+  temp_max: 105
+  security: []
+  debug: [WCH-Link, "1-wire SDI", "2-wire SDI"]
+  ecosystem: [Arduino, Zephyr]
+  status: 量产
+  release_year: 2024
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V006.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=396"
+    toolchain: "https://www.mounriver.com/"
+  tags: [V003升级, 62K Flash, 105°C, 5V工作]
+  notes: "后缀 7 = 105°C，后缀 6 = 85°C（同一 DS）; CH32V005 为同系列 32K/6K 精简版，CH32V004 为 32K/6K 无 OPA 版。官方新闻发布于 2024-06-26（'V003 容量加倍'）。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=396"
+    - "https://www.wch.cn/downloads/CH32V006DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V006.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v007k8u7
+  name: CH32V007K8U7
+  family: CH32V007
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V2C
+  isa: RV32EmC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 8
+  flash_kb: 62
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.0
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 73
+    sleep_ua: null
+    standby_ua: 10.2
+    wakeup_us: null
+    note: "DS V1.8 表3-6/3-8: VDD=3.3V, 25°C, 外部时钟 48MHz 外设全关 3.5mA → 73µA/MHz（全开 4.4mA）; Standby 10.2µA（VDD=3.3V，IWDG/LSI 关）"
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 0
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 8
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 1
+    comp: 2
+    touch: 8
+    dma_ch: 7
+    other: "面向电机：12-bit ADC 8+3、OPA 支持单/双电阻采样、2 组 CMP（3 通道轮询定位）、1x16-bit 高级 + 1x16-bit 通用 + 1x16-bit 精简定时器"
+  packages: [QFN32]
+  temp_min: -40
+  temp_max: 105
+  security: []
+  debug: [WCH-Link, "1-wire SDI", "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2024
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V007.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=405"
+    toolchain: "https://www.mounriver.com/"
+  tags: [电机控制, 双CMP, 105°C, 5V工作]
+  notes: "CH32M007 = CH32V007 + 24V/48V 三相预驱（CH282/CH283），2024-11-14 官方新闻发布；CH32V007 本身未单独发新闻，release_year 取该系列发布年。K8U6=85°C / K8U7=105°C。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=405"
+    - "https://www.wch.cn/downloads/CH32V007DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V007.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v103c8t6
+  name: CH32V103C8T6
+  family: CH32V103
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V3A
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 80
+  sram_kb: 20
+  flash_kb: 64
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.7
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 123
+    sleep_ua: null
+    standby_ua: 1.6
+    wakeup_us: 5.8
+    note: "DS V1.2 表3-6/3-8/3-16: VDD=3.3V/25°C, 外部时钟 72MHz 外设全关 8.88mA → 123µA/MHz（全开 13.56mA）; HSI 最高 64MHz（7.63mA 全关 → 119µA/MHz）; Stop 1.6µA（稳压器低功耗、LSI 关）/455µA（稳压器运行）; Standby 1.6µA; 唤醒 Sleep 5.8µs / Stop 253µs / Standby 340µs"
+  peripherals:
+    uart: 3
+    spi: 2
+    i2c: 2
+    can: 0
+    usb_fs: 1
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 1
+    opamp: 0
+    comp: 0
+    touch: 16
+    dma_ch: 7
+    other: "1x16-bit 高级 + 3x16-bit 通用定时器, 2x看门狗, 64-bit SysTick; USART 支持 ISO7816/LIN/IrDA; USB2.0 FS 主机+设备"
+  packages: [LQFP48]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2020
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V103.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=312"
+    toolchain: "https://www.mounriver.com/"
+  tags: [首款RISC-V MCU, 5V工作, USB FS]
+  notes: "选型表标注 CPU 典型 72MHz、最高 80MHz（DS 特性页写 up to 80MHz），本条目取 80。同系列 C6T6=32K/10K、C8U6=QFN48、R8T6=64pin/51 IO。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=312"
+    - "https://www.wch.cn/downloads/CH32V103DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V103.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v103r8t6
+  name: CH32V103R8T6
+  family: CH32V103
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V3A
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 80
+  sram_kb: 20
+  flash_kb: 64
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.7
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 123
+    sleep_ua: null
+    standby_ua: 1.6
+    wakeup_us: 5.8
+    note: "同 CH32V103C8T6（同系列同一电气特性表，VDD=3.3V/25°C，外部时钟 72MHz 外设全关 8.88mA）"
+  peripherals:
+    uart: 3
+    spi: 2
+    i2c: 2
+    can: 0
+    usb_fs: 1
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 1
+    opamp: 0
+    comp: 0
+    touch: 16
+    dma_ch: 7
+    other: "64 pin / 51 GPIO 版本"
+  packages: [LQFP64M]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2020
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V103.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=312"
+    toolchain: "https://www.mounriver.com/"
+  tags: [5V工作, 64pin, USB FS]
+  notes: "LQFP64M 10*10mm, 51 GPIO。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=312"
+    - "https://www.wch-ic.com/products/CH32V103.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v203c8t6
+  name: CH32V203C8T6
+  family: CH32V203
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4B
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 20
+  flash_kb: 64
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 49
+    sleep_ua: null
+    standby_ua: 0.5
+    wakeup_us: 4820
+    note: "DS V3.0 表4-6-1/4-8-1: VDD=3.3V, 25°C, HSI 144MHz 外设全关 7.1mA → 49µA/MHz（全开 11.4mA）; 官方特性页标称 ≈52µA/MHz; Stop 10.5µA（稳压器低功耗、RAM 低功耗）; Standby 0.5µA（LSI/LSE/RTC/IWDG 全关、RAM 全部断电）; Standby 唤醒 4.82ms"
+  peripherals:
+    uart: 4
+    spi: 2
+    i2c: 2
+    can: 1
+    usb_fs: 2
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 10
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 2
+    comp: 2
+    touch: 10
+    dma_ch: 8
+    other: "2 组 12-bit ADC（C8T6 每单元 10 通道，共 10@2）; 1x16-bit 高级 + 3x16-bit 通用定时器; USBD + USBFS 主机/设备双 USB"
+  packages: [LQFP48]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V203.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=354"
+    toolchain: "https://www.mounriver.com/"
+  tags: [低功耗, 双USB, CAN, 144MHz零等待]
+  notes: "电压数字冲突：特性页写 VDD 2.4~6V，框图与电气章节写 2.4~3.6V，本条目取 2.4~3.6V。同系列 K8U7/RCT7 支持 -40~105°C；RBT6 为 128K Flash+64K SRAM 且带 10M ETH PHY。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=354"
+    - "https://www.wch.cn/downloads/CH32V203DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V203.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v203k8u7
+  name: CH32V203K8U7
+  family: CH32V203
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4B
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 20
+  flash_kb: 64
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 49
+    sleep_ua: null
+    standby_ua: 0.5
+    wakeup_us: 4820
+    note: "同 CH32V203C8T6（同系列电气表，VDD=3.3V/25°C，HSI 144MHz）"
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    can: 1
+    usb_fs: 2
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 10
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 2
+    comp: 2
+    touch: 10
+    dma_ch: 8
+    other: "QFN32：31 GPIO，USART/SPI/I2C 各被封装裁到 2/1/1"
+  packages: [QFN32]
+  temp_min: -40
+  temp_max: 105
+  security: [CRC]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V203.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=354"
+    toolchain: "https://www.mounriver.com/"
+  tags: [小封装, 双USB, CAN, 105°C]
+  notes: "官方 DS V3.0 的 QFN32 型号只有 CH32V203K8U7（-40~105°C），没有 K8U6；部分第三方列表写的 K8U6 未在官方文档中出现。QFN32 4*4mm，31 GPIO。同封装另有 K8T6=LQFP32。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=354"
+    - "https://www.wch-ic.com/products/CH32V203.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v205vct6
+  name: CH32V205VCT6
+  family: CH32V205
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V3B
+  isa: RV32ICBM-X
+  bits: 32
+  max_freq_mhz: 192
+  sram_kb: 32
+  flash_kb: 256
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 1.8
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 66
+    sleep_ua: null
+    standby_ua: 3.5
+    wakeup_us: null
+    note: "DS V1.3 表3-6/3-8-1: VDD=VDDA=VIO=3.3V, 25°C, HSI+PLL 192MHz 外设全关 12.6mA → 66µA/MHz（全开 21.4mA）; Sleep 5.1mA; Stop 10µA（FLASH 低功耗）/275µA（稳压器运行）; Standby 3.5µA（RAM 全断电、LDO_EC=1）"
+  peripherals:
+    uart: 8
+    spi: 2
+    i2c: 2
+    can: 1
+    usb_fs: 1
+    usb_hs: 1
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 1
+    opamp: 2
+    comp: 2
+    touch: 16
+    dma_ch: 32
+    other: "USB2.0 HS 480Mbps 内置 PHY + USB FS + USB PD/Type-C PHY（PD3.2/EPR，100W/240W）; QSPI x1, FSMC（仅 VCT6）, PIOC x1, 4Msps 12-bit ADC（16 外部+3 内部）, 2x16 通道 DMA"
+  packages: [LQFP100]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "1-wire SDI", "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2025
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V205.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=431"
+    toolchain: "https://www.mounriver.com/"
+  tags: [USB HS, USB PD, 192MHz, QSPI, 8串口]
+  notes: "DS 标注 40MHz 零等待，最高 192MHz 为非零等待；ISA 为官方写法 RV32ICBM-X（含 WCH 自定义扩展）。DMA 条款写 '2 sets of 16-channel'，故记 32 通道（文字有歧义）。同系列 CCT6=LQFP48/41 GPIO、RCT6=LQFP64/51 GPIO。2025-05-21 官方发布。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=431"
+    - "https://www.wch.cn/downloads/CH32V205DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V205.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v208wbu6
+  name: CH32V208WBU6
+  family: CH32V208
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4C
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 64
+  flash_kb: 128
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 74
+    sleep_ua: null
+    standby_ua: 1.0
+    wakeup_us: null
+    note: "DS V2.7 表4-6-1/4-8: VDD=3.3V, 25°C, HSI 144MHz 外设全关 10.65mA → 74µA/MHz（全开 15.61mA）; Stop 32.7µA（稳压器低功耗）; Standby 1.0µA（LSI/LSE/RTC/IWDG 关、RAM 全断电）"
+  peripherals:
+    uart: 4
+    spi: 2
+    i2c: 2
+    can: 1
+    usb_fs: 2
+    usb_hs: 0
+    eth: 1
+    ble: 1
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 2
+    comp: 2
+    touch: 16
+    dma_ch: 8
+    other: "BLE 5.3 2Mbps 内置 2.4G 收发器; 10M Ethernet MAC+PHY; USBD + USBFS 主机/设备; 1x16-bit 高级 + 3x16-bit 通用 + 1x32-bit 通用定时器"
+  packages: [QFN68]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [RT-Thread]
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V208.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=355"
+    toolchain: "https://www.mounriver.com/"
+  tags: [BLE5.3, 10M以太网, 144MHz, 无线]
+  notes: "WBU6=QFN68/53 GPIO/16 路 ADC；同系列 GBU6=QFN28/21 GPIO/8 路 ADC、CBU6=QFN48、RBT6=LQFP64M。官方新闻 2022-04-08 发布（当时称 BLE+以太网 RISC-V 通用 MCU）。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=355"
+    - "https://www.wch.cn/downloads/CH32V208DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V208.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v208gbu6
+  name: CH32V208GBU6
+  family: CH32V208
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4C
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 64
+  flash_kb: 128
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 74
+    sleep_ua: null
+    standby_ua: 1.0
+    wakeup_us: null
+    note: "同 CH32V208WBU6（同系列电气表，VDD=3.3V/25°C，HSI 144MHz 外设全关 10.65mA）"
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    can: 1
+    usb_fs: 2
+    usb_hs: 0
+    eth: 1
+    ble: 1
+    wifi: 0
+    adc_ch: 8
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 2
+    comp: 2
+    touch: 8
+    dma_ch: 8
+    other: "QFN28 4*4mm，21 GPIO"
+  packages: [QFN28]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [RT-Thread]
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V208.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=355"
+    toolchain: "https://www.mounriver.com/"
+  tags: [BLE5.3, 小封装, 10M以太网]
+  notes: "QFN28 版本仍保留 10M ETH PHY（官方选型表），但 USART/SPI/I2C/ADC 通道数被封装裁剪。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=355"
+    - "https://www.wch-ic.com/products/CH32V208.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v303vct6
+  name: CH32V303VCT6
+  family: CH32V303
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4F
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 64
+  flash_kb: 256
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 85
+    sleep_ua: null
+    standby_ua: 1.0
+    wakeup_us: null
+    note: "DS V3.9 表4-6/4-8（V303/305/307/317 共用）: VDD=3.3V, 25°C, HSI 144MHz 外设全关 12.2mA → 85µA/MHz（全开 22.1mA）; Stop 30µA（稳压器低功耗）/110µA; Standby 1.0µA（RAM 全断电）"
+  peripherals:
+    uart: 8
+    spi: 3
+    i2c: 2
+    can: 1
+    usb_fs: 1
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 2
+    i2s: 2
+    sdio: 1
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 4
+    comp: 4
+    touch: 16
+    dma_ch: 36
+    other: "2 组 12-bit ADC、2 组 12-bit DAC、4 组 OPA；4x16-bit 高级 + 4x16-bit 通用 + 2 基本定时器；FSMC、SDIO；2x18 通道 DMA"
+  packages: [LQFP100]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [Zephyr, Arduino]
+  status: 量产
+  release_year: 2021
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V303.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=356"
+    toolchain: "https://www.mounriver.com/"
+  tags: [大容量, 双DAC, 4运放, FSMC]
+  notes: "V303 无 USB HS、无以太网；USB 仅 12Mbps 全速。同系列 CB=LQFP48/128K/32K、RB=LQFP64M/128K/32K、RC=LQFP64M/256K/64K。RCT7 支持 -40~105°C。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=356"
+    - "https://www.wch.cn/downloads/CH32V20x_30xDS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V303.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v305rbt6
+  name: CH32V305RBT6
+  family: CH32V305
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4F
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 32
+  flash_kb: 128
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 85
+    sleep_ua: null
+    standby_ua: 1.0
+    wakeup_us: null
+    note: "同 V303/305/307/317 电气表: VDD=3.3V, 25°C, HSI 144MHz 外设全关 12.2mA → 85µA/MHz（全开 22.1mA）; Standby 1.0µA"
+  peripherals:
+    uart: 5
+    spi: 3
+    i2c: 2
+    can: 2
+    usb_fs: 1
+    usb_hs: 1
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 2
+    i2s: 2
+    sdio: 1
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 4
+    comp: 4
+    touch: 16
+    dma_ch: 36
+    other: "USB2.0 HS 480Mbps 内置 PHY + USB FS（支持 OTG）；2 组 ADC/2 组 DAC/4 组 OPA；SDIO"
+  packages: [LQFP64M]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC, TRNG]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [Zephyr, Arduino]
+  status: 量产
+  release_year: 2021
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V307.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=356"
+    toolchain: "https://www.mounriver.com/"
+  tags: [USB HS, 互联型, 144MHz]
+  notes: "FB=TSSOP20（ADC 仅 1 通道、OPA 无）、GB=QFN28（ADC 6 通道、OPA3）、CC=LQFP48/256K/64K。无以太网。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=356"
+    - "https://www.wch-ic.com/products/CH32V307.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v307vct6
+  name: CH32V307VCT6
+  family: CH32V307
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4F
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 64
+  flash_kb: 256
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 85
+    sleep_ua: null
+    standby_ua: 1.0
+    wakeup_us: null
+    note: "DS V3.9 表4-6/4-8: VDD=3.3V, 25°C, HSI 144MHz 外设全关 12.2mA → 85µA/MHz（全开 22.1mA）; Stop 30µA（稳压器低功耗）/110µA（稳压器运行）; Standby 1.0µA"
+  peripherals:
+    uart: 8
+    spi: 3
+    i2c: 2
+    can: 2
+    usb_fs: 1
+    usb_hs: 1
+    eth: 1
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 2
+    i2s: 2
+    sdio: 1
+    lcd: 0
+    cam: 1
+    iso7816: 0
+    opamp: 4
+    comp: 4
+    touch: 16
+    dma_ch: 36
+    other: "Gigabit Ethernet MAC + 10M PHY；USB HS 480Mbps + USB FS（支持 OTG）；DVP 摄像头接口 96MHz；FSMC；2x18 通道 DMA；RNG"
+  packages: [LQFP100]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC, TRNG]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [RT-Thread, Zephyr, Arduino]
+  status: 量产
+  release_year: 2021
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V307.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=356"
+    toolchain: "https://www.mounriver.com/"
+  tags: [以太网, USB HS, DVP, 144MHz, 旗舰]
+  notes: "CH32V307 无 VET6 型号：官方封装只有 LQFP100(VCT6)/QFN68(WCU6)/LQFP64M(RCT6)/TSSOP20。以太网为 1G MAC + 内置 10M PHY（不是 100M PHY，100M PHY 是 V317）。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=356"
+    - "https://www.wch.cn/downloads/CH32V20x_30xDS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V307.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v317vct6
+  name: CH32V317VCT6
+  family: CH32V317
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4F
+  isa: RV32IMAFC
+  bits: 32
+  max_freq_mhz: 144
+  sram_kb: 64
+  flash_kb: 256
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 85
+    sleep_ua: null
+    standby_ua: 1.0
+    wakeup_us: null
+    note: "同 V303/305/307 电气表（VDD=3.3V/25°C，HSI 144MHz 外设全关 12.2mA）; 注意 10/100M ETH PHY 模块收发时额外 60.4mA（DS 表4-9，仅 V317，100BASE-TX 有包状态）"
+  peripherals:
+    uart: 8
+    spi: 3
+    i2c: 2
+    can: 2
+    usb_fs: 1
+    usb_hs: 1
+    eth: 1
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 2
+    i2s: 2
+    sdio: 1
+    lcd: 0
+    cam: 1
+    iso7816: 0
+    opamp: 4
+    comp: 4
+    touch: 16
+    dma_ch: 36
+    other: "10/100M Ethernet PHY + Gigabit MAC；USB HS 480Mbps；DVP；FSMC；SDIO；RNG；2x18 通道 DMA"
+  packages: [LQFP100]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC, TRNG]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2024
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V317.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=356"
+    toolchain: "https://www.mounriver.com/"
+  tags: [100M以太网PHY, USB HS, DVP, 144MHz]
+  notes: "V317 = V307 的 100M PHY 版本（V307 只有 10M PHY）。封装 LQFP100(VCT6)/QFN68(WCU6)。2024-07-24 官方发布。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=356"
+    - "https://www.wch.cn/downloads/CH32V20x_30xDS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V317.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32v407vet6
+  name: CH32V407VET6
+  family: CH32V407
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V3V
+  isa: RV32IMABCV-X
+  bits: 32
+  max_freq_mhz: 200
+  sram_kb: 200
+  flash_kb: 992
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.9
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 108
+    sleep_ua: null
+    standby_ua: 1.5
+    wakeup_us: null
+    note: "DS V1.4 表3-6/3-8: VDD=3.3V, 25°C, HSI 200MHz 外设全关 21.5mA → 108µA/MHz（全开 39.1mA；240MHz 全关 24.1mA）; Stop 173µA（稳压器低功耗）/433µA; Standby 1.5µA（RAM 全断电）"
+  peripherals:
+    uart: 10
+    spi: 3
+    i2c: 1
+    can: 1
+    usb_fs: 0
+    usb_hs: 2
+    eth: 1
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 2
+    i2s: 2
+    sdio: 1
+    lcd: 1
+    cam: 1
+    iso7816: 0
+    opamp: 1
+    comp: 1
+    touch: 16
+    dma_ch: 24
+    other: "RVV 向量扩展；2x USB2.0 HS 480Mbps 内置 PHY；100M ETH MAC + 10/100M PHY；2 组 12-bit ADC、2 组 DAC；LTDC、ARGB、DVP 150MHz、FSMC、SDIO、I3C、RNG；2x12 通道 DMA"
+  packages: [LQFP100]
+  temp_min: -40
+  temp_max: 85
+  security: [CRC, TRNG]
+  debug: [WCH-Link, "1-wire SDI", "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2026
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32V407.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=442"
+    toolchain: "https://www.mounriver.com/"
+  tags: [RVV向量, 200MHz, 双USB HS, LTDC, 以太网]
+  notes: "Flash 数字冲突：DS 特性页写 992KB CodeFlash，产品页写 512KB；DS 备注说明 512KB 零等待 Flash 中可将 64KB 零等待 SRAM 配置为 Flash（→576KB 零等待 Flash + 136KB 数据），本条目取 DS 的 992KB 总量（含非零等待区）。CH32V467 = V407 + 4MB/8MB 片上 PSRAM。封装 VET6=LQFP100/QFN68(WEU6)/LQFP64(RET6)/QFN32(KEU6)。2026-02-03 发布。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=442"
+    - "https://www.wch.cn/downloads/CH32V407DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32V407.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32x033f8p6
+  name: CH32X033F8P6
+  family: CH32X033
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4C
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 20
+  flash_kb: 62
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.0
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 62.5
+    sleep_ua: null
+    standby_ua: 51
+    wakeup_us: 1
+    note: "DS（CH32X035/X033 共用）表3-6/3-8/3-10: VDD=3.3V, 25°C, HSI 48MHz 外设全关 3.0mA → 62.5µA/MHz（全开 4.2mA）; Stop 75µA（HSI 关）; Standby 51µA（IWDG 与 AWU 均关）、528µA（AWU 开）; 唤醒 Sleep 1µs / Stop 10µs / Standby 10µs"
+  peripherals:
+    uart: 4
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 1
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 10
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 1
+    opamp: 2
+    comp: 2
+    touch: 10
+    dma_ch: 8
+    other: "USB2.0 FS 仅设备模式，无 USB Host、无 PD；PIOC 可编程协议 IO；2x16-bit 高级 + 1x16-bit 通用定时器"
+  packages: [TSSOP20]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: null
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32X035.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=381"
+    toolchain: "https://www.mounriver.com/"
+  tags: [USB设备, 5V工作, PIOC, 小封装]
+  notes: "CH32X033 是 CH32X035 的裁剪版（TSSOP20、18 GPIO、无 USB Host、无 Type-C PD、CMP 2 个）。官方未单独发布新闻，release_year 取同系列 X035 的 2023 年但未证实，故置 null。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=381"
+    - "https://www.wch.cn/downloads/CH32X035DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32X035.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32x035c8t6
+  name: CH32X035C8T6
+  family: CH32X035
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4C
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 48
+  sram_kb: 20
+  flash_kb: 62
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.0
+  voltage_max: 5.5
+  power:
+    run_ua_mhz: 62.5
+    sleep_ua: null
+    standby_ua: 51
+    wakeup_us: 1
+    note: "DS 表3-6/3-8/3-10: VDD=3.3V, 25°C, HSI 48MHz 外设全关 3.0mA → 62.5µA/MHz（全开 4.2mA）; Stop 75µA; Standby 51µA（IWDG/AWU 关）; 唤醒 Sleep 1µs / Stop 10µs / Standby 10µs"
+  peripherals:
+    uart: 4
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 1
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 10
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 1
+    opamp: 2
+    comp: 3
+    touch: 10
+    dma_ch: 8
+    other: "USB2.0 FS 主机+设备 + USB PD/Type-C（Source/Sink/DRP）；PIOC 可编程协议 IO；3 组 CMP；2x16-bit 高级 + 1x16-bit 通用定时器"
+  packages: [LQFP48]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: [Arduino]
+  status: 量产
+  release_year: 2023
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32X035.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=381"
+    toolchain: "https://www.mounriver.com/"
+  tags: [USB PD, Type-C, PIOC, 5V工作, 快充]
+  notes: "同系列 R8T6=LQFP64M/60 GPIO、G8U6=QFN28、G8R6=QSOP28、F8U6=QFN20、F7P6=TSSOP20、D8U6=QFN12。2023-05-11 官方发布。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=381"
+    - "https://www.wch.cn/downloads/CH32X035DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32X035.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32l103c8t6
+  name: CH32L103C8T6
+  family: CH32L103
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4C
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 96
+  sram_kb: 20
+  flash_kb: 64
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 1.8
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 49
+    sleep_ua: null
+    standby_ua: 0.37
+    wakeup_us: null
+    note: "DS V2.1 表3-6/3-8-1: VDD=3.3V, 25°C, HSI+PLL 96MHz 外设全关 4.70mA → 49µA/MHz（全开 7.46mA）; Stop 4.08µA（STOP mode4，LDO 低功耗）/23.88µA/34.63µA; Standby 0.37µA（RAM/LSI/LSE/RTC/IWDG 全关）、0.59µA（RAM 保持）"
+  peripherals:
+    uart: 4
+    spi: 2
+    i2c: 2
+    can: 1
+    usb_fs: 1
+    usb_hs: 0
+    eth: 0
+    ble: 0
+    wifi: 0
+    adc_ch: 10
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 1
+    opamp: 1
+    comp: 3
+    touch: 10
+    dma_ch: 8
+    other: "LPTIM 低功耗定时器；USB2.0 FS 主机+设备 + USB PD/Type-C；部分型号支持 CAN FD；12-bit ADC（10 外部+3 内部）；1x16-bit 高级 + 2x16-bit 通用 + 1x32-bit 通用定时器"
+  packages: [LQFP48]
+  temp_min: -40
+  temp_max: 85
+  security: []
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2023
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32L103.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=386"
+    toolchain: "https://www.mounriver.com/"
+  tags: [低功耗, USB PD, LPTIM, CAN]
+  notes: "同系列 K8U6=QFN32/31 GPIO、K8U7=QFN32/-40~105°C、G8R6=QSOP28、F8U6=QFN20、F8P6=TSSOP20。C8T6/K8U6 支持 CAN FD，G8R6/F8U6/F8P6 仅 CAN 2.0B。CH32M103G8R6 = L103 + 24V 三相 P+N 预驱。2023-08-04 发布。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=386"
+    - "https://www.wch.cn/downloads/CH32L103DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32L103.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch571f
+  name: CH571F
+  family: CH571
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V3A
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 20
+  sram_kb: 18
+  flash_kb: 192
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.3
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: null
+    sleep_ua: 1.4
+    standby_ua: 0.3
+    wakeup_us: null
+    note: "DS V1.12（CH573/CH571 共用）: 内置 DC-DC，0dBm 发射 6mA；Idle 1.5mA；Halt 320µA；Sleep 1.4~6µA（多档）; Shutdown 0.3~1.3µA（多档）。无按 MHz 归一化的 Run 电流表。"
+  peripherals:
+    uart: 2
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 1
+    usb_hs: 0
+    eth: 0
+    ble: 1
+    wifi: 0
+    adc_ch: 6
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 0
+    comp: 0
+    touch: 0
+    other: "BLE 4.2，RX -96dBm，TX 可编程至 +5dBm；192K CodeFlash + 24K BootLoader + 32K DataFlash；USB 仅设备模式；ADC 不支持 DMA"
+  packages: [QFN28]
+  temp_min: -40
+  temp_max: 85
+  security: [AES]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2020
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch.cn/products/CH573.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=303"
+    toolchain: "https://www.mounriver.com/"
+  tags: [BLE4.2, 低功耗, 无线]
+  notes: "CH571 = CH573 精简版：无 USB Host、无 TouchKey、无 8-bit PWM、UART 2 个、FlashROM 仅 256KB、ADC 不支持 DMA。同系列 CH571D=QFN20/15 GPIO、CH571K=ESSOP10/4 GPIO。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=303"
+    - "https://www.wch.cn/downloads/CH573DS1_PDF.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch573f
+  name: CH573F
+  family: CH573
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V3A
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 20
+  sram_kb: 18
+  flash_kb: 448
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.3
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: null
+    sleep_ua: 1.4
+    standby_ua: 0.3
+    wakeup_us: null
+    note: "DS V1.12: 内置 DC-DC，0dBm 发射 6mA；Idle 1.5mA；Halt 320µA；Sleep 1.4~6µA；Shutdown 0.3~1.3µA"
+  peripherals:
+    uart: 4
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 2
+    usb_hs: 0
+    eth: 0
+    ble: 1
+    wifi: 0
+    adc_ch: 8
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 0
+    comp: 0
+    touch: 8
+    other: "BLE 4.2，RX -96dBm，TX +5dBm；448K CodeFlash + 24K BootLoader + 32K DataFlash；SRAM 16K 双电源保持 + 2K；USB2.0 FS 主机+设备；4x26-bit 定时器/4 路 PWM + 8 路 8-bit PWM"
+  packages: [QFN28]
+  temp_min: -40
+  temp_max: 85
+  security: [AES]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2020
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch.cn/products/CH573.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=303"
+    toolchain: "https://www.mounriver.com/"
+  tags: [BLE4.2, USB, 低功耗]
+  notes: "同系列 CH573X=QFN32/22 GPIO/最低 1.7V、CH573Q=LQFP32（RF 性能略低于 QFN 封装）。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=303"
+    - "https://www.wch.cn/downloads/CH573DS1_PDF.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch582m
+  name: CH582M
+  family: CH582
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4A
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 20
+  sram_kb: 32
+  flash_kb: 448
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.3
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: null
+    sleep_ua: 0.7
+    standby_ua: 0.2
+    wakeup_us: null
+    note: "DS（CH583/CH582 共用）: 内置 DC-DC；Idle 1.6mA；Halt 320µA；Sleep 0.7~2.8µA（多档）; Shutdown 0.2~2.3µA（多档）。无按 MHz 归一化 Run 电流表。"
+  peripherals:
+    uart: 4
+    spi: 2
+    i2c: 1
+    can: 0
+    usb_fs: 2
+    usb_hs: 0
+    eth: 0
+    ble: 1
+    wifi: 0
+    adc_ch: 14
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 0
+    comp: 0
+    touch: 14
+    other: "BLE 5.0（2Mbps/1Mbps/500kbps/125kbps），RX -98dBm，TX +6dBm；2 组独立 USB2.0 FS；448K CodeFlash + 24K Boot + 32K DataFlash；14+1 通道 ADC"
+  packages: [QFN48]
+  temp_min: -40
+  temp_max: 85
+  security: [AES]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2021
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch.cn/products/CH583.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=329"
+    toolchain: "https://www.mounriver.com/"
+  tags: [BLE5.0, 双USB, 低功耗]
+  notes: "冲突：2021-05-08 官方新闻与 wch.cn 产品页均称 CH582/CH583 为 BLE5.3，但英文 DS 写 BLE 5.0（支持 2Mbps）; 本条目按 DS 记 5.0。CH582M=QFN48/40 GPIO；CH582F=QFN28/20 GPIO（8+1 ADC、8 TKey、仅 1 个 SPI 主机）。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=329"
+    - "https://www.wch.cn/downloads/CH583DS1_PDF.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch583m
+  name: CH583M
+  family: CH583
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4A
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 20
+  sram_kb: 32
+  flash_kb: 448
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 1.75
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: null
+    sleep_ua: 0.7
+    standby_ua: 0.2
+    wakeup_us: null
+    note: "同 CH582M（DS 共用）: DC-DC; Idle 1.6mA; Halt 320µA; Sleep 0.7~2.8µA; Shutdown 0.2~2.3µA"
+  peripherals:
+    uart: 4
+    spi: 2
+    i2c: 1
+    can: 0
+    usb_fs: 2
+    usb_hs: 0
+    eth: 0
+    ble: 1
+    wifi: 0
+    adc_ch: 14
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 0
+    cam: 0
+    iso7816: 0
+    opamp: 0
+    comp: 0
+    touch: 14
+    other: "比 CH582 增加 SPI1 主机并支持最低 1.75V 供电；BLE 5.0，RX -98dBm，TX +6dBm；2 组 USB2.0 FS"
+  packages: [QFN48]
+  temp_min: -40
+  temp_max: 85
+  security: [AES]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2022
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch.cn/products/CH583.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=329"
+    toolchain: "https://www.mounriver.com/"
+  tags: [BLE5.0, 双USB, 1.75V]
+  notes: "release_year 取 CH582 系列 2021 年之后的 CH583 上市年，官方新闻库中未见 CH583 单独条目，故按 2022 记（中等把握）。DS 中另出现一次 'CH581F' 型号，但无产品页/无独立手册，未收录。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=329"
+    - "https://www.wch.cn/downloads/CH583DS1_PDF.html"
+  confidence: medium
+  updated: 2026-11-04
+
+- id: wch-ch585m
+  name: CH585M
+  family: CH585
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V3C
+  isa: RV32IMBC
+  bits: 32
+  max_freq_mhz: 78
+  sram_kb: 128
+  flash_kb: 448
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 1.85
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: null
+    sleep_ua: 2.6
+    standby_ua: 0.65
+    wakeup_us: null
+    note: "DS（CH585/CH584）: DC-DC; Idle 1.44mA（PLL/HSE 不停）; Halt 1.01mA（PLL/HSE 不停）/200µA（PLL/HSE 停）; Sleep 2.6~8.2µA; Shutdown 0.65~5.5µA; BLE 接收电流 5.8mA（关 DC-DC）/3.0mA（开 DC-DC），3.3V"
+  peripherals:
+    uart: 4
+    spi: 2
+    i2c: 1
+    can: 0
+    usb_fs: 1
+    usb_hs: 1
+    eth: 0
+    ble: 1
+    wifi: 0
+    adc_ch: 14
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 1
+    cam: 0
+    iso7816: 0
+    opamp: 0
+    comp: 0
+    touch: 14
+    other: "BLE 5.4（2Mbps/1Mbps），RX -95dBm，TX +4.5dBm；USB2.0 FS + USB2.0 HS 480Mbps（1024B 包）；NFC ISO14443-A 读写；段式 LCD 28*4；LED 点阵 1/2/4/8 通道；14+3 通道 ADC"
+  packages: [QFN48]
+  temp_min: -40
+  temp_max: 85
+  security: [AES]
+  debug: [WCH-Link, "1/2-wire 仿真调试"]
+  ecosystem: []
+  status: 量产
+  release_year: 2024
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH585.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=402"
+    toolchain: "https://www.mounriver.com/"
+  tags: [BLE5.4, USB HS, NFC, LCD, 78MHz]
+  notes: "CH584 = CH585 去掉 USBHS 与 SPI1、RAM 96KB。CH585F=QFN32/24 GPIO/7+1 ADC/14*4 LCD；CH585C=QFN26C3；CH585D=QFN20。2024-08-19 官方发布。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=402"
+    - "https://www.wch.cn/downloads/CH585DS1_PDF.html"
+    - "https://www.wch-ic.com/products/CH585.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch592f
+  name: CH592F
+  family: CH592
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V4C
+  isa: RV32IMAC
+  bits: 32
+  max_freq_mhz: 20
+  sram_kb: 26
+  flash_kb: 448
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 1.75
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: null
+    sleep_ua: 0.8
+    standby_ua: 0.3
+    wakeup_us: null
+    note: "DS（CH592/CH591）: DC-DC; Idle 1.1mA; Halt 1.0mA（PLL/HSE 不停）/180µA（PLL/HSE 停）; Sleep 0.8~2.5µA; Shutdown 0.3~1.3µA; BLE 接收 7.5mA（关 DC-DC）/3.5mA（开 DC-DC），3.3V"
+  peripherals:
+    uart: 4
+    spi: 1
+    i2c: 1
+    can: 0
+    usb_fs: 1
+    usb_hs: 0
+    eth: 0
+    ble: 1
+    wifi: 0
+    adc_ch: 8
+    adc_bits: 12
+    dac_ch: 0
+    i2s: 0
+    sdio: 0
+    lcd: 1
+    cam: 0
+    iso7816: 0
+    opamp: 0
+    comp: 0
+    touch: 8
+    other: "BLE 5.4（2Mbps/1Mbps），RX -95dBm，TX +9dBm；USB2.0 FS 主机+设备；段式 LCD 16*4；448K CodeFlash + 24K Boot + 32K DataFlash；SRAM 24K 保持 + 2K"
+  packages: [QFN28]
+  temp_min: -40
+  temp_max: 85
+  security: [AES]
+  debug: [WCH-Link, "2-wire SDI"]
+  ecosystem: []
+  status: 量产
+  release_year: 2023
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH592.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=378"
+    toolchain: "https://www.mounriver.com/"
+  tags: [BLE5.4, LCD驱动, 低功耗, 无线]
+  notes: "CH592X=QFN32/24 GPIO/12+1 ADC/20*4 LCD；CH592A=QFN28 但最低 2.3V；CH592D=QFN20。CH591 = CH592 去掉 TouchKey 与 I2C、Flash 仅 192K。2023-03-06 官方发布。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=378"
+    - "https://www.wch.cn/downloads/CH592DS1_PDF.html"
+    - "https://www.wch-ic.com/products/CH592.html"
+  confidence: high
+  updated: 2026-11-04
+
+- id: wch-ch32h417qeu6
+  name: CH32H417QEU6
+  family: CH32H417
+  vendor: 沁恒微电子
+  vendor_en: WCH
+  vendor_country: CN
+  ip_vendor: 沁恒自研
+  ip_country: CN
+  core: QingKe V5F + V3F (双核)
+  isa: RV32IMAFBC-X
+  bits: 32
+  max_freq_mhz: 400
+  sram_kb: 896
+  flash_kb: 960
+  psram_kb: null
+  otp_kb: null
+  cache_kb: null
+  voltage_min: 2.4
+  voltage_max: 3.6
+  power:
+    run_ua_mhz: 184
+    sleep_ua: null
+    standby_ua: null
+    wakeup_us: null
+    note: "DS V1.9 表3-6-1/3-8: VDD33=VDD33A=3.3V, 25°C, HSI, V5F=400MHz/HCLK=100MHz 外设全关 73.6mA → 184µA/MHz（全开 101.6mA；25MHz 时 8.3mA → 332µA/MHz，非线性）; Sleep 18.2mA; Stop 1.8mA（LDO 低功耗）/0.8mA（CH2003K DC-DC 供电）; 无 Standby µA 级数据发布; VBAT 3.5µA"
+  peripherals:
+    uart: 8
+    spi: 4
+    i2c: 4
+    can: 3
+    usb_fs: 1
+    usb_hs: 1
+    eth: 1
+    ble: 0
+    wifi: 0
+    adc_ch: 16
+    adc_bits: 12
+    dac_ch: 2
+    i2s: 2
+    sdio: 1
+    lcd: 1
+    cam: 1
+    iso7816: 0
+    opamp: 3
+    comp: 1
+    touch: 16
+    dma_ch: 16
+    other: "USB3.2 Gen1 5Gbps + USB2.0 HS 480Mbps + USB FS + USB PD/Type-C; 100M ETH MAC+PHY（RGMII 可外接 1G PHY）; 10-bit 20Msps HSADC（7 通道）; QSPI x2, I3C x1, SDMMC, DVP 150MHz, LTDC, DFSDM, SAI, SWPMI, GPHA, FMC(FSMC+SDRAM), SerDes, RNG, AES/SM4"
+  packages: [QFN128]
+  temp_min: -40
+  temp_max: 85
+  security: [AES, TRNG]
+  debug: [WCH-Link, "1-wire SDI", "2-wire SDI"]
+  ecosystem: [Zephyr]
+  status: 量产
+  release_year: 2025
+  price_cny: null
+  price_note: null
+  links:
+    product: "https://www.wch-ic.com/products/CH32H417.html"
+    datasheet: "https://www.wch-ic.com/download/file?id=423"
+    toolchain: "https://www.mounriver.com/"
+  tags: [双核, USB3.0, 400MHz, 以太网, LTDC, 旗舰]
+  notes: "双核：V5F 最高 400MHz / V3F 最高 160MHz（V5F 支持 RV32IMAFBC-X）。SRAM 896KB 含 128KB ITCM + 256KB DTCM。QEU6=QFN128/95 GPIO/16+2 通道 ADC；MEU6=QFN88；WEU6=QFN68。衍生 CH32H416（480K Flash）、CH32H415（无 SDIO/部分 USB）。2025-05-13 官方发布。"
+  sources:
+    - "https://www.wch-ic.com/download/file?id=423"
+    - "https://www.wch.cn/downloads/CH32H417DS0_PDF.html"
+    - "https://www.wch-ic.com/products/CH32H417.html"
+  confidence: high
+  updated: 2026-11-04

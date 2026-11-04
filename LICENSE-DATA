@@ -1,0 +1,14 @@
+tryriscv.org 数据许可 / Data License
+
+本站整理后的数据（data/ 目录下的 YAML、static/data/ 下的 JSON 与 CSV）采用
+Creative Commons Attribution 4.0 International (CC BY 4.0) 许可。
+
+你可以自由复制、分发、修改与商用，但需要：
+1. 注明来源为 tryriscv.org 并链接回 https://tryriscv.org/ ；
+2. 说明是否做了修改；
+3. 不得暗示 tryriscv.org 为你的使用背书。
+
+许可全文：https://creativecommons.org/licenses/by/4.0/legalcode
+
+注意：器件参数与商标归各厂商所有；本站数据由 AI 从公开网络整理，
+使用前请以厂商最新数据手册为准。

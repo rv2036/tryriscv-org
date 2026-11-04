@@ -1,0 +1,6 @@
+{{- $id := .id -}}
+{{- $found := dict -}}
+{{- range hugo.Data.mcus -}}
+  {{- if eq .id $id -}}{{- $found = . -}}{{- end -}}
+{{- end -}}
+{{- return $found -}}

@@ -1,0 +1,56 @@
+name: 选型需求（我想选）
+description: 告诉我们场景与约束，我们会整理候选清单，并沉淀为方案包
+title: "[我想选] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        把约束写清楚，比写“推荐一款”更有用。以下六项是关键：**场景、主频、内存、外设、功耗、量产时间**。
+  - type: input
+    id: scenario
+    attributes:
+      label: 应用场景
+      description: 产品是什么？工作环境、供电方式、是否需要电池？
+      placeholder: "例如：IoT 产教融合实验平台 / 电池供电温湿度节点"
+    validations:
+      required: true
+  - type: input
+    id: freq
+    attributes:
+      label: 主频要求
+      placeholder: "例如：100MHz 左右；可接受 48–144MHz"
+  - type: input
+    id: memory
+    attributes:
+      label: 内存与存储
+      placeholder: "例如：SRAM ≥64KB，Flash ≥256KB；可以小到 64KB/40MHz"
+  - type: textarea
+    id: peripherals
+    attributes:
+      label: 外设与协议
+      placeholder: "例如：2×UART、1×CAN、12 位 ADC、USB FS、BLE 5.0"
+  - type: input
+    id: power
+    attributes:
+      label: 功耗约束
+      placeholder: "例如：休眠 <5µA，动态 <100µA/MHz"
+  - type: input
+    id: volume
+    attributes:
+      label: 预计用量与时间
+      placeholder: "例如：首年 1 万片，2026 Q3 量产"
+  - type: dropdown
+    id: preference
+    attributes:
+      label: 国产化要求
+      options:
+        - 必须国产厂商 + 国产 IP
+        - 国产厂商即可，IP 不限
+        - 不限，优先生态成熟
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 其他约束
+      description: 封装、温度、认证、工具链、已有代码迁移等

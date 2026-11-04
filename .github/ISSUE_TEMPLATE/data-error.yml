@@ -1,0 +1,58 @@
+name: 数据错误报告
+description: 参数错误、链接失效、型号写错或数据过期
+title: "[数据纠错] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢纠错。请尽量给出**型号**、**字段**与**可核验的来源**，这样修正会更快进入下一次数据快照。
+  - type: input
+    id: page
+    attributes:
+      label: 页面 / 型号
+      description: 详情页链接或型号，例如 https://tryriscv.org/mcu/wch-ch32v003f4p6/
+      placeholder: "https://tryriscv.org/mcu/... 或 CH32V003F4P6"
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 问题类型
+      options:
+        - 参数数值错误
+        - 型号 / 封装写错
+        - 链接失效
+        - 数据过期（厂商已更新）
+        - 归属地 / IP 品牌错误
+        - 漏收录型号
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: 当前显示
+      description: 本站现在写的是什么？
+      placeholder: "例如：SRAM 显示 20KB"
+  - type: textarea
+    id: correct
+    attributes:
+      label: 正确信息
+      description: 应该是什么？
+      placeholder: "例如：SRAM 应为 32KB"
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: 依据链接
+      description: 厂商数据手册、产品页或官方公告的 URL
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: 联系方式（可选）
+      description: 便于进一步确认；不会公开展示在页面中
+      placeholder: "邮箱 / 微信 / GitHub 用户名"

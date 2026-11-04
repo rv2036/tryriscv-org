@@ -1,0 +1,183 @@
+{{ define "main" }}
+{{- $mcu := hugo.Data.mcus -}}
+{{- $ips := hugo.Data.ips -}}
+{{- $vendors := slice -}}
+{{- range $mcu }}{{ $vendors = $vendors | append .vendor }}{{ end -}}
+{{- $vendors = $vendors | uniq -}}
+{{- $solutions := hugo.Data.solutions | default slice -}}
+{{- $ai := hugo.Data.ais | default slice -}}
+
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-badge"><span class="dot"></span> 数据快照 {{ site.Params.updated }} · 持续更新中</span>
+    <h1>为你的下一个产品，<br>选对 <em>RISC-V</em></h1>
+    <p class="hero-lead">国产 RISC-V 厂商分散、参数口径不一、资料难找？这里把 MCU、IP 核、方案与 AI 算力整理成可筛选、可对比、可追溯来源的情报库。</p>
+    <div class="hero-actions">
+      <a class="btn btn--light btn--lg" href="{{ "/mcu/" | relURL }}">开始选 MCU {{ partial "icon.html" (dict "name" "arrow" "size" 17) }}</a>
+      <a class="btn btn--ghost btn--lg" href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">{{ partial "icon.html" (dict "name" "plus" "size" 17) }} 我想选 / 提交需求</a>
+    </div>
+    <div class="hero-meta">
+      <span><b>{{ len $mcu }}</b> 款 MCU</span>
+      <span><b>{{ len $vendors }}</b> 家厂商</span>
+      <span><b>{{ len $ips }}</b> 个 IP 核</span>
+      <span>数据来自厂商官网与数据手册</span>
+    </div>
+
+    <div class="entry-grid">
+      <a class="entry-card" href="{{ "/mcu/" | relURL }}">
+        <span class="entry-icon">{{ partial "icon.html" (dict "name" "mcu" "size" 21) }}</span>
+        <h3>选 MCU</h3>
+        <p>按主频、SRAM、Flash、功耗、外设、封装与生态筛选，支持并排对比。</p>
+        <div class="entry-foot">
+          <span class="entry-count"><b>{{ len $mcu }}</b> 款在库</span>
+          <span class="entry-arrow">{{ partial "icon.html" (dict "name" "arrow" "size" 18) }}</span>
+        </div>
+      </a>
+      <a class="entry-card" href="{{ "/ip/" | relURL }}">
+        <span class="entry-icon">{{ partial "icon.html" (dict "name" "ip" "size" 21) }}</span>
+        <h3>选 IP</h3>
+        <p>看内核血统、指令集扩展、流水线、授权模式与量产成熟度。</p>
+        <div class="entry-foot">
+          <span class="entry-count"><b>{{ len $ips }}</b> 个 IP 核</span>
+          <span class="entry-arrow">{{ partial "icon.html" (dict "name" "arrow" "size" 18) }}</span>
+        </div>
+      </a>
+      <a class="entry-card" href="{{ "/solutions/" | relURL }}">
+        <span class="entry-icon">{{ partial "icon.html" (dict "name" "solution" "size" 21) }}</span>
+        <h3>选解决方案</h3>
+        <p>从 IoT 产教融合到电机控制，把场景需求翻译成选型清单。</p>
+        <div class="entry-foot">
+          <span class="entry-count"><b>{{ len $solutions }}</b> 个方案包</span>
+          <span class="entry-arrow">{{ partial "icon.html" (dict "name" "arrow" "size" 18) }}</span>
+        </div>
+      </a>
+      <a class="entry-card" href="{{ "/ai/" | relURL }}">
+        <span class="entry-icon">{{ partial "icon.html" (dict "name" "ai" "size" 21) }}</span>
+        <h3>选 AI 算力</h3>
+        <p>NPU IP 与 AI SoC 的算力、精度、框架与工具链成熟度（预览）。</p>
+        <div class="entry-foot">
+          <span class="entry-count"><b>{{ len $ai }}</b> 条记录</span>
+          <span class="entry-arrow">{{ partial "icon.html" (dict "name" "arrow" "size" 18) }}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div class="section-head">
+        <span class="eyebrow">需求直通车</span>
+        <h2 class="section-title">两条真实客户约束，已经变成筛选条件</h2>
+        <p class="section-desc">“需要 100MHz 左右低功耗的产品”“可以小到 64KB 内存、40MHz 主频”。点击即带入对应条件，再按你的项目微调。</p>
+      </div>
+      <a class="btn btn--outline btn--sm" href="{{ "/mcu/" | relURL }}">浏览全部 {{ partial "icon.html" (dict "name" "arrow" "size" 15) }}</a>
+    </div>
+    <div class="preset-grid">
+      {{ range hugo.Data.site.presets }}
+      <a class="preset-card" href="{{ printf "/mcu/?%s" .query | relURL }}" data-preset="{{ .query }}">
+        <div class="preset-top"><span class="preset-tag">{{ .tag }}</span><span class="entry-arrow" style="color:var(--brand)">{{ partial "icon.html" (dict "name" "arrow" "size" 16) }}</span></div>
+        <h3>{{ .title }}</h3>
+        <p>{{ .desc }}</p>
+        <span class="preset-go">打开对应筛选 →</span>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="stat-num">{{ len $mcu }}</div><div class="stat-label">款 RISC-V MCU / SoC</div></div>
+      <div class="stat"><div class="stat-num">{{ len $vendors }}</div><div class="stat-label">家芯片厂商</div></div>
+      <div class="stat"><div class="stat-num">{{ len $ips }}</div><div class="stat-label">个可查 IP 核</div></div>
+      <div class="stat"><div class="stat-num">{{ len $solutions }}</div><div class="stat-label">个场景方案包</div></div>
+    </div>
+    <p class="static-note">功耗字段为空表示厂商未公开可比数据，不代表零功耗；由 mA 换算的数值已在详情页注明条件。</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div class="section-head">
+        <span class="eyebrow">最新收录</span>
+        <h2 class="section-title">最近加入选型库的器件</h2>
+        <p class="section-desc">按发布年份与校验日期排序。每条记录都带厂商产品页或数据手册来源。</p>
+      </div>
+      <a class="btn btn--outline btn--sm" href="{{ "/mcu/" | relURL }}">全部型号 {{ partial "icon.html" (dict "name" "arrow" "size" 15) }}</a>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table latest-table">
+        <thead><tr><th>型号 / 厂商</th><th>IP 核</th><th>主频</th><th>SRAM</th><th>Flash</th><th>功耗</th><th>状态</th></tr></thead>
+        <tbody>
+          {{ range first 6 (sort $mcu "year" "desc") }}
+          <tr>
+            <td><a class="model-link" href="{{ printf "/mcu/%s/" .id | relURL }}">{{ .name }}</a><span class="sub-line">{{ .vendor }}</span></td>
+            <td>{{ .ip_vendor }}<span class="sub-line">{{ .core }}</span></td>
+            <td class="num">{{ .freq }} MHz</td>
+            <td class="num">{{ .sram }} KB</td>
+            <td class="num">{{ if eq .flash 0 }}无{{ else }}{{ .flash }} KB{{ end }}</td>
+            <td class="num">{{ with .power }}{{ if .run }}{{ .run }} µA/MHz{{ else }}—{{ end }}{{ else }}—{{ end }}</td>
+            <td>{{ partial "status-badge.html" .status }}</td>
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div class="section-head">
+        <span class="eyebrow">为什么是这里</span>
+        <h2 class="section-title">不是又一份厂商宣传册</h2>
+        <p class="section-desc">把“能查”变成“能比、能追溯、能纠错”，是本站和普通产品列表的区别。</p>
+      </div>
+    </div>
+    <div class="cards cards--3">
+      <div class="mini-card"><strong>结构化参数</strong><span>主频、SRAM、Flash、动态/休眠功耗、外设实例数、封装、温度、生态，统一字段，可组合筛选。</span></div>
+      <div class="mini-card"><strong>来源可追溯</strong><span>每条记录保留官方产品页 / 数据手册链接与置信度；未公开就留空，不用估算值填坑。</span></div>
+      <div class="mini-card"><strong>社区可纠错</strong><span>AI 自动抓取难免出错。页尾一键提交 issue，带上型号与来源，修正会进入下一次数据快照。</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div class="section-head">
+        <span class="eyebrow">生态图谱</span>
+        <h2 class="section-title">国内 RISC-V 有联盟，但缺少统一选型库</h2>
+        <p class="section-desc">RISC-V International 负责标准，CRVIC / CRVA 推动产业与开源生态。器件级、可对比的数据仍然分散——这正是 tryriscv.org 要补的位置。</p>
+      </div>
+      <a class="btn btn--outline btn--sm" href="{{ "/ecosystem/" | relURL }}">查看生态入口 {{ partial "icon.html" (dict "name" "arrow" "size" 15) }}</a>
+    </div>
+    <div class="org-grid">
+      {{ range hugo.Data.site.orgs }}
+      <a class="org-card" href="{{ .url }}" target="_blank" rel="noopener">
+        <div class="org-top"><strong>{{ .name }}</strong><span class="org-region">{{ .region }}</span></div>
+        <p>{{ .desc }}</p>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>没找到合适的型号？直接告诉我们需求。</h2>
+      <p>场景、主频、内存、外设、功耗、量产时间——写清楚这六项，我们会把可复用的部分整理成新的方案包，并在 issue 里回复候选清单。</p>
+      <div class="cta-actions">
+        <a class="btn btn--light btn--lg" href="{{ site.Params.issue_select }}" target="_blank" rel="noopener">我想选 {{ partial "icon.html" (dict "name" "arrow" "size" 17) }}</a>
+        <a class="btn btn--ghost btn--lg" href="{{ site.Params.issue_error }}" target="_blank" rel="noopener">报告数据错误</a>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,4 @@
+{{- range hugo.Data.ips -}}
+  {{- $desc := printf "%s 是 %s 的 %v 位 RISC-V CPU IP，指令集 %s，%s，授权模式 %s，成熟度 %s。" .name .vendor .bits .isa .pipeline .license .maturity -}}
+  {{- $.AddPage (dict "path" .id "title" .name "kind" "page" "description" $desc "params" (dict "pid" .id) "lastmod" .updated) -}}
+{{- end -}}

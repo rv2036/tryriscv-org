@@ -1,0 +1,145 @@
+- id: iot-edu
+  title: IoT 产教融合教学与原型平台
+  category: 教学与原型
+  summary: 以 100MHz 档低功耗 RISC-V MCU 为核心，覆盖传感器采集、USB 调试、CAN/串口组网、RTOS 实验与课程设计，兼顾打样成本与资料完整度。
+  needs: [64–144MHz, 20KB 以上 SRAM, USB/CAN, RT-Thread, 5V 容忍]
+  specs:
+    freq: 64–144 MHz
+    sram: 20–64 KB
+    flash: 64–256 KB
+    power: 动态 49–186 µA/MHz
+  recommended: [wch-ch32v203c8t6, gigadevice-gd32vf103c8t6, wch-ch32v103c8t6, cmiot-cm32m433r]
+  why:
+    - "沁恒 CH32V203：144MHz、49µA/MHz、双 USB、CAN，MounRiver Studio 与 RT-Thread BSP 齐全，适合作为课程主控。"
+    - "GD32VF103：Nuclei N200 生态成熟，例程与开发板多，适合对照教学与移植实验。"
+    - "CH32V103：5V 供电、USB FS，兼容 5V 传感器模块，降低实验平台电源设计难度。"
+    - "芯昇 CM32M433R：144MHz、144KB SRAM、双 CAN 与国密算法，适合进阶实验与国产化议题。"
+  risks:
+    - "以上型号均无内置无线；BLE/Wi-Fi 实验需外挂模组或改用 ESP32-C3 / CH582M 方案。"
+    - "价格随批次与渠道波动，教学批量采购需向代理商询价。"
+    - "CH32V203 的 SRAM 只有 20KB，跑图形界面或大型协议栈时要控制内存占用。"
+  toolchain: [MounRiver Studio, Nuclei Studio, RT-Thread Studio, GCC, OpenOCD]
+  query: "freq=64-160&sram=16-64&sort=run-asc&has_power=1"
+  updated: 2026-11-04
+
+- id: battery-sensor
+  title: 电池供电传感器节点（40MHz / 64KB 档）
+  category: 低功耗传感
+  summary: 面向温湿度、电流、门磁、水表等电池供电节点。主频 48MHz 左右、SRAM 4–64KB 即可，重点是把休眠电流压到 10µA 以内，并保留足够的 ADC 与比较器资源。
+  needs: [24–96MHz, 4–64KB SRAM, 休眠 <10µA, 12 位 ADC, 小封装]
+  specs:
+    freq: 24–96 MHz
+    sram: 4–64 KB
+    flash: 16–128 KB
+    power: 休眠 0.37–10 µA
+  recommended: [wch-ch32l103c8t6, wch-ch32v006k8u7, apt-apt32f1023, wch-ch32v002f4p6]
+  why:
+    - "CH32L103：96MHz 仍只有 49µA/MHz，待机 0.37µA，带 LPUART/LPTIM，适合长待机采集。"
+    - "CH32V006：48MHz、8KB SRAM、62KB Flash，QFN 小封装，外设够做多路 ADC 采样。"
+    - "爱普特 APT32F1023：48MHz、4KB SRAM、64KB Flash，官方选型表给出 5µA 深睡，成本导向明显。"
+    - "CH32V002：4KB SRAM / 16KB Flash 的极简档，适合只做一次采样 + 无线模组唤醒的架构。"
+  risks:
+    - "爱普特工具链与社区资料少于沁恒，量产前要预留移植与调试时间。"
+    - "厂商功耗测试条件不一致（电压、温度、外设时钟），必须在自己板子上复测。"
+    - "低功耗模式下 RAM 保持范围、唤醒源数量会限制协议栈选择。"
+  toolchain: [MounRiver Studio, APT IDE, GCC, RT-Thread]
+  query: "freq=0-100&sram=0-64&has_power=1&sort=sleep-asc"
+  updated: 2026-11-04
+
+- id: ble-device
+  title: BLE 穿戴与智能家居
+  category: 无线连接
+  summary: 内置 BLE 的 RISC-V SoC，省掉外挂射频与认证成本。穿戴看休眠电流与封装，家居看 Mesh/Matter 协议栈与 Flash 余量。
+  needs: [BLE 5.x, 休眠 <3µA, 256KB 以上 Flash, LCD/触摸可选]
+  specs:
+    freq: 20–96 MHz
+    sram: 26–512 KB
+    flash: 448KB–4MB
+    power: 休眠 0.7–2.6 µA
+    wireless: BLE 5.0–5.4
+  recommended: [wch-ch582m, telink-tlsr9218, wch-ch592f, bouffalo-bl702c-10-q2h]
+  why:
+    - "CH582M：BLE 5.0、0.7µA 休眠、448KB Flash，官方 BLE 协议栈与例程完整，适合穿戴与 HID。"
+    - "泰凌微 TLSR9218：96MHz、256KB SRAM、2MB Flash、0.7µA 休眠，适合需要更大缓冲与 OTA 的产品。"
+    - "CH592F：BLE 5.4 + 段码 LCD 驱动，适合温控器、面板类带显示设备。"
+    - "博流 BL702：BLE + USB，132KB SRAM，适合需要 USB 与无线并存的外设。"
+  risks:
+    - "BLE 认证（BQB/FCC/CE）与协议栈版本强相关，选型时确认 SDK 已支持目标协议。"
+    - "部分型号的 20MHz 主频会限制同时跑显示与无线协议栈的余量。"
+    - "内置 Flash 的 OTA 分区与保留区会压缩可用空间。"
+  toolchain: [MounRiver Studio, Telink IoT Studio, Bouffalo SDK, RT-Thread]
+  query: "peri=ble&sort=sleep-asc"
+  updated: 2026-11-04
+
+- id: wifi-appliance
+  title: Wi-Fi 智能家电与轻网关
+  category: 无线连接
+  summary: 家电主控、插座、传感器网关需要 Wi-Fi + BLE 双模、足够 SRAM 跑 TLS/MQTT，以及稳定的 OTA。优先选 SDK 与云端对接成熟的平台。
+  needs: [Wi-Fi 4/6, BLE 配网, 320KB 以上 SRAM, OTA, 安全启动]
+  specs:
+    freq: 120–320 MHz
+    sram: 272–532 KB
+    flash: 2–8 MB
+    power: 动态 100–172 µA/MHz
+    wireless: Wi-Fi + BLE
+  recommended: [espressif-esp32-c3fh4, espressif-esp32-c6fh4, bouffalo-bl616c-50-q2i, gigadevice-gd32vw553kiq7]
+  why:
+    - "ESP32-C3：RISC-V 单核 160MHz、400KB SRAM、Wi-Fi + BLE 5，ESP-IDF 与 Matter 生态最完整，量产资料多。"
+    - "ESP32-C6：Wi-Fi 6 + BLE 5 + 802.15.4，适合需要 Thread/Matter 的新一代家电。"
+    - "博流 BL616：320MHz、532KB SRAM、Wi-Fi 6 + BLE，适合成本敏感且需要更大算力的网关。"
+    - "GD32VW553：Nuclei N307 + Wi-Fi 6 + BLE，适合已有兆易 MCU 体系的团队平滑迁移。"
+  risks:
+    - "射频认证与天线设计是主要门槛，模组方案通常比芯片方案更快量产。"
+    - "Wi-Fi 峰值电流可达数百 mA，电源与去耦要按峰值设计。"
+    - "ESP32-C6 的 Wi-Fi 6 目标场景需确认路由器兼容性与功耗预算。"
+  toolchain: [ESP-IDF, Bouffalo SDK, MounRiver Studio, GCC]
+  query: "peri=wifi&sort=run-asc"
+  updated: 2026-11-04
+
+- id: motor-foc
+  title: 电机控制与 FOC
+  category: 电机控制
+  summary: 风机、泵、云台、电动工具需要 12 位以上 ADC、互补 PWM、比较器/运放与 CAN。105–144MHz 的 RISC-V MCU 已能覆盖单电机 FOC，双电机需看 PWM 与 ADC 采样通道。
+  needs: [100MHz 以上, 12 位 ADC, 互补 PWM, CAN, 比较器/运放]
+  specs:
+    freq: 96–144 MHz
+    sram: 16–64 KB
+    flash: 64–256 KB
+    power: 动态 49–186 µA/MHz
+  recommended: [apt-apt32f1730, wch-ch32v203c8t6, wch-ch32v303vct6, gigadevice-gd32vf103c8t6]
+  why:
+    - "爱普特 APT32F1730：105MHz、FPU/DSP、CAN，面向电机与数字电源，外设组合针对 PWM/ADC 优化。"
+    - "CH32V203：144MHz、双 USB、CAN，49µA/MHz，适合带上位机通信的小型驱动器。"
+    - "CH32V303：144MHz、64KB SRAM、256KB Flash、CAN，资源足以跑双电机或复杂保护逻辑。"
+    - "GD32VF103：108MHz、双 CAN、12 位 ADC，生态成熟，适合作为控制算法验证平台。"
+  risks:
+    - "电机控制对 ADC 采样时刻、PWM 死区与运放带宽敏感，必须用实际功率板验证。"
+    - "部分型号的 PWM 通道数未在公开资料中给出，选型前需向厂商确认。"
+    - "隔离、栅极驱动与电流采样属于模拟设计，MCU 只是其中一环。"
+  toolchain: [MounRiver Studio, APT IDE, Nuclei Studio, GCC]
+  query: "peri=can,pwm&adc=12&sort=run-asc"
+  updated: 2026-11-04
+
+- id: industrial-edge
+  title: 工业控制与边缘网关
+  category: 工业控制
+  summary: 需要 CAN/CAN FD、以太网、宽温与安全启动。144MHz 档可做协议转换与设备控制，600MHz 以上双核适合边缘计算与多轴控制。
+  needs: [CAN/以太网, 宽温, 256KB 以上 Flash, 安全启动, 多串口]
+  specs:
+    freq: 144–816 MHz
+    sram: 64KB–1MB
+    flash: 0–992 KB
+    power: 动态 85–184 µA/MHz
+  recommended: [wch-ch32v307vct6, cmiot-cm32m433r, hpmicro-hpm6360, wch-ch32v407vet6]
+  why:
+    - "CH32V307：144MHz、64KB SRAM、256KB Flash、双 CAN + 10M 以太网 PHY，适合设备控制与协议转换。"
+    - "芯昇 CM32M433R：144MHz、144KB SRAM、512KB Flash、双 CAN、国密 SM3/SM4，适合国产化与安全场景。"
+    - "先楫 HPM6360：600MHz、512KB SRAM、CAN + 以太网，适合高实时性多轴与边缘算法。"
+    - "CH32V407：200MHz、200KB SRAM、992KB Flash、以太网与 USB HS，适合带显示的工业 HMI。"
+  risks:
+    - "HPM6360 无片内 Flash，需外挂 NOR/HyperFlash 并考虑启动时间与 BOM。"
+    - "工业现场对 EMC、隔离与宽温要求高，需按整机标准复测。"
+    - "以太网 PHY 是否内置、是否需要外部变压器，直接影响布板与成本。"
+  toolchain: [MounRiver Studio, HPM SDK, Nuclei Studio, RT-Thread, Zephyr]
+  query: "freq=100-1000&peri=can,eth&sort=freq-asc"
+  updated: 2026-11-04
