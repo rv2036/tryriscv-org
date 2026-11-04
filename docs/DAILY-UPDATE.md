@@ -100,7 +100,7 @@ hugo --minify --gc
 ## 7. 更新快照日期
 
 - `hugo.toml` → `[params] updated = "YYYY-MM-DD"`
-- `data/site.yaml` 无需改（页面统计由数据计算）
+- `data/site.yaml` 的统计由数据自动计算，无需手改；若修改预设/组织文案，同步 `data/en|ru|ja/site.yaml`
 - 首页/页尾/关于页会读取该日期。
 
 ## 8. 提交
