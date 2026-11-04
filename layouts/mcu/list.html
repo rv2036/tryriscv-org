@@ -110,6 +110,17 @@
         </div>
       </details>
 
+      <details class="fgroup">
+        <summary>待机 / 关断电流 (µA) {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
+        <div class="fgroup-body">
+          <div class="range-row">
+            <input type="number" inputmode="numeric" id="standby-min" placeholder="最低" aria-label="最低待机电流" min="0" max="100000" step="0.01">
+            <span class="sep">—</span>
+            <input type="number" inputmode="numeric" id="standby-max" placeholder="最高" aria-label="最高待机电流" min="0" max="100000" step="0.01">
+          </div>
+        </div>
+      </details>
+
       <details class="fgroup" open>
         <summary>外设协议 {{ partial "icon.html" (dict "name" "chevron" "size" 14) }}</summary>
         <div class="fgroup-body" data-facet="peri"></div>
@@ -162,6 +173,7 @@
           <option value="flash-desc">Flash 从大到小</option>
           <option value="run-asc">动态功耗从低到高</option>
           <option value="sleep-asc">休眠电流从低到高</option>
+          <option value="standby-asc">待机电流从低到高</option>
           <option value="price-asc">价格从低到高</option>
           <option value="year-desc">最新发布</option>
         </select>

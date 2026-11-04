@@ -36,7 +36,7 @@
       q: '',
       vendor: new Set(), ip: new Set(), ipc: new Set(), isa: new Set(),
       peri: new Set(), pkg: new Set(), volt: new Set(), eco: new Set(), status: new Set(),
-      freq: [null, null], sram: [null, null], flash: [null, null], run: [null, null], sleep: [null, null],
+      freq: [null, null], sram: [null, null], flash: [null, null], run: [null, null], sleep: [null, null], standby: [null, null],
       adc: 0, temp: 0, hasPower: false, sort: 'recommended', view: 'table'
     };
   }
@@ -57,7 +57,7 @@
       var raw = q.get(key);
       if (raw) state[key] = new Set(raw.split(',').filter(Boolean));
     });
-    ['freq', 'sram', 'flash', 'run', 'sleep'].forEach(function (key) {
+    ['freq', 'sram', 'flash', 'run', 'sleep', 'standby'].forEach(function (key) {
       var r = readRange(q.get(key));
       if (r[0] != null || r[1] != null) state[key] = r;
     });
@@ -76,7 +76,7 @@
     ['vendor', 'ip', 'ipc', 'isa', 'peri', 'pkg', 'volt', 'eco', 'status'].forEach(function (key) {
       if (state[key] && state[key].size) q.set(key, Array.from(state[key]).join(','));
     });
-    ['freq', 'sram', 'flash', 'run', 'sleep'].forEach(function (key) {
+    ['freq', 'sram', 'flash', 'run', 'sleep', 'standby'].forEach(function (key) {
       var r = state[key];
       if (r[0] != null || r[1] != null) q.set(key, (r[0] == null ? '' : r[0]) + '-' + (r[1] == null ? '' : r[1]));
     });
@@ -230,9 +230,10 @@
     if (!inRange(p.flash, state.flash)) return false;
     if (!inRange(p.power ? p.power.run : null, state.run)) return false;
     if (!inRange(p.power ? p.power.sleep : null, state.sleep)) return false;
+    if (!inRange(p.power ? p.power.standby : null, state.standby)) return false;
     if (exclude !== 'adc' && state.adc && !(p.peripherals && p.peripherals.adc_bits >= state.adc)) return false;
     if (exclude !== 'temp' && state.temp && !(p.temp_max >= state.temp)) return false;
-    if (state.hasPower && !(p.power && (p.power.run != null || p.power.sleep != null))) return false;
+    if (state.hasPower && !(p.power && (p.power.run != null || p.power.sleep != null || p.power.standby != null))) return false;
     return true;
   }
 
@@ -293,7 +294,7 @@
     if (search && search.value !== state.q) search.value = state.q;
     var sort = document.getElementById('mcu-sort');
     if (sort) sort.value = state.sort;
-    [['freq', 'freq'], ['sram', 'sram'], ['flash', 'flash'], ['run', 'run'], ['sleep', 'sleep']].forEach(function (pair) {
+    [['freq', 'freq'], ['sram', 'sram'], ['flash', 'flash'], ['run', 'run'], ['sleep', 'sleep'], ['standby', 'standby']].forEach(function (pair) {
       var k = pair[0];
       var min = document.getElementById(k + '-min');
       var max = document.getElementById(k + '-max');
@@ -434,6 +435,7 @@
       else if (s === 'flash-desc') r = cmpNum(a.flash, b.flash, -1);
       else if (s === 'run-asc') r = cmpNum(a.power ? a.power.run : null, b.power ? b.power.run : null, 1);
       else if (s === 'sleep-asc') r = cmpNum(a.power ? a.power.sleep : null, b.power ? b.power.sleep : null, 1);
+      else if (s === 'standby-asc') r = cmpNum(a.power ? a.power.standby : null, b.power ? b.power.standby : null, 1);
       else if (s === 'price-asc') r = cmpNum(a.price_cny, b.price_cny, 1);
       else if (s === 'year-desc') r = cmpNum(a.year, b.year, -1);
       if (r === 0) r = score(b) - score(a);
@@ -459,7 +461,7 @@
         add((key === 'vendor' ? '厂商：' : key === 'ip' ? 'IP：' : key === 'ipc' ? '归属地：' : key === 'isa' ? 'ISA：' : key === 'peri' ? '外设：' : key === 'pkg' ? '封装：' : key === 'volt' ? '电压：' : key === 'eco' ? '生态：' : '状态：') + label, function () { state[key].delete(v); });
       });
     });
-    [['freq', '主频', 'MHz'], ['sram', 'SRAM', 'KB'], ['flash', 'Flash', 'KB'], ['run', '动态功耗', 'µA/MHz'], ['sleep', '休眠', 'µA']].forEach(function (it) {
+    [['freq', '主频', 'MHz'], ['sram', 'SRAM', 'KB'], ['flash', 'Flash', 'KB'], ['run', '动态功耗', 'µA/MHz'], ['sleep', '休眠', 'µA'], ['standby', '待机', 'µA']].forEach(function (it) {
       var r = state[it[0]];
       if (r[0] != null || r[1] != null) {
         var label = r[0] != null && r[1] != null ? it[1] + ' ' + r[0] + '–' + r[1] + ' ' + it[2] : r[0] != null ? it[1] + ' ≥ ' + r[0] + ' ' + it[2] : it[1] + ' ≤ ' + r[1] + ' ' + it[2];
@@ -642,7 +644,7 @@
     var sort = document.getElementById('mcu-sort');
     if (sort) sort.addEventListener('change', function () { state.sort = sort.value; apply(); });
 
-    [['freq', 'freq'], ['sram', 'sram'], ['flash', 'flash'], ['run', 'run'], ['sleep', 'sleep']].forEach(function (pair) {
+    [['freq', 'freq'], ['sram', 'sram'], ['flash', 'flash'], ['run', 'run'], ['sleep', 'sleep'], ['standby', 'standby']].forEach(function (pair) {
       var k = pair[0];
       var min = document.getElementById(k + '-min');
       var max = document.getElementById(k + '-max');
@@ -714,7 +716,7 @@
         ['vendor', 'ip', 'ipc', 'isa', 'peri', 'pkg', 'volt', 'eco', 'status'].forEach(function (key) {
           if (q.get(key)) state[key] = new Set(q.get(key).split(','));
         });
-        ['freq', 'sram', 'flash', 'run', 'sleep'].forEach(function (key) {
+        ['freq', 'sram', 'flash', 'run', 'sleep', 'standby'].forEach(function (key) {
           if (q.get(key)) state[key] = readRange(q.get(key));
         });
         state.adc = Number(q.get('adc')) || 0;
