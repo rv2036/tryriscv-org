@@ -1,6 +1,6 @@
 ---
 name: tryriscv-daily-update
-description: Use when updating tryriscv.org, the RISC-V MCU/IP/AI selection directory — daily data refresh, adding or fixing a part/vendor/IP, regenerating filters and detail pages, validating links, rebuilding the Hugo site, and preparing a local commit. Also use when a user asks to refresh or extend the tryriscv MCU database.
+description: Use when updating tryriscv.org, the multilingual (zh/en/ru/ja) RISC-V MCU/IP/AI selection directory — daily data refresh, adding or fixing a part/vendor/IP, editing UI translations or light/dark theme, regenerating filters and detail pages, validating links, rebuilding the Hugo site, and preparing a local commit.
 ---
 
 # tryriscv.org daily update
