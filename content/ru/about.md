@@ -20,10 +20,14 @@ description: "Цели tryriscv.org, методика работы с данны
 
 ## Текущий охват
 
-- **MCU**: WCH, GigaDevice, Espressif, Bouffalo Lab, APT, CMIOT, HPMicro, Winner Micro, Telink и другие; список пополняется;
+- **MCU**: WCH, GigaDevice, Espressif, Bouffalo Lab, APT, CMIOT, HPMicro, Telink и другие; список пополняется;
 - **IP**: T-Head XuanTie, Nuclei, StarFive Dubhe, SiFive, Andes и другие;
 - **Решения**: IoT в образовании, малопотребляющие датчики, BLE, Wi-Fi, управление двигателями, промышленная автоматика;
 - **AI-ускорители**: предварительная версия; аппаратные характеристики и инструментарий NPU IP и AI SoC.
+
+### Исключённые не-RISC-V компоненты (исправление)
+
+Winner Micro W800 / W801 / W806 построены на ядре XT804 (XuanTie E804, архитектура C-SKY); официальные SDK используют инструментарий `csky-elfabiv2`, поэтому это не RISC-V. Ранее они были ошибочно указаны как RV32IMAC и удалены из базы MCU. Компоненты на 8051/ARM также не включаются; о других ошибках сообщайте через issue.
 
 ## План развития
 

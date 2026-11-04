@@ -12,7 +12,7 @@ The site is a Hugo static site on GitHub Pages; data is YAML, filters are client
 ## Read first
 
 1. `tryriscv-org/docs/DAILY-UPDATE.md` — full checklist.
-2. `tryriscv-org/research/SCHEMA.md` — field definitions.
+2. `tryriscv-org/research/SCHEMA.md` — field definitions; `research/EXCLUDED.md` — known non-RISC-V parts.
 3. `tryriscv-org/data/mcu/*.yaml` — source of truth, one file per vendor group.
 
 ## Environment
@@ -63,7 +63,8 @@ python3 scripts/check_links.py --limit 40    # full run later
 Check in this order, official pages only:
 
 - vendor “news / new products” pages: 沁恒 WCH, 兆易创新 GigaDevice, 乐鑫 Espressif, 博流 Bouffalo,
-  爱普特 APT, 先楫 HPMicro, 联盛德 Winner Micro, 泰凌微 Telink, 芯昇 CMIOT;
+  爱普特 APT, 先楫 HPMicro, 泰凌微 Telink, 芯昇 CMIOT;
+  (联盛德 W800/W801/W806 use XT804 / C-SKY, not RISC-V — do not add them; see research/EXCLUDED.md)
 - datasheet revisions for rows already in the dataset;
 - open GitHub issues labelled `[数据纠错]` / `[新器件]` (title prefix);
 - broken links from `reports/latest-link-check.md`.

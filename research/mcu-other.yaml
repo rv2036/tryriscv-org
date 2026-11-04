@@ -1,9 +1,3 @@
-# 国产 RISC-V MCU（WCH / GigaDevice / Espressif / Bouffalo 之外）
-# 数据来源：厂商官网产品页/选型表、官方数据手册 PDF。未公开的数值一律 null。
-# 采集日期 2026-11-04；每条均附 sources 与 confidence。
-
-# ---------------- 爱普特微电子 APT (Shenzhen APT Micro) ----------------
-
 - id: apt-apt32f1023
   name: APT32F1023
   family: APT32F102x
@@ -28,7 +22,7 @@
     sleep_ua: 5
     standby_ua: null
     wakeup_us: null
-    note: "Deep Sleep 5µA（官方选型表典型值列，未给测试条件）；工作电压 1.8–5.5V"
+    note: Deep Sleep 5µA（官方选型表典型值列，未给测试条件）；工作电压 1.8–5.5V
   peripherals:
     uart: 3
     spi: 1
@@ -52,26 +46,37 @@
     comp: 0
     touch: 17
     dma_ch: 0
-    other: "1×SIO；17 路硬件触摸按键（动态 CS 10V）；2KB DFLASH；硬件 CRC；5 周期硬件除法器"
-  packages: [SSOP24, SOP24, QFN24]
+    other: 1×SIO；17 路硬件触摸按键（动态 CS 10V）；2KB DFLASH；硬件 CRC；5 周期硬件除法器
+  packages:
+  - SSOP24
+  - SOP24
+  - QFN24
   temp_min: -40
   temp_max: 105
-  security: [CRC]
-  debug: [SWD]
-  ecosystem: ["APT32F 官方 SDK (GitHub APT-AEteam)", "CDK IDE"]
+  security:
+  - CRC
+  debug:
+  - SWD
+  ecosystem:
+  - APT32F 官方 SDK (GitHub APT-AEteam)
+  - CDK IDE
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.aptchip.com/list_65/384.html"
-    datasheet: "https://www.aptchip.com/list_65/384.html"
-  tags: [5V容忍, 触摸按键, 低成本, 电机驱动]
-  notes: "选型表 -40~105℃ 版本为 H8S8/H8U8（同表内 -40~85℃ 版本对应 H8S6/H8U6 等）。厂商只披露“16 个 32 位通用寄存器 / 2 级流水线 / 硬件乘法阵列”，对应玄铁 E902 级内核；ISA 按 RV32EC 记录，是否含 M 扩展厂商未明示。数据手册下载在该页“技术文档”栏（需页面内下载，非直链 PDF）。"
-  sources: ["https://www.aptchip.com/list_65/384.html"]
+    product: https://www.aptchip.com/list_65/384.html
+    datasheet: https://www.aptchip.com/list_65/384.html
+  tags:
+  - 5V容忍
+  - 触摸按键
+  - 低成本
+  - 电机驱动
+  notes: 选型表 -40~105℃ 版本为 H8S8/H8U8（同表内 -40~85℃ 版本对应 H8S6/H8U6 等）。厂商只披露“16 个 32 位通用寄存器 / 2 级流水线 / 硬件乘法阵列”，对应玄铁 E902 级内核；ISA 按 RV32EC 记录，是否含 M 扩展厂商未明示。数据手册下载在该页“技术文档”栏（需页面内下载，非直链 PDF）。
+  sources:
+  - https://www.aptchip.com/list_65/384.html
   confidence: medium
   updated: 2026-11-04
-
 - id: apt-apt32f1103
   name: APT32F1103
   family: APT32F110x
@@ -96,7 +101,7 @@
     sleep_ua: 10
     standby_ua: 1.5
     wakeup_us: null
-    note: "Deep Sleep 10µA、Shut Down 1.5µA（官方选型表典型值）；SRAM 实为 8KB + 256B 不掉电 SRAM"
+    note: Deep Sleep 10µA、Shut Down 1.5µA（官方选型表典型值）；SRAM 实为 8KB + 256B 不掉电 SRAM
   peripherals:
     uart: 3
     spi: 1
@@ -120,26 +125,36 @@
     comp: 2
     touch: 32
     dma_ch: 4
-    other: "1×USART；1×SIO；段码 LCD 驱动 8COM×26SEG 或 4COM×30SEG；10×8 点阵 LED 驱动；10 个大电流 IO"
-  packages: [LQFP48, QFN48]
+    other: 1×USART；1×SIO；段码 LCD 驱动 8COM×26SEG 或 4COM×30SEG；10×8 点阵 LED 驱动；10 个大电流 IO
+  packages:
+  - LQFP48
+  - QFN48
   temp_min: -40
   temp_max: 105
-  security: [CRC]
-  debug: [SWD]
-  ecosystem: ["APT32F 官方 SDK (GitHub APT-AEteam)", "CDK IDE"]
+  security:
+  - CRC
+  debug:
+  - SWD
+  ecosystem:
+  - APT32F 官方 SDK (GitHub APT-AEteam)
+  - CDK IDE
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.aptchip.com/list_64/378.html"
-    datasheet: "https://www.aptchip.com/list_64/378.html"
-  tags: [段码LCD, 触摸按键, 家电, 5V容忍]
-  notes: "面向温控器/智能面板/咖啡机/门锁/冰箱。同系列 APT32F1104 为无触摸版本，其余规格基本一致。"
-  sources: ["https://www.aptchip.com/list_64/378.html"]
+    product: https://www.aptchip.com/list_64/378.html
+    datasheet: https://www.aptchip.com/list_64/378.html
+  tags:
+  - 段码LCD
+  - 触摸按键
+  - 家电
+  - 5V容忍
+  notes: 面向温控器/智能面板/咖啡机/门锁/冰箱。同系列 APT32F1104 为无触摸版本，其余规格基本一致。
+  sources:
+  - https://www.aptchip.com/list_64/378.html
   confidence: medium
   updated: 2026-11-04
-
 - id: apt-apt32f1104
   name: APT32F1104
   family: APT32F110x
@@ -164,7 +179,7 @@
     sleep_ua: 10
     standby_ua: 1.5
     wakeup_us: null
-    note: "Deep Sleep 10µA、Shut Down 1.5µA（官方选型表典型值）"
+    note: Deep Sleep 10µA、Shut Down 1.5µA（官方选型表典型值）
   peripherals:
     uart: 3
     spi: 1
@@ -188,26 +203,34 @@
     comp: 2
     touch: 0
     dma_ch: 4
-    other: "1×USART；1×SIO；8COM×26SEG / 4COM×30SEG 段码 LCD；10×8 点阵 LED；44 GPIO"
-  packages: [LQFP48]
+    other: 1×USART；1×SIO；8COM×26SEG / 4COM×30SEG 段码 LCD；10×8 点阵 LED；44 GPIO
+  packages:
+  - LQFP48
   temp_min: -40
   temp_max: 105
-  security: [CRC]
-  debug: [SWD]
-  ecosystem: ["APT32F 官方 SDK (GitHub APT-AEteam)", "CDK IDE"]
+  security:
+  - CRC
+  debug:
+  - SWD
+  ecosystem:
+  - APT32F 官方 SDK (GitHub APT-AEteam)
+  - CDK IDE
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.aptchip.com/list_64/538.html"
-    datasheet: "https://www.aptchip.com/list_64/538.html"
-  tags: [段码LCD, 家电, 5V容忍]
-  notes: "与 APT32F1103 同族，去掉 32 路触摸（选型表无 Touch 列），其余资源相同；面向血氧仪/洗衣机/LoRa 模块/无线充/智能灯。"
-  sources: ["https://www.aptchip.com/list_64/538.html"]
+    product: https://www.aptchip.com/list_64/538.html
+    datasheet: https://www.aptchip.com/list_64/538.html
+  tags:
+  - 段码LCD
+  - 家电
+  - 5V容忍
+  notes: 与 APT32F1103 同族，去掉 32 路触摸（选型表无 Touch 列），其余资源相同；面向血氧仪/洗衣机/LoRa 模块/无线充/智能灯。
+  sources:
+  - https://www.aptchip.com/list_64/538.html
   confidence: medium
   updated: 2026-11-04
-
 - id: apt-apt32f171
   name: APT32F171
   family: APT32F171
@@ -232,7 +255,7 @@
     sleep_ua: 6
     standby_ua: null
     wakeup_us: null
-    note: "Deep Sleep 6µA（官方选型表典型值）"
+    note: Deep Sleep 6µA（官方选型表典型值）
   peripherals:
     uart: 1
     spi: 0
@@ -256,26 +279,39 @@
     comp: 6
     touch: 0
     dma_ch: 0
-    other: "1×增强型 USART；6 个独立比较器 + 2 个运放（可直连 ADC）；8 个大电流 IO；30 GPIO"
-  packages: [LQFP32, QFN32, SOP28, SSOP24, SOP20]
+    other: 1×增强型 USART；6 个独立比较器 + 2 个运放（可直连 ADC）；8 个大电流 IO；30 GPIO
+  packages:
+  - LQFP32
+  - QFN32
+  - SOP28
+  - SSOP24
+  - SOP20
   temp_min: -40
   temp_max: 85
-  security: [CRC]
-  debug: [SWD]
-  ecosystem: ["APT32F 官方 SDK (GitHub APT-AEteam)", "CDK IDE"]
+  security:
+  - CRC
+  debug:
+  - SWD
+  ecosystem:
+  - APT32F 官方 SDK (GitHub APT-AEteam)
+  - CDK IDE
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.aptchip.com/list_99/541.html"
-    datasheet: "https://www.aptchip.com/list_99/541.html"
-  tags: [电机控制, BLDC, 电磁炉, 比较器]
-  notes: "面向 BLDC 电机、IH 饭锅、电磁炉、电烤箱、光伏逆变器；6 比较器 + 2 运放为同价位少见配置。"
-  sources: ["https://www.aptchip.com/list_99/541.html"]
+    product: https://www.aptchip.com/list_99/541.html
+    datasheet: https://www.aptchip.com/list_99/541.html
+  tags:
+  - 电机控制
+  - BLDC
+  - 电磁炉
+  - 比较器
+  notes: 面向 BLDC 电机、IH 饭锅、电磁炉、电烤箱、光伏逆变器；6 比较器 + 2 运放为同价位少见配置。
+  sources:
+  - https://www.aptchip.com/list_99/541.html
   confidence: medium
   updated: 2026-11-04
-
 - id: apt-apt32f1730
   name: APT32F1730
   family: APT32F173x
@@ -300,7 +336,7 @@
     sleep_ua: 64
     standby_ua: null
     wakeup_us: null
-    note: "Deep Sleep 64µA（官方选型表典型值）；该值明显高于同厂 102x/110x，应为保持更多 SRAM/外设的状态"
+    note: Deep Sleep 64µA（官方选型表典型值）；该值明显高于同厂 102x/110x，应为保持更多 SRAM/外设的状态
   peripherals:
     uart: 3
     spi: 2
@@ -324,26 +360,38 @@
     comp: 3
     touch: 0
     dma_ch: 12
-    other: "2×USART；2×6ch DMA；10×8 点阵 LED 驱动；CAN 2.0A/B；PMP；单精度 FPU + DSP；14 个大电流 IO"
-  packages: [LQFP64, LQFP48, QFN32, LQFP32]
+    other: 2×USART；2×6ch DMA；10×8 点阵 LED 驱动；CAN 2.0A/B；PMP；单精度 FPU + DSP；14 个大电流 IO
+  packages:
+  - LQFP64
+  - LQFP48
+  - QFN32
+  - LQFP32
   temp_min: -40
   temp_max: 105
-  security: [CRC]
-  debug: [SWD]
-  ecosystem: ["APT32F 官方 SDK (GitHub APT-AEteam)", "CDK IDE"]
+  security:
+  - CRC
+  debug:
+  - SWD
+  ecosystem:
+  - APT32F 官方 SDK (GitHub APT-AEteam)
+  - CDK IDE
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.aptchip.com/list_114/845.html"
-    datasheet: "https://www.aptchip.com/list_114/845.html"
-  tags: [电机控制, 单精度FPU, CAN, 5V容忍]
-  notes: "该系列定位“全国产、全自主知识产权”高性能 MCU；ADC 通道数随封装 47/16/12 路（LQFP64/48/32 对应 24/16/12 通道采样表列，芯片规格写 47 路输入）；单精度 FPU，故 ISA 记 RV32IMAFC。"
-  sources: ["https://www.aptchip.com/list_114/845.html"]
+    product: https://www.aptchip.com/list_114/845.html
+    datasheet: https://www.aptchip.com/list_114/845.html
+  tags:
+  - 电机控制
+  - 单精度FPU
+  - CAN
+  - 5V容忍
+  notes: 该系列定位“全国产、全自主知识产权”高性能 MCU；ADC 通道数随封装 47/16/12 路（LQFP64/48/32 对应 24/16/12 通道采样表列，芯片规格写 47 路输入）；单精度 FPU，故 ISA 记 RV32IMAFC。
+  sources:
+  - https://www.aptchip.com/list_114/845.html
   confidence: medium
   updated: 2026-11-04
-
 - id: apt-apt32f0041
   name: APT32F0041
   family: APT32F004x
@@ -368,7 +416,7 @@
     sleep_ua: 5
     standby_ua: null
     wakeup_us: null
-    note: "Deep Sleep 5µA（官方选型表典型值）"
+    note: Deep Sleep 5µA（官方选型表典型值）
   peripherals:
     uart: 2
     spi: 1
@@ -392,26 +440,37 @@
     comp: 0
     touch: 0
     dma_ch: 0
-    other: "3KB DFLASH；4 个大电流 IO；18 GPIO；EPT 7 路 PWM（6 路互补带死区）"
-  packages: [TSSOP20, QFN20, SOP16]
+    other: 3KB DFLASH；4 个大电流 IO；18 GPIO；EPT 7 路 PWM（6 路互补带死区）
+  packages:
+  - TSSOP20
+  - QFN20
+  - SOP16
   temp_min: -40
   temp_max: 85
-  security: [CRC]
-  debug: [SWD]
-  ecosystem: ["APT32F 官方 SDK (GitHub APT-AEteam)", "CDK IDE"]
+  security:
+  - CRC
+  debug:
+  - SWD
+  ecosystem:
+  - APT32F 官方 SDK (GitHub APT-AEteam)
+  - CDK IDE
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.aptchip.com/list_143/833.html"
-    datasheet: "https://www.aptchip.com/list_143/833.html"
-  tags: [超低成本, 小封装, 电子烟, 5V容忍]
-  notes: "宣传页写封装含 TSSOP20/SOP20/QFN20/SOP16/MSOP10/SOP8，选型表仅列 TSSOP20/QFN20/SOP16 三种。面向电子烟/充电宝/无线充/烟感。"
-  sources: ["https://www.aptchip.com/list_143/833.html"]
+    product: https://www.aptchip.com/list_143/833.html
+    datasheet: https://www.aptchip.com/list_143/833.html
+  tags:
+  - 超低成本
+  - 小封装
+  - 电子烟
+  - 5V容忍
+  notes: 宣传页写封装含 TSSOP20/SOP20/QFN20/SOP16/MSOP10/SOP8，选型表仅列 TSSOP20/QFN20/SOP16 三种。面向电子烟/充电宝/无线充/烟感。
+  sources:
+  - https://www.aptchip.com/list_143/833.html
   confidence: medium
   updated: 2026-11-04
-
 - id: apt-apt32f0311
   name: APT32F0311
   family: APT32F031x
@@ -436,7 +495,7 @@
     sleep_ua: 5
     standby_ua: null
     wakeup_us: null
-    note: "Deep Sleep 5µA（官方选型表典型值）"
+    note: Deep Sleep 5µA（官方选型表典型值）
   peripherals:
     uart: 3
     spi: 1
@@ -459,26 +518,38 @@
     comp: 2
     touch: 0
     dma_ch: 2
-    other: "3 个 16 位 144MHz 高速 Timer（GPTB 支持互补 PWM）；1×SIO（支持 USB PD）；内部参考 1.5V/2.5V；片内温度传感器；8 个大电流 IO"
-  packages: [LQFP32, QFN32, QFN24, QFN20]
+    other: 3 个 16 位 144MHz 高速 Timer（GPTB 支持互补 PWM）；1×SIO（支持 USB PD）；内部参考 1.5V/2.5V；片内温度传感器；8 个大电流 IO
+  packages:
+  - LQFP32
+  - QFN32
+  - QFN24
+  - QFN20
   temp_min: -40
   temp_max: 85
-  security: [CRC]
-  debug: [SWD]
-  ecosystem: ["APT32F 官方 SDK (GitHub APT-AEteam)", "CDK IDE"]
+  security:
+  - CRC
+  debug:
+  - SWD
+  ecosystem:
+  - APT32F 官方 SDK (GitHub APT-AEteam)
+  - CDK IDE
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.aptchip.com/list_155/897.html"
-    datasheet: "https://www.aptchip.com/list_155/897.html"
-  tags: [USB PD, 电机控制, 高速PWM, 5V容忍]
-  notes: "产品亮点称工作温度 -40~85℃/-40~105℃ 可选，选型表列出的 4 个型号均为 -40~85℃；SIO 模块可做 USB PD 协议。面向电子烟/无线充/高速风筒/吸尘器。"
-  sources: ["https://www.aptchip.com/list_155/897.html"]
+    product: https://www.aptchip.com/list_155/897.html
+    datasheet: https://www.aptchip.com/list_155/897.html
+  tags:
+  - USB PD
+  - 电机控制
+  - 高速PWM
+  - 5V容忍
+  notes: 产品亮点称工作温度 -40~85℃/-40~105℃ 可选，选型表列出的 4 个型号均为 -40~85℃；SIO 模块可做 USB PD 协议。面向电子烟/无线充/高速风筒/吸尘器。
+  sources:
+  - https://www.aptchip.com/list_155/897.html
   confidence: medium
   updated: 2026-11-04
-
 - id: apt-apt32f0051
   name: APT32F0051
   family: APT32F005x
@@ -503,7 +574,7 @@
     sleep_ua: 5
     standby_ua: null
     wakeup_us: null
-    note: "Deep Sleep 5µA（官方选型表典型值）"
+    note: Deep Sleep 5µA（官方选型表典型值）
   peripherals:
     uart: 3
     spi: 1
@@ -527,28 +598,37 @@
     comp: 0
     touch: 0
     dma_ch: 2
-    other: "内部参考 1.5V/2.5V；片内温度传感器；2 个 GPTA + 3 个 GPTB；4 个大电流 IO"
-  packages: [QFN20, QFN24, SSOP24]
+    other: 内部参考 1.5V/2.5V；片内温度传感器；2 个 GPTA + 3 个 GPTB；4 个大电流 IO
+  packages:
+  - QFN20
+  - QFN24
+  - SSOP24
   temp_min: -40
   temp_max: 105
-  security: [CRC]
-  debug: [SWD]
-  ecosystem: ["APT32F 官方 SDK (GitHub APT-AEteam)", "CDK IDE"]
+  security:
+  - CRC
+  debug:
+  - SWD
+  ecosystem:
+  - APT32F 官方 SDK (GitHub APT-AEteam)
+  - CDK IDE
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.aptchip.com/list_158/904.html"
-    datasheet: "https://www.aptchip.com/list_158/904.html"
-  tags: [低成本, 小封装, 5V容忍, 温度传感器]
-  notes: "ADC 通道数随封装不同（QFN20 18 路 / QFN24、SSOP24 22–23 路），此处取 23。面向电子烟/充电宝/无线充/烟感。"
-  sources: ["https://www.aptchip.com/list_158/904.html"]
+    product: https://www.aptchip.com/list_158/904.html
+    datasheet: https://www.aptchip.com/list_158/904.html
+  tags:
+  - 低成本
+  - 小封装
+  - 5V容忍
+  - 温度传感器
+  notes: ADC 通道数随封装不同（QFN20 18 路 / QFN24、SSOP24 22–23 路），此处取 23。面向电子烟/充电宝/无线充/烟感。
+  sources:
+  - https://www.aptchip.com/list_158/904.html
   confidence: medium
   updated: 2026-11-04
-
-# ---------------- 先楫半导体 HPMicro ----------------
-
 - id: hpmicro-hpm6750
   name: HPM6750
   family: HPM6700/6400
@@ -573,7 +653,7 @@
     sleep_ua: null
     standby_ua: null
     wakeup_us: null
-    note: "官方未公布电流指标；官方选型表电源输入 3~3.6V"
+    note: 官方未公布电流指标；官方选型表电源输入 3~3.6V
   peripherals:
     uart: 0
     spi: 0
@@ -595,29 +675,41 @@
     comp: 0
     touch: 0
     dma_ch: 0
-    other: "2×1Gbps ENET(IEEE1588)；2×USB HS(内置 PHY)；4×CAN/CAN-FD；4 组 8 通道 I2S；2×SD/eMMC；1366×768 LCD；硬件 JPEG 编解码；2×XPI(外接 NOR/HyperFlash/PSRAM)；SDRAM 控制器"
+    other: 2×1Gbps ENET(IEEE1588)；2×USB HS(内置 PHY)；4×CAN/CAN-FD；4 组 8 通道 I2S；2×SD/eMMC；1366×768 LCD；硬件 JPEG 编解码；2×XPI(外接 NOR/HyperFlash/PSRAM)；SDRAM 控制器
   packages: null
   temp_min: null
   temp_max: null
-  security: [AES, SHA, secure-boot]
-  debug: [JTAG]
-  ecosystem: ["HPM SDK", "IAR Embedded Workbench", "Zephyr", "RT-Thread"]
+  security:
+  - AES
+  - SHA
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - HPM SDK
+  - IAR Embedded Workbench
+  - Zephyr
+  - RT-Thread
   status: 量产
   release_year: 2021
   price_cny: null
   price_note: null
   links:
-    product: "https://www.hpmicro.com/en/product-center/microcontroller/hpm6750"
-    datasheet: "https://doc.hpmicro.com/en/product-center/microcontroller/hpm6700"
-  tags: [高性能, 双核, 以太网, EtherCAT相关, 无片内Flash]
-  notes: "无片内 Flash（靠 XPI 外接 NOR/HyperFlash，支持在线解密执行）；1MB 通用 SRAM + 256KB 零等待 ILM/DLM；CoreMark 9220 / DMIPS 4651；同族 HPM64G0 单核 1GHz。封装与温度未在官网页面列出（datasheet 需登录/JS 下载），故留空。"
+    product: https://www.hpmicro.com/en/product-center/microcontroller/hpm6750
+    datasheet: https://doc.hpmicro.com/en/product-center/microcontroller/hpm6700
+  tags:
+  - 高性能
+  - 双核
+  - 以太网
+  - EtherCAT相关
+  - 无片内Flash
+  notes: 无片内 Flash（靠 XPI 外接 NOR/HyperFlash，支持在线解密执行）；1MB 通用 SRAM + 256KB 零等待 ILM/DLM；CoreMark 9220 / DMIPS 4651；同族 HPM64G0 单核 1GHz。封装与温度未在官网页面列出（datasheet 需登录/JS 下载），故留空。
   sources:
-    - "https://www.hpmicro.com/en/product-center/microcontroller/hpm6750"
-    - "https://www.hpmicro.com/en/product-center/microcontroller/hpm5300/5300-selection-table"
-    - "https://riscv.org/blog/hpmicro-semiconductor-announces-the-release-of-the-hpm6000-series-of-microcontrollers-with-andescore-dual-d45-cores-andes-technology/"
+  - https://www.hpmicro.com/en/product-center/microcontroller/hpm6750
+  - https://www.hpmicro.com/en/product-center/microcontroller/hpm5300/5300-selection-table
+  - https://riscv.org/blog/hpmicro-semiconductor-announces-the-release-of-the-hpm6000-series-of-microcontrollers-with-andescore-dual-d45-cores-andes-technology/
   confidence: medium
   updated: 2026-11-04
-
 - id: hpmicro-hpm6280
   name: HPM6280
   family: HPM6200
@@ -642,7 +734,7 @@
     sleep_ua: null
     standby_ua: null
     wakeup_us: null
-    note: "官方未公布电流指标；官方选型表电源输入 3~3.6V"
+    note: 官方未公布电流指标；官方选型表电源输入 3~3.6V
   peripherals:
     uart: 0
     spi: 0
@@ -664,26 +756,37 @@
     comp: 0
     touch: 0
     dma_ch: 0
-    other: "3×16bit 2MSPS ADC（可配 12bit）；4×CAN/CAN-FD；4×LIN；1×USB HS(内置 PHY)；100ps 高分辨率 PWM；2 组 PLA 可编程逻辑阵列；ΣΔ 数字滤波 SDM；512KB 零等待 ILM/DLM"
-  packages: [LQFP144]
+    other: 3×16bit 2MSPS ADC（可配 12bit）；4×CAN/CAN-FD；4×LIN；1×USB HS(内置 PHY)；100ps 高分辨率 PWM；2 组 PLA 可编程逻辑阵列；ΣΔ 数字滤波 SDM；512KB 零等待 ILM/DLM
+  packages:
+  - LQFP144
   temp_min: null
   temp_max: null
-  security: [AES, SHA, secure-boot]
-  debug: [JTAG]
-  ecosystem: ["HPM SDK", "IAR Embedded Workbench"]
+  security:
+  - AES
+  - SHA
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - HPM SDK
+  - IAR Embedded Workbench
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.hpmicro.com/en/product-center/microcontroller/hpm6200"
-    datasheet: "https://www.hpmicro.com/en/product-center/microcontroller/hpm6200"
-  tags: [高性能, 双核, 电机控制, 无片内Flash]
-  notes: "型号取自该系列代表型号（600MHz 双核、256KB SRAM）；CoreMark 6780 / DMIPS 3420。官方页面给出 Package: LQFP144 与 eLQFP-144。无片内 Flash，靠外部串行 Flash/PSRAM。温度范围官网未列。"
-  sources: ["https://www.hpmicro.com/en/product-center/microcontroller/hpm6200"]
+    product: https://www.hpmicro.com/en/product-center/microcontroller/hpm6200
+    datasheet: https://www.hpmicro.com/en/product-center/microcontroller/hpm6200
+  tags:
+  - 高性能
+  - 双核
+  - 电机控制
+  - 无片内Flash
+  notes: '型号取自该系列代表型号（600MHz 双核、256KB SRAM）；CoreMark 6780 / DMIPS 3420。官方页面给出 Package: LQFP144 与 eLQFP-144。无片内 Flash，靠外部串行 Flash/PSRAM。温度范围官网未列。'
+  sources:
+  - https://www.hpmicro.com/en/product-center/microcontroller/hpm6200
   confidence: medium
   updated: 2026-11-04
-
 - id: hpmicro-hpm6360
   name: HPM6360
   family: HPM6300
@@ -708,7 +811,7 @@
     sleep_ua: null
     standby_ua: null
     wakeup_us: null
-    note: "官方未公布电流指标；官方选型表电源输入 3~3.6V"
+    note: 官方未公布电流指标；官方选型表电源输入 3~3.6V
   peripherals:
     uart: 9
     spi: 4
@@ -730,26 +833,37 @@
     comp: 0
     touch: 0
     dma_ch: 0
-    other: "1×10/100Mbps ENET(IEEE1588)；1×USB HS；2×CAN/CAN-FD；2 组 XPI；SDRAM 控制器 8/16bit 166MHz；256KB ILM/DLM"
-  packages: [LQFP144, BGA116]
+    other: 1×10/100Mbps ENET(IEEE1588)；1×USB HS；2×CAN/CAN-FD；2 组 XPI；SDRAM 控制器 8/16bit 166MHz；256KB ILM/DLM
+  packages:
+  - LQFP144
+  - BGA116
   temp_min: null
   temp_max: null
-  security: [AES, SHA, secure-boot]
-  debug: [JTAG]
-  ecosystem: ["HPM SDK", "IAR Embedded Workbench"]
+  security:
+  - AES
+  - SHA
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - HPM SDK
+  - IAR Embedded Workbench
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.hpmicro.com/en/product-center/microcontroller/hpm6300"
-    datasheet: "https://www.hpmicro.com/en/product-center/microcontroller/hpm6300"
-  tags: [高性能, 以太网, 无片内Flash]
-  notes: "单核 600MHz，CoreMark 3390 / DMIPS 1710；512KB 通用 SRAM。官方页面列 Package: LQFP144、BGA-116。"
-  sources: ["https://www.hpmicro.com/en/product-center/microcontroller/hpm6300"]
+    product: https://www.hpmicro.com/en/product-center/microcontroller/hpm6300
+    datasheet: https://www.hpmicro.com/en/product-center/microcontroller/hpm6300
+  tags:
+  - 高性能
+  - 以太网
+  - 无片内Flash
+  notes: '单核 600MHz，CoreMark 3390 / DMIPS 1710；512KB 通用 SRAM。官方页面列 Package: LQFP144、BGA-116。'
+  sources:
+  - https://www.hpmicro.com/en/product-center/microcontroller/hpm6300
   confidence: medium
   updated: 2026-11-04
-
 - id: hpmicro-hpm5361
   name: HPM5361
   family: HPM5300
@@ -774,7 +888,7 @@
     sleep_ua: null
     standby_ua: null
     wakeup_us: null
-    note: "官方未公布电流指标；官方选型表电源输入 3~3.6V"
+    note: 官方未公布电流指标；官方选型表电源输入 3~3.6V
   peripherals:
     uart: 0
     spi: 0
@@ -797,227 +911,40 @@
     comp: 2
     touch: 0
     dma_ch: 0
-    other: "2×16bit 2MSPS ADC（可配 12bit 4MSPS）；2×PGA 运放；2×模拟比较器；1×12bit 1MSPS DAC；2 组 8 通道 PWM；增量/绝对值编码器接口、旋变解码；可编程逻辑 PLB；1MB Flash + 288KB SRAM"
-  packages: [LQFP100, LQFP64, QFN48]
+    other: 2×16bit 2MSPS ADC（可配 12bit 4MSPS）；2×PGA 运放；2×模拟比较器；1×12bit 1MSPS DAC；2 组 8 通道 PWM；增量/绝对值编码器接口、旋变解码；可编程逻辑 PLB；1MB Flash + 288KB SRAM
+  packages:
+  - LQFP100
+  - LQFP64
+  - QFN48
   temp_min: null
   temp_max: null
-  security: [AES, SHA, secure-boot]
-  debug: [JTAG]
-  ecosystem: ["HPM SDK", "IAR Embedded Workbench", "Zephyr"]
+  security:
+  - AES
+  - SHA
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - HPM SDK
+  - IAR Embedded Workbench
+  - Zephyr
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.hpmicro.com/en/product-center/microcontroller/hpm5300"
-    datasheet: "https://www.hpmicro.com/en/product-center/microcontroller/hpm5300"
-  tags: [电机控制, 编码器接口, 内置Flash, 运动控制]
-  notes: "HPM5300 系列内置 1MB Flash（区别于 6000 系列无片内 Flash），16KB I/D Cache + 最多 256KB 零等待 ILM/DLM；封装 100LQFP/64LQFP/48QFN。HPM5361 为该系列 480MHz 型号；核心 IP 授权方官网未写明（Andes 只公开宣传 HPM6000 系列采用 D45），故 ip_vendor 留空。"
-  sources: ["https://www.hpmicro.com/en/product-center/microcontroller/hpm5300"]
-  confidence: medium
-  updated: 2026-11-04
-
-# ---------------- 联盛德 Winner Micro ----------------
-
-- id: winnermicro-w800
-  name: W800
-  family: W800
-  vendor: 北京联盛德微电子有限责任公司
-  vendor_en: Winner Micro
-  vendor_country: CN
-  ip_vendor: 平头哥玄铁
-  ip_country: CN
-  core: XT804（玄铁 E804）
-  isa: RV32IMAC
-  bits: 32
-  max_freq_mhz: 240
-  sram_kb: 288
-  flash_kb: 2048
-  psram_kb: null
-  otp_kb: null
-  cache_kb: null
-  voltage_min: 3.0
-  voltage_max: 3.6
-  power:
-    run_ua_mhz: null
-    sleep_ua: null
-    standby_ua: 10
-    wakeup_us: null
-    note: "待机功耗 <10µA（数据手册 V0.4）；3.3V 单电源，VDD 3.0/3.3/3.6V"
-  peripherals:
-    uart: 5
-    spi: 2
-    i2c: 1
-    usb_fs: 0
-    usb_hs: 0
-    eth: 0
-    ble: 1
-    wifi: 1
-    adc_bits: 12
-    dac_ch: 0
-    i2s: 1
-    sdio: 1
-    lcd: 0
-    cam: 0
-    iso7816: 1
-    opamp: 0
-    comp: 0
-    touch: 0
-    dma_ch: 8
-    other: "2×12bit ADC；1×高速 SPI 从接口(50MHz)；PSRAM 接口(最大 8MB 外置)；SDIO Host/Device；DSP + 浮点单元；TEE 安全引擎"
-  packages: [QFN32]
-  temp_min: -40
-  temp_max: 85
-  security: [AES, SHA, TRNG, TEE, secure-boot]
-  debug: null
-  ecosystem: ["W80x SDK", "LuatOS (Air101/Air103)"]
-  status: 量产
-  release_year: null
-  price_cny: null
-  price_note: null
-  links:
-    product: "https://www.winnermicro.com/html/1/156/158/497.html"
-    datasheet: "http://doc.winnermicro.net/download/soc_pdf/w800/chip_specification.pdf"
-  tags: [WiFi, BLE, 内置Flash, 安全启动]
-  notes: "数据手册只写“32 位 XT804 处理器”，未标 ISA/寄存器数；XT804 即玄铁 E804，此处按 RV32IMAC 记录（厂商未明示，属推断）；芯片内置 DSP 与浮点单元，但数据手册未声明是否对应标准 F/DSP 扩展，故 ISA 未计入 F。QFN32 4×4mm，2MB Flash + 288KB RAM；Wi-Fi 802.11n 1T1R + BT/BLE4.2。同厂 W600 是 Cortex-M3，不属 RISC-V。"
+    product: https://www.hpmicro.com/en/product-center/microcontroller/hpm5300
+    datasheet: https://www.hpmicro.com/en/product-center/microcontroller/hpm5300
+  tags:
+  - 电机控制
+  - 编码器接口
+  - 内置Flash
+  - 运动控制
+  notes: HPM5300 系列内置 1MB Flash（区别于 6000 系列无片内 Flash），16KB I/D Cache + 最多 256KB 零等待 ILM/DLM；封装 100LQFP/64LQFP/48QFN。HPM5361 为该系列 480MHz 型号；核心 IP 授权方官网未写明（Andes 只公开宣传 HPM6000 系列采用 D45），故 ip_vendor 留空。
   sources:
-    - "http://doc.winnermicro.net/download/soc_pdf/w800/chip_specification.pdf"
-    - "https://www.winnermicro.com/html/1/156/158/497.html"
+  - https://www.hpmicro.com/en/product-center/microcontroller/hpm5300
   confidence: medium
   updated: 2026-11-04
-
-- id: winnermicro-w801
-  name: W801
-  family: W800
-  vendor: 北京联盛德微电子有限责任公司
-  vendor_en: Winner Micro
-  vendor_country: CN
-  ip_vendor: 平头哥玄铁
-  ip_country: CN
-  core: XT804（玄铁 E804）
-  isa: RV32IMAC
-  bits: 32
-  max_freq_mhz: 240
-  sram_kb: 288
-  flash_kb: 2048
-  psram_kb: null
-  otp_kb: null
-  cache_kb: null
-  voltage_min: 3.0
-  voltage_max: 3.6
-  power:
-    run_ua_mhz: null
-    sleep_ua: null
-    standby_ua: 10
-    wakeup_us: null
-    note: "待机功耗 <10µA（数据手册）；3.3V 单电源"
-  peripherals:
-    uart: 6
-    spi: 2
-    i2c: 1
-    usb_fs: 0
-    usb_hs: 0
-    eth: 0
-    ble: 1
-    wifi: 1
-    adc_bits: 12
-    dac_ch: 0
-    i2s: 1
-    sdio: 1
-    lcd: 1
-    cam: 0
-    iso7816: 1
-    opamp: 0
-    comp: 0
-    touch: 0
-    dma_ch: 8
-    other: "4×12bit ADC；6×UART；LCD 接口；PSRAM 接口(最大 8MB)；SDIO；DSP + FPU；TEE"
-  packages: [QFN56]
-  temp_min: -40
-  temp_max: 85
-  security: [AES, SHA, TRNG, TEE, secure-boot]
-  debug: null
-  ecosystem: ["W80x SDK", "LuatOS (Air101/Air103)"]
-  status: 量产
-  release_year: null
-  price_cny: null
-  price_note: null
-  links:
-    product: "https://www.winnermicro.com/html/1/156/158/497.html"
-    datasheet: "http://doc.winnermicro.net/download/soc_pdf/w801/chip_specification.pdf"
-  tags: [WiFi, BLE, LCD接口, QFN56]
-  notes: "W801 为 W800 的 QFN56 增强版：UART 5→6、ADC 2→4 路、增加 LCD 与 SDIO；2MB Flash + 288KB RAM。ISA 同样为按 XT804 推断。"
-  sources: ["http://doc.winnermicro.net/download/soc_pdf/w801/chip_specification.pdf"]
-  confidence: medium
-  updated: 2026-11-04
-
-- id: winnermicro-w806
-  name: W806
-  family: W800
-  vendor: 北京联盛德微电子有限责任公司
-  vendor_en: Winner Micro
-  vendor_country: CN
-  ip_vendor: 平头哥玄铁
-  ip_country: CN
-  core: XT804（玄铁 E804）
-  isa: RV32IMAC
-  bits: 32
-  max_freq_mhz: 240
-  sram_kb: 288
-  flash_kb: 1024
-  psram_kb: null
-  otp_kb: null
-  cache_kb: null
-  voltage_min: 3.0
-  voltage_max: 3.6
-  power:
-    run_ua_mhz: null
-    sleep_ua: null
-    standby_ua: 10
-    wakeup_us: null
-    note: "待机功耗 <10µA；3.3V 单电源"
-  peripherals:
-    uart: 6
-    spi: 2
-    i2c: 1
-    usb_fs: 0
-    usb_hs: 0
-    eth: 0
-    ble: 0
-    wifi: 0
-    adc_bits: 12
-    dac_ch: 0
-    i2s: 1
-    sdio: 1
-    lcd: 1
-    cam: 0
-    iso7816: 1
-    opamp: 0
-    comp: 0
-    touch: 0
-    dma_ch: 8
-    other: "4×12bit ADC；6×UART；LCD 接口；PSRAM 接口(最大 8MB)；SDIO；DSP + FPU；TEE 安全引擎"
-  packages: [QFN56]
-  temp_min: -40
-  temp_max: 85
-  security: [AES, SHA, TRNG, TEE, secure-boot]
-  debug: null
-  ecosystem: ["W80x SDK", "LuatOS (Air101/Air103)"]
-  status: 量产
-  release_year: null
-  price_cny: null
-  price_note: null
-  links:
-    product: "https://www.winnermicro.com/html/1/156/158/497.html"
-    datasheet: "http://doc.winnermicro.net/download/soc_pdf/w806/chip_specification.pdf"
-  tags: [无射频, 安全MCU, LCD接口, 低成本]
-  notes: "W806 是去掉 Wi-Fi/BT 射频的“安全 MCU”版本（数据手册称“安全 MCU 芯片”，未列射频章节），1MB Flash + 288KB RAM，其余外设与 W801 基本相同；适合不需要无线的场合。ISA 为按 XT804 推断。"
-  sources: ["http://doc.winnermicro.net/download/soc_pdf/w806/chip_specification.pdf"]
-  confidence: medium
-  updated: 2026-11-04
-
-# ---------------- 泰凌微 Telink ----------------
-
 - id: telink-tlsr9218
   name: TLSR9218
   family: TLSR9
@@ -1042,7 +969,7 @@
     sleep_ua: 0.7
     standby_ua: null
     wakeup_us: null
-    note: "Deep sleep（外部唤醒，无 SRAM 保持，无 32K RC）=0.7µA；保持 32KB SRAM=1.7µA；BLE RX 6.1mA、TX 6.6mA@0dBm/3.3V DCDC"
+    note: Deep sleep（外部唤醒，无 SRAM 保持，无 32K RC）=0.7µA；保持 32KB SRAM=1.7µA；BLE RX 6.1mA、TX 6.6mA@0dBm/3.3V DCDC
   peripherals:
     uart: 1
     spi: 2
@@ -1066,26 +993,38 @@
     comp: 1
     touch: 0
     dma_ch: 0
-    other: "MSPI/PSPI/LSPI 多路 SPI；单声道 audio codec + AMIC/DMIC；USB 2.0 FS；低功耗比较器；蓝牙 5.4 / Zigbee 3.0 / Thread / 802.15.4 / 2.4G 私有协议；AoA/AoD"
-  packages: [QFN48]
+    other: MSPI/PSPI/LSPI 多路 SPI；单声道 audio codec + AMIC/DMIC；USB 2.0 FS；低功耗比较器；蓝牙 5.4 / Zigbee 3.0 / Thread / 802.15.4 / 2.4G 私有协议；AoA/AoD
+  packages:
+  - QFN48
   temp_min: -40
   temp_max: 105
-  security: [AES, TRNG, secure-boot]
-  debug: [JTAG]
-  ecosystem: ["Telink IoT Studio", "Telink SDK", "Zephyr"]
+  security:
+  - AES
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Telink IoT Studio
+  - Telink SDK
+  - Zephyr
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.telink-semi.com/"
-    datasheet: "https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9218-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9218.pdf"
-  tags: [BLE, Zigbee, 音频, 超低功耗]
-  notes: "TLSR9218A=1MB Flash、TLSR9218B=2MB Flash；SRAM 256KB（含最多 64KB retention）；QFN48 6×6mm；温度 ER 版 -40~85℃、GR 版 -40~105℃。datasheet 只写“32-bit RISC-V + DSP + F 标准扩展”，未给完整 ISA 字母串，此处记 RV32IMACF（同族 TLSR9228 数据手册明确写 IMACFDP，可作参照）。B91 开发板即基于该系列。"
-  sources: ["https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9218-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9218.pdf"]
+    product: https://www.telink-semi.com/
+    datasheet: https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9218-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9218.pdf
+  tags:
+  - BLE
+  - Zigbee
+  - 音频
+  - 超低功耗
+  notes: TLSR9218A=1MB Flash、TLSR9218B=2MB Flash；SRAM 256KB（含最多 64KB retention）；QFN48 6×6mm；温度 ER 版 -40~85℃、GR 版 -40~105℃。datasheet 只写“32-bit RISC-V + DSP + F 标准扩展”，未给完整 ISA 字母串，此处记 RV32IMACF（同族 TLSR9228 数据手册明确写 IMACFDP，可作参照）。B91 开发板即基于该系列。
+  sources:
+  - https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9218-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9218.pdf
   confidence: high
   updated: 2026-11-04
-
 - id: telink-tlsr9228
   name: TLSR9228
   family: TLSR9
@@ -1110,7 +1049,7 @@
     sleep_ua: null
     standby_ua: null
     wakeup_us: null
-    note: "datasheet 有 Sleep/Suspend 电流表（VBAT=3.3V, 25°C），本次未逐项录入"
+    note: datasheet 有 Sleep/Suspend 电流表（VBAT=3.3V, 25°C），本次未逐项录入
   peripherals:
     uart: 2
     spi: 4
@@ -1134,26 +1073,38 @@
     comp: 1
     touch: 0
     dma_ch: 0
-    other: "MSPI/GSPI/LSPI/SPI Slave 四路 SPI；QDEC 正交解码；USB 2.0 FS；立体声 audio codec；Matter/Thread/Zigbee/BLE；QSPI 屏"
-  packages: [QFN48]
+    other: MSPI/GSPI/LSPI/SPI Slave 四路 SPI；QDEC 正交解码；USB 2.0 FS；立体声 audio codec；Matter/Thread/Zigbee/BLE；QSPI 屏
+  packages:
+  - QFN48
   temp_min: -40
   temp_max: 125
-  security: [AES, TRNG, secure-boot]
-  debug: [JTAG]
-  ecosystem: ["Telink IoT Studio", "Telink SDK", "Zephyr"]
+  security:
+  - AES
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Telink IoT Studio
+  - Telink SDK
+  - Zephyr
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.telink-semi.com/"
-    datasheet: "https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9228-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9228.pdf"
-  tags: [BLE, Matter, 音频, 125℃]
-  notes: "datasheet 明确写“32-bit RISC-V (IMACFDP)”，最高 96MHz，512KB SRAM（含 96KB retention）+ 2MB Flash；TLSR9228H QFN48 6×6×0.75mm；A 版 -40~125℃。比 9218 增加 QDEC、双 I2C、USB、Matter。"
-  sources: ["https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9228-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9228.pdf"]
+    product: https://www.telink-semi.com/
+    datasheet: https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9228-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9228.pdf
+  tags:
+  - BLE
+  - Matter
+  - 音频
+  - 125℃
+  notes: datasheet 明确写“32-bit RISC-V (IMACFDP)”，最高 96MHz，512KB SRAM（含 96KB retention）+ 2MB Flash；TLSR9228H QFN48 6×6×0.75mm；A 版 -40~125℃。比 9218 增加 QDEC、双 I2C、USB、Matter。
+  sources:
+  - https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9228-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9228.pdf
   confidence: high
   updated: 2026-11-04
-
 - id: telink-tlsr9118
   name: TLSR9118
   family: TLSR9
@@ -1178,7 +1129,7 @@
     sleep_ua: null
     standby_ua: null
     wakeup_us: null
-    note: "datasheet 未在概要中给出待机电流；供电 3.0–3.6V"
+    note: datasheet 未在概要中给出待机电流；供电 3.0–3.6V
   peripherals:
     uart: 1
     spi: 1
@@ -1199,28 +1150,38 @@
     comp: 0
     touch: 0
     dma_ch: 0
-    other: "Wi-Fi 6 (11b/g/n/ax 20MHz) + BLE 5.x + 802.15.4；384KB ROM；12bit SAR ADC；I2S；SPI 屏"
-  packages: [QFN40]
+    other: Wi-Fi 6 (11b/g/n/ax 20MHz) + BLE 5.x + 802.15.4；384KB ROM；12bit SAR ADC；I2S；SPI 屏
+  packages:
+  - QFN40
   temp_min: -40
   temp_max: 105
-  security: [AES, SHA, TRNG, secure-boot]
-  debug: [JTAG]
-  ecosystem: ["Telink IoT Studio", "Telink SDK"]
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Telink IoT Studio
+  - Telink SDK
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.telink-semi.com/"
-    datasheet: "https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9118-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9118.pdf"
-  tags: [WiFi6, BLE, 双核, 大内存]
-  notes: "双 RISC-V：D25 5 级流水线 160MHz 应用核 + N22 2 级流水线 160MHz Wi-Fi/BLE 核；576KB SRAM + 384KB ROM + 4MB Flash；40-pin QFN 5×5mm；-40~105℃。数据手册明确点名 Andes N22/D25。"
-  sources: ["https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9118-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9118.pdf"]
+    product: https://www.telink-semi.com/
+    datasheet: https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9118-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9118.pdf
+  tags:
+  - WiFi6
+  - BLE
+  - 双核
+  - 大内存
+  notes: 双 RISC-V：D25 5 级流水线 160MHz 应用核 + N22 2 级流水线 160MHz Wi-Fi/BLE 核；576KB SRAM + 384KB ROM + 4MB Flash；40-pin QFN 5×5mm；-40~105℃。数据手册明确点名 Andes N22/D25。
+  sources:
+  - https://doc.telink-semi.cn/doc/datasheet/DS-TLSR9118-E_Datasheet_for_Telink_Multi-Standard_Wireless_SoC_TLSR9118.pdf
   confidence: high
   updated: 2026-11-04
-
-# ---------------- 中科蓝讯 Bluetrum ----------------
-
 - id: bluetrum-ab5301a
   name: AB5301A
   family: AB53xx
@@ -1245,7 +1206,7 @@
     sleep_ua: null
     standby_ua: null
     wakeup_us: null
-    note: "厂商未公开数据手册中的电气参数"
+    note: 厂商未公开数据手册中的电气参数
   peripherals:
     uart: 0
     spi: 0
@@ -1265,30 +1226,32 @@
     comp: 0
     touch: 0
     dma_ch: 0
-    other: "蓝牙音频 SoC（BLE + 经典蓝牙），内置音频 DAC/ADC；AB32VG1 开发板主控"
+    other: 蓝牙音频 SoC（BLE + 经典蓝牙），内置音频 DAC/ADC；AB32VG1 开发板主控
   packages: null
   temp_min: null
   temp_max: null
   security: null
   debug: null
-  ecosystem: ["RT-Thread", "Bluetrum SDK"]
+  ecosystem:
+  - RT-Thread
+  - Bluetrum SDK
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "http://www.bluetrum.com/product/showproduct.php?id=10"
-    datasheet: "http://www.bluetrum.com/product/showproduct.php?id=10"
-  tags: [蓝牙音频, 开发板生态, RISC-V入门]
-  notes: "中科蓝讯官方产品页只有型号与分类，无规格表；120MHz（可超频至 192MHz）来自 RISC-V International 社区文章。AB32VG1 是其官方/第三方开发板型号（Arduino Uno 外形），原生跑 RT-Thread，2021 年上市价约 49 元（开发板，非芯片）。存储容量、封装、电压、温度均未公开，留 null；isa 亦未公开。"
+    product: http://www.bluetrum.com/product/showproduct.php?id=10
+    datasheet: http://www.bluetrum.com/product/showproduct.php?id=10
+  tags:
+  - 蓝牙音频
+  - 开发板生态
+  - RISC-V入门
+  notes: 中科蓝讯官方产品页只有型号与分类，无规格表；120MHz（可超频至 192MHz）来自 RISC-V International 社区文章。AB32VG1 是其官方/第三方开发板型号（Arduino Uno 外形），原生跑 RT-Thread，2021 年上市价约 49 元（开发板，非芯片）。存储容量、封装、电压、温度均未公开，留 null；isa 亦未公开。
   sources:
-    - "http://www.bluetrum.com/product/showproduct.php?id=10"
-    - "https://riscv.org/blog/ab32vg1-an-arduino-uno-like-risc-v-based-development-board-designed-for-audio-applications-electronics-lab/"
+  - http://www.bluetrum.com/product/showproduct.php?id=10
+  - https://riscv.org/blog/ab32vg1-an-arduino-uno-like-risc-v-based-development-board-designed-for-audio-applications-electronics-lab/
   confidence: low
   updated: 2026-11-04
-
-# ---------------- 中移芯昇 CMIOT ----------------
-
 - id: cmiot-cm32m433r
   name: CM32M433R
   family: CM32M4xxR
@@ -1313,7 +1276,7 @@
     sleep_ua: 9.5
     standby_ua: 2.9
     wakeup_us: null
-    note: "RUN 120µA/MHz@144MHz；STOP2 9.5µA（RTC Run、16KB R-SRAM 保持）；Standby 2.9µA（备份寄存器+IO 保持）；STOP0 130µA 全 SRAM 保持"
+    note: RUN 120µA/MHz@144MHz；STOP2 9.5µA（RTC Run、16KB R-SRAM 保持）；Standby 2.9µA（备份寄存器+IO 保持）；STOP0 130µA 全 SRAM 保持
   peripherals:
     uart: 7
     spi: 3
@@ -1336,30 +1299,45 @@
     comp: 7
     touch: 24
     dma_ch: 16
-    other: "7×U(S)ART（3×USART 含 ISO7816/IrDA）；3×SPI（2 路可配 I2S）+1×QSPI 144Mbps；高级/通用定时器多路 PWM；4×12bit 5Msps ADC；2×12bit 1Msps DAC；2×CAN 2.0B；2 个 8 通道 DMA；高级定时器 6.9ns 精度"
-  packages: [LQFP48, LQFP64, LQFP80, QFN48, QFN64, QFN80]
+    other: 7×U(S)ART（3×USART 含 ISO7816/IrDA）；3×SPI（2 路可配 I2S）+1×QSPI 144Mbps；高级/通用定时器多路 PWM；4×12bit 5Msps ADC；2×12bit 1Msps DAC；2×CAN 2.0B；2 个 8 通道 DMA；高级定时器 6.9ns 精度
+  packages:
+  - LQFP48
+  - LQFP64
+  - LQFP80
+  - QFN48
+  - QFN64
+  - QFN80
   temp_min: -40
   temp_max: 105
-  security: [AES, SHA, TRNG, secure-boot]
-  debug: [JTAG]
-  ecosystem: ["Nuclei Studio", "CMIOT CM32M4xxR Library", "RT-Thread"]
+  security:
+  - AES
+  - SHA
+  - TRNG
+  - secure-boot
+  debug:
+  - JTAG
+  ecosystem:
+  - Nuclei Studio
+  - CMIOT CM32M4xxR Library
+  - RT-Thread
   status: 量产
   release_year: null
   price_cny: null
   price_note: null
   links:
-    product: "https://www.rvmcu.com/product/cm32m433r.html"
-    datasheet: "https://www.rvmcu.com/app/quickstart/skins/default/doc/CM32M4xxR-datasheet-V1.4.pdf"
-  tags: [低功耗, 国密, 大容量, 工业级]
-  notes: "芯昇科技（中国移动）首款 RISC-V 低功耗大容量 MCU，40nm；512KB 加密 Flash（10 年保存/10 万次擦写）+ 144KB SRAM（含 16KB Retention）；国密 SM3/SM4 硬件加速 + 存储加密 + PMP/sPMP/MMU；ESD HBM 4kV。注意同厂 CM32M101A/CM32M10xA 是 ARM Cortex-M4（108MHz），非 RISC-V，故未收录。"
+    product: https://www.rvmcu.com/product/cm32m433r.html
+    datasheet: https://www.rvmcu.com/app/quickstart/skins/default/doc/CM32M4xxR-datasheet-V1.4.pdf
+  tags:
+  - 低功耗
+  - 国密
+  - 大容量
+  - 工业级
+  notes: 芯昇科技（中国移动）首款 RISC-V 低功耗大容量 MCU，40nm；512KB 加密 Flash（10 年保存/10 万次擦写）+ 144KB SRAM（含 16KB Retention）；国密 SM3/SM4 硬件加速 + 存储加密 + PMP/sPMP/MMU；ESD HBM 4kV。注意同厂 CM32M101A/CM32M10xA 是 ARM Cortex-M4（108MHz），非 RISC-V，故未收录。
   sources:
-    - "https://www.rvmcu.com/product/cm32m433r.html"
-    - "https://www.rvmcu.com/app/quickstart/skins/default/doc/CM32M4xxR-datasheet-V1.4.pdf"
+  - https://www.rvmcu.com/product/cm32m433r.html
+  - https://www.rvmcu.com/app/quickstart/skins/default/doc/CM32M4xxR-datasheet-V1.4.pdf
   confidence: high
   updated: 2026-11-04
-
-# ---------------- 峰岹科技 Fortior ----------------
-
 - id: fortior-fu7512l
   name: FU7512L
   family: FU75xx
@@ -1384,7 +1362,7 @@
     sleep_ua: null
     standby_ua: null
     wakeup_us: null
-    note: "厂商未公布功耗数据；VDD5 3–5.5V"
+    note: 厂商未公布功耗数据；VDD5 3–5.5V
   peripherals:
     uart: 0
     spi: 0
@@ -1406,24 +1384,33 @@
     comp: 0
     touch: 0
     dma_ch: 0
-    other: "6 路独立半桥 PWM（互补输出，双电机）；CAN FD/CAN/LIN/SPI/I2C/UART；BiSS-C、增量、Tamagawa 绝对值编码器接口；硬件 FOC（第 2 代 ME）；高速运放/比较器/多通道 ADC；OCP/堵转/缺相/UVLO/OVLO 保护"
-  packages: [LQFP64, LQFP48]
+    other: 6 路独立半桥 PWM（互补输出，双电机）；CAN FD/CAN/LIN/SPI/I2C/UART；BiSS-C、增量、Tamagawa 绝对值编码器接口；硬件 FOC（第 2 代 ME）；高速运放/比较器/多通道 ADC；OCP/堵转/缺相/UVLO/OVLO 保护
+  packages:
+  - LQFP64
+  - LQFP48
   temp_min: null
   temp_max: null
   security: null
   debug: null
-  ecosystem: ["FTM32ForgeIDE", "MotorSim"]
+  ecosystem:
+  - FTM32ForgeIDE
+  - MotorSim
   status: 送样
   release_year: 2025
   price_cny: null
   price_note: null
   links:
-    product: "https://fortiortech.com/en/news/detail/41"
-    datasheet: "https://fortiortech.com/en/news/detail/41"
-  tags: [电机控制, FOC, 机器人关节, 双电机, 异构双核]
-  notes: "2025 年发布，是峰岹第 2 代 ME + 32 位 RISC-V 的双核电机 MCU；24/48MHz 系统时钟，48MHz 下单电机载波最高 115kHz、双电机 35kHz；电流环带宽可达 3kHz；封装 LQFP64(10×10)/LQFP48(7×7)。系列含 FU7512L/P/Q1、FU7541Q/Q1、FU7561Q、FU7562L/Q、FU7564Q1，其中工业级与车规型号并存。Flash/SRAM、温度、ADC 通道数未公开。官方 2025 年发布并已给出选型表与型号，但未见“量产”字样，暂记送样。注意老款 FU68xx（FU6811/6832/6861 等）是 8051+ME 双核，不是 RISC-V，未收录。"
+    product: https://fortiortech.com/en/news/detail/41
+    datasheet: https://fortiortech.com/en/news/detail/41
+  tags:
+  - 电机控制
+  - FOC
+  - 机器人关节
+  - 双电机
+  - 异构双核
+  notes: 2025 年发布，是峰岹第 2 代 ME + 32 位 RISC-V 的双核电机 MCU；24/48MHz 系统时钟，48MHz 下单电机载波最高 115kHz、双电机 35kHz；电流环带宽可达 3kHz；封装 LQFP64(10×10)/LQFP48(7×7)。系列含 FU7512L/P/Q1、FU7541Q/Q1、FU7561Q、FU7562L/Q、FU7564Q1，其中工业级与车规型号并存。Flash/SRAM、温度、ADC 通道数未公开。官方 2025 年发布并已给出选型表与型号，但未见“量产”字样，暂记送样。注意老款 FU68xx（FU6811/6832/6861 等）是 8051+ME 双核，不是 RISC-V，未收录。
   sources:
-    - "https://fortiortech.com/en/news/detail/41"
-    - "https://www.fortiortech.com/en/study/detail/1"
+  - https://fortiortech.com/en/news/detail/41
+  - https://www.fortiortech.com/en/study/detail/1
   confidence: medium
   updated: 2026-11-04

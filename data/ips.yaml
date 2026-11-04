@@ -179,7 +179,7 @@
   notes: 产品页：RV64GCV、5–8 级变长流水线、典型 >1GHz（freq 取 1000）、Sv39、L1 8–64KB、AXI4-128、CoreMark 3.7/MHz。向量单元为 RVV 0.7.1、VLEN=128（非 1.0，工具链兼容性需注意）。openc906 RTL 为 Apache-2.0。BL808/D1/CV1800B 为公开确认的量产硅。
   updated: '2026-11-04'
   url: /ip/thead-c906/
-  brand_mcu_count: 15
+  brand_mcu_count: 12
 - id: thead-c908
   name: 玄铁 C908（XuanTie C908）
   vendor: 平头哥玄铁
@@ -216,7 +216,7 @@
   notes: 产品页：9 级双发按序、RVA22、RVV 1.0（VLEN 128/256 可配）、FP64/FP32/FP16/BF16、每 cluster 1–4 核、L2 128KB–4MB、Sv39/SV48、CoreMark 5.75/MHz、典型 >2GHz（freq 取 2000）。官方未公开采用 C908 的具体量产芯片，silicon 留空。
   updated: '2026-11-04'
   url: /ip/thead-c908/
-  brand_mcu_count: 15
+  brand_mcu_count: 12
 - id: thead-c910
   name: 玄铁 C910（XuanTie C910）
   vendor: 平头哥玄铁
@@ -258,7 +258,7 @@
   notes: 官方 datasheet：RV64GC、12 级乱序、每 cluster 2 核、64KB L1、1MB L2（产品页称 L2 256KB–8MB 可选）、Sv39、AXI4-128；产品页称 3 发射 8 执行、典型 >2.5GHz、CoreMark 6.96/MHz。向量单元为选配，当前官方规格未列 RVV，故 features 不含 Vector。openc910 RTL 为 Apache-2.0。
   updated: '2026-11-04'
   url: /ip/thead-c910/
-  brand_mcu_count: 15
+  brand_mcu_count: 12
 - id: thead-c930
   name: 玄铁 C930（XuanTie C930）
   vendor: 平头哥玄铁
@@ -294,7 +294,7 @@
   notes: 2025-03 发布。产品页：RVA23、6 译码宽乱序、单 cluster 最多 8 核、RVV1.0 VLEN=256（含 FP4/FP8/MX 转换）、CHI.E/CHI.F、Sv39/48/57、AIA 1.0、CoVE/Smmtt、SPECint2006 >17/GHz。官方未公布频率与量产硅，maturity=预览。
   updated: '2026-11-04'
   url: /ip/thead-c930/
-  brand_mcu_count: 15
+  brand_mcu_count: 12
 - id: thead-e902
   name: 玄铁 E902（XuanTie E902）
   vendor: 平头哥玄铁
@@ -328,7 +328,7 @@
   notes: 官方 datasheet：RV32EMC、2 级单发射顺序、AHB-Lite 32-bit、8 区域 PMP、CLIC 64 中断、无 FPU/DSP。官方未给最高频率，实际随工艺库变化（freq=null）。RTL 以 Apache-2.0 开源，故 license=开源；具体量产芯片名单未公开，silicon 留空。
   updated: '2026-11-04'
   url: /ip/thead-e902/
-  brand_mcu_count: 15
+  brand_mcu_count: 12
 - id: thead-e906
   name: 玄铁 E906（XuanTie E906）
   vendor: 平头哥玄铁
@@ -364,7 +364,7 @@
   notes: 产品页：5 级按序流水线，RV32IMAFC[P]，可选单/双精度 FPU 与 DSP 单元，面向无线接入、音频、TWS 与中高端 MCU。未找到公开 PDF datasheet，datasheet 链接指向官方开源 RTL 仓库（含用户手册）。freq 官方未公布。
   updated: '2026-11-04'
   url: /ip/thead-e906/
-  brand_mcu_count: 15
+  brand_mcu_count: 12
 - id: thead-r908
   name: 玄铁 R908（XuanTie R908）
   vendor: 平头哥玄铁
@@ -400,7 +400,7 @@
   notes: 产品页描述：64 位 9 级双发按序、RVA22 + 矢量扩展、响应时间 <1μs、支持同构多核，面向高端工控/车载/通信。页面未给频率与 CoreMark，故 freq/coremark 为 null。
   updated: '2026-11-04'
   url: /ip/thead-r908/
-  brand_mcu_count: 15
+  brand_mcu_count: 12
 - id: andes-ax45
   name: AndesCore AX45
   vendor: 晶心 Andes
@@ -435,7 +435,7 @@
   notes: 官方列表：AX45 为 64 位双发射 8 级、带 MMU；AX45MP 为多核版本；AX65/AX66 为 4-wide 13 级乱序（更高端）。未公布频率，freq=null。
   updated: '2026-11-04'
   url: /ip/andes-ax45/
-  brand_mcu_count: 3
+  brand_mcu_count: 4
 - id: andes-n25f
   name: AndesCore N25F
   vendor: 晶心 Andes
@@ -468,7 +468,7 @@
   notes: Andes 当前 RISC-V Baseline 列表：N25F 为 32 位 5 级、带 FPU（N25 为无 FPU 版本）；同系列 A25 带 MMU。官方未公布频率/CoreMark，freq=null。N55 已不在当前产品列表（由 N45/D45 覆盖），故未收录。
   updated: '2026-11-04'
   url: /ip/andes-n25f/
-  brand_mcu_count: 3
+  brand_mcu_count: 4
 - id: andes-n45
   name: AndesCore N45
   vendor: 晶心 Andes
@@ -501,7 +501,7 @@
   notes: 官方列表：N45 为 32 位双发射 8 级；D45 同核加 DSP，A45 加 MMU。官方未公布频率与跑分，freq/coremark=null。
   updated: '2026-11-04'
   url: /ip/andes-n45/
-  brand_mcu_count: 3
+  brand_mcu_count: 4
 - id: nuclei-n100
   name: Nuclei N100
   vendor: 芯来 Nuclei

@@ -20,10 +20,14 @@ Every record keeps `sources` and `confidence` fields. Parameters that are not pu
 
 ## Current coverage
 
-- **MCU**: WCH, GigaDevice, Espressif, Bouffalo Lab, APT, CMiot, HPMicro, Winner Micro, Telink, and more as data is added;
+- **MCU**: WCH, GigaDevice, Espressif, Bouffalo Lab, APT, CMiot, HPMicro, Telink, and more as data is added;
 - **IP**: T-Head XuanTie, Nuclei, StarFive Dubhe, SiFive, Andes, and others;
 - **Solutions**: IoT industry-education, low-power sensing, BLE, Wi-Fi, motor control, industrial control;
 - **AI compute**: preview; hardware and toolchain information for NPU IP and AI SoCs.
+
+### Excluded non-RISC-V parts (correction)
+
+Winner Micro W800 / W801 / W806 use the XT804 core (XuanTie E804, C-SKY architecture); their official SDKs ship the `csky-elfabiv2` toolchain, so they are not RISC-V. They were previously listed as RV32IMAC by mistake and have been removed from the MCU catalog. Parts with 8051 or ARM cores are likewise excluded; report any other misclassified part via an issue.
 
 ## Roadmap
 
